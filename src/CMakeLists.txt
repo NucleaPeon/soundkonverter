@@ -1,5 +1,12 @@
-project(soundkonverter)
+project(soundkonverter
+    VERSION 3.0.1
+    LANGUAGES C CXX
+    DESCRIPTION "soundKonverter is a frontend to various audio converters.")
+
 cmake_minimum_required(VERSION 3.3.0)
+
+# version.h.in -> version.h using project VERSION
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/version.h.in ${CMAKE_CURRENT_SOURCE_DIR}/version.h @ONLY)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -28,10 +35,35 @@ include(CMakePackageConfigHelpers)
 include(ECMInstallIcons)
 include(FeatureSummary)
 
-find_package(Qt5 REQUIRED COMPONENTS Core Widgets Xml)
-find_package(KF5 REQUIRED COMPONENTS I18n XmlGui KIO Solid Config ConfigWidgets WidgetsAddons KDELibs4Support)
-find_package(KF5Cddb)
-find_package(Phonon4Qt5 REQUIRED)
+set(QT_DEFAULT_MAJOR_VERSION "6" CACHE STRING "Qt Version defaults to 6")
+set(KDE_DEFAULT_MAJOR_VERSION "6" CACHE STRING "KDE Frameworks Version defaults to 6")
+
+if (NOT ${QT_DEFAULT_MAJOR_VERSION} STREQUAL ${KDE_DEFAULT_MAJOR_VERSION})
+    message(FATAL_ERROR "Qt and KDE Major versions must match: Qt${QT_DEFAULT_MAJOR_VERSION}/KDE${KDE_DEFAULT_MAJOR_VERSION}")
+endif()
+
+find_package(Qt${QT_DEFAULT_MAJOR_VERSION} NAMES Qt5 Qt6 REQUIRED COMPONENTS
+    Core
+    Widgets
+    Xml
+)
+
+
+
+if(${QT_DEFAULT_MAJOR_VERSION} STREQUAL "6")
+    find_package(Qt6 REQUIRED COMPONENTS
+        Core5Compat
+    )
+elseif(${QT_DEFAULT_MAJOR_VERSION} STREQUAL "5")
+    find_package(Phonon4Qt5 REQUIRED)  # Else we need something else
+endif()
+
+if(${KDE_DEFAULT_MAJOR_VERSION} STREQUAL "5")
+    find_package(KDELibs4Support)
+endif()
+
+find_package(KF${KDE_DEFAULT_MAJOR_VERSION} REQUIRED COMPONENTS I18n XmlGui KIO Solid Config ConfigWidgets WidgetsAddons)
+find_package(KF${KDE_DEFAULT_MAJOR_VERSION}Cddb)
 
 
 # additional libs
@@ -67,7 +99,16 @@ set(soundkonvertercore_SRCS
 
 add_library(soundkonvertercore SHARED ${soundkonvertercore_SRCS})
 target_link_libraries(soundkonvertercore KF5::WidgetsAddons KF5::KIOFileWidgets KF5::KIOCore KF5::KDELibs4Support)
-
+target_link_libraries(${PROJECT_NAME}
+    Qt${QT_DEFAULT_MAJOR_VERSION}::Core
+    Qt${QT_DEFAULT_MAJOR_VERSION}::Widgets
+    Qt${QT_DEFAULT_MAJOR_VERSION}::Xml
+)
+if(${QT_DEFAULT_MAJOR_VERSION} STREQUAL "6")
+    target_link_libraries(${PROJECT_NAME}
+        Qt6::Core5Compat
+    )
+endif()
 install(TARGETS soundkonvertercore DESTINATION ${LIB_INSTALL_DIR})
 
 

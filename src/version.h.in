@@ -1,0 +1,20 @@
+#ifndef SOUNDKONVERTER_VERSION_H
+#define SOUNDKONVERTER_VERSION_H
+
+// Compiler accessible definitions
+
+#define SOUNDKONVERTER_VERSION_RELEASE "@PROJECT_VERSION_MAJOR@"
+#define SOUNDKONVERTER_VERSION_MAJOR "@PROJECT_VERSION_MINOR@"
+#define SOUNDKONVERTER_VERSION_MINOR "@PROJECT_VERSION_PATCH@"
+
+// Program accessible definitions
+
+namespace SoundKonverter {
+    namespace Version {
+        const int RELEASE = @PROJECT_VERSION_MAJOR@;
+        const int MAJOR = @PROJECT_VERSION_MINOR@;
+        const int MINOR = @PROJECT_VERSION_PATCH@;
+    }
+}
+
+#endif // SOUNDKONVERTER_VERSION_H
