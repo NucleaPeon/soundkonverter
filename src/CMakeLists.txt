@@ -98,7 +98,17 @@ set(${PROJECT_NAME}core_SRCS
 )
 
 add_library(${PROJECT_NAME}core SHARED ${soundkonvertercore_SRCS})
-target_link_libraries(${PROJECT_NAME}core KF5::WidgetsAddons KF5::KIOFileWidgets KF5::KIOCore KF5::KDELibs4Support)
+target_link_libraries(${PROJECT_NAME}core
+    KF${KDE_DEFAULT_MAJOR_VERSION}::WidgetsAddons
+    KF${KDE_DEFAULT_MAJOR_VERSION}::KIOFileWidgets
+    KF${KDE_DEFAULT_MAJOR_VERSION}::KIOCore)
+
+
+if(${KDE_DEFAULT_MAJOR_VERSION} STREQUAL "5")
+    find_package(KF${KDE_DEFAULT_MAJOR_VERSION}::KDELibs4Support)
+endif()
+
+
 target_link_libraries(${PROJECT_NAME}core
     Qt${QT_DEFAULT_MAJOR_VERSION}::Core
     Qt${QT_DEFAULT_MAJOR_VERSION}::Widgets
@@ -159,7 +169,29 @@ set(soundkonverter_SRCS
 )
 
 add_executable(${PROJECT_NAME} ${soundkonverter_SRCS})
-target_link_libraries(${PROJECT_NAME} KF5::WidgetsAddons KF5::KIOFileWidgets KF5::KIOCore KF5::Solid KF5::Cddb Phonon::phonon4qt5 Taglib::Taglib ${CDPARANOIA_LIBRARIES} KF5::KDELibs4Support soundkonvertercore)
+
+
+target_link_libraries(${PROJECT_NAME}
+    KF${KDE_DEFAULT_MAJOR_VERSION}::WidgetsAddons
+    KF${KDE_DEFAULT_MAJOR_VERSION}::KIOFileWidgets
+    KF${KDE_DEFAULT_MAJOR_VERSION}::KIOCore
+    KF${KDE_DEFAULT_MAJOR_VERSION}::Solid
+    KF${KDE_DEFAULT_MAJOR_VERSION}::Cddb
+    Taglib::Taglib
+    ${CDPARANOIA_LIBRARIES})
+
+
+if(${KDE_DEFAULT_MAJOR_VERSION} STREQUAL "5")
+    target_link_libraries(KF${KDE_DEFAULT_MAJOR_VERSION}::KDELibs4Support)
+endif()
+
+if(${QT_DEFAULT_MAJOR_VERSION} STREQUAL "5")
+    target_link_libraries(Phonon::phonon4qt5)
+endif()
+
+
+
+target_link_libraries(${PROJECT_NAME} KF5::WidgetsAddons KF5::KIOFileWidgets KF5::KIOCore  KF5::KDELibs4Support soundkonvertercore)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION ${BIN_INSTALL_DIR})
 

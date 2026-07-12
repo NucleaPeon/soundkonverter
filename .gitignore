@@ -10,3 +10,5 @@ images/
 plugins/
 po/
 src/version.h
+prefix.sh
+CTestTestfile.cmake
