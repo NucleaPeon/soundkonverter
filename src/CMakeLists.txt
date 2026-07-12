@@ -87,7 +87,7 @@ ecm_optional_add_subdirectory( po )
 
 
 # soundkonvertercore
-set(soundkonvertercore_SRCS
+set(${PROJECT_NAME}core_SRCS
    core/backendplugin.cpp
    core/conversionoptions.cpp
    core/codecwidget.cpp
@@ -97,15 +97,15 @@ set(soundkonvertercore_SRCS
    core/ripperplugin.cpp
 )
 
-add_library(soundkonvertercore SHARED ${soundkonvertercore_SRCS})
-target_link_libraries(soundkonvertercore KF5::WidgetsAddons KF5::KIOFileWidgets KF5::KIOCore KF5::KDELibs4Support)
-target_link_libraries(${PROJECT_NAME}
+add_library(${PROJECT_NAME}core SHARED ${soundkonvertercore_SRCS})
+target_link_libraries(${PROJECT_NAME}core KF5::WidgetsAddons KF5::KIOFileWidgets KF5::KIOCore KF5::KDELibs4Support)
+target_link_libraries(${PROJECT_NAME}core
     Qt${QT_DEFAULT_MAJOR_VERSION}::Core
     Qt${QT_DEFAULT_MAJOR_VERSION}::Widgets
     Qt${QT_DEFAULT_MAJOR_VERSION}::Xml
 )
 if(${QT_DEFAULT_MAJOR_VERSION} STREQUAL "6")
-    target_link_libraries(${PROJECT_NAME}
+    target_link_libraries(${PROJECT_NAME}core
         Qt6::Core5Compat
     )
 endif()
@@ -158,23 +158,23 @@ set(soundkonverter_SRCS
    aboutplugins.cpp
 )
 
-add_executable(soundkonverter ${soundkonverter_SRCS})
-target_link_libraries(soundkonverter KF5::WidgetsAddons KF5::KIOFileWidgets KF5::KIOCore KF5::Solid KF5::Cddb Phonon::phonon4qt5 Taglib::Taglib ${CDPARANOIA_LIBRARIES} KF5::KDELibs4Support soundkonvertercore)
+add_executable(${PROJECT_NAME} ${soundkonverter_SRCS})
+target_link_libraries(${PROJECT_NAME} KF5::WidgetsAddons KF5::KIOFileWidgets KF5::KIOCore KF5::Solid KF5::Cddb Phonon::phonon4qt5 Taglib::Taglib ${CDPARANOIA_LIBRARIES} KF5::KDELibs4Support soundkonvertercore)
 
-install(TARGETS soundkonverter DESTINATION ${BIN_INSTALL_DIR})
+install(TARGETS ${PROJECT_NAME} DESTINATION ${BIN_INSTALL_DIR})
 
 
 # install directories
-install(FILES soundkonverter.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
-install(FILES soundkonverterui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/soundkonverter)
+install(FILES ${PROJECT_NAME}.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
+install(FILES ${PROJECT_NAME}ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/${PROJECT_NAME})
 
-install(FILES soundkonverter_codecplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
-install(FILES soundkonverter_filterplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
-install(FILES soundkonverter_replaygainplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
-install(FILES soundkonverter_ripperplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
-install(FILES soundkonverter-rip-audiocd.desktop DESTINATION ${DATA_INSTALL_DIR}/solid/actions)
+install(FILES ${PROJECT_NAME}_codecplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
+install(FILES ${PROJECT_NAME}_filterplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
+install(FILES ${PROJECT_NAME}_replaygainplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
+install(FILES ${PROJECT_NAME}_ripperplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
+install(FILES ${PROJECT_NAME}-rip-audiocd.desktop DESTINATION ${DATA_INSTALL_DIR}/solid/actions)
 
-install(FILES soundkonverter.appdata.xml DESTINATION ${SHARE_INSTALL_PREFIX}/metainfo)
+install(FILES ${PROJECT_NAME}.appdata.xml DESTINATION ${SHARE_INSTALL_PREFIX}/metainfo)
 
 add_subdirectory(icons)
 add_subdirectory(images)
