@@ -9,3 +9,4 @@ icons/
 images/
 plugins/
 po/
+src/version.h
