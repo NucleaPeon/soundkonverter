@@ -4,7 +4,7 @@
 
 #include <kcoreaddons_export.h>
 
-#include <KGenericFactory>
+#include "../common.h"
 
 #include <QString>
 #include <QDomElement>

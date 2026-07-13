@@ -8,7 +8,7 @@
 #include "backendplugin.h"
 
 #include <QMap>
-#include <KUrl>
+#include "../common.h"
 
 class ReplayGainPlugin;
 

@@ -190,6 +190,8 @@ target_link_libraries(${PROJECT_NAME}
 
 if(${KDE_DEFAULT_MAJOR_VERSION} STREQUAL "5")
     target_link_libraries(KF${KDE_DEFAULT_MAJOR_VERSION}::KDELibs4Support)
+elseif()
+    target_link_libraries(KF${KDE_DEFAULT_MAJOR_VERSION}::XmlGui)
 endif()
 
 if(${QT_DEFAULT_MAJOR_VERSION} STREQUAL "5")

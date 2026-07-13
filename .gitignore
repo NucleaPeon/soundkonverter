@@ -13,3 +13,4 @@ src/version.h
 prefix.sh
 CTestTestfile.cmake
 build/*
+soundkonvertercore_autogen/

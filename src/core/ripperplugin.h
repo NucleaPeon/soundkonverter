@@ -6,8 +6,7 @@
 #include <QVariantList>
 
 #include "backendplugin.h"
-
-#include <KUrl>
+#include "../common.h"
 
 class RipperPlugin;
 

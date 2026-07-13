@@ -1,12 +1,10 @@
 
 #ifndef BACKENDPLUGIN_H
 #define BACKENDPLUGIN_H
-
 #include <kcoreaddons_export.h>
 
-#include <KGenericFactory>
+#include "../common.h"
 #include <KProcess>
-#include <KUrl>
 #include <QList>
 #include <QObject>
 

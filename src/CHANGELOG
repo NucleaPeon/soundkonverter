@@ -3,6 +3,12 @@ unreleased:
 -Fix: Install appdata in /usr/share/metainfo
 -Fix: Find taglib with ECM 5.72.0 (thanks to Andreas Sturmlechner <asturm@gentoo.org>)
 
+3.0.2:
+-Fix: Compiles on Qt6 and KF6
+-Fix: Keeps compatibility with Qt5 and KF5
+-Change: KF6 and Qt6 differences in code using #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0) check
+-Add: version.h.in enables code to access version info based on CMake project() define
+
 3.0.1:
 -Fix: Destination mode "Source directory" creates filenames consisting only of the file extension
 -Fix: All files "Failed" to convert when dragging a folder (Invalid URL)
