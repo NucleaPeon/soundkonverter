@@ -1,15 +1,17 @@
 project(soundkonverter_filter_normalize)
 
-set(soundkonverter_filter_normalize_SRCS
+set(${PROJECT_NAME}_SRCS
    soundkonverter_filter_normalize.cpp
    normalizefilteroptions.cpp
    normalizefilterwidget.cpp
 )
 
-add_library(soundkonverter_filter_normalize MODULE ${soundkonverter_filter_normalize_SRCS})
-target_link_libraries(soundkonverter_filter_normalize KF5::WidgetsAddons Qt5::Xml soundkonvertercore)
+add_library(${PROJECT_NAME} MODULE ${${PROJECT_NAME}_SRCS})
+target_link_libraries(${PROJECT_NAME}
+   KF${KDE_DEFAULT_MAJOR_VERSION}::WidgetsAddons
+   Qt${QT_DEFAULT_MAJOR_VERSION}::Xml soundkonvertercore)
 
 ########### install files ###############
 
-install(TARGETS soundkonverter_filter_normalize DESTINATION ${PLUGIN_INSTALL_DIR})
-install(FILES soundkonverter_filter_normalize.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+install(TARGETS ${PROJECT_NAME} DESTINATION ${PLUGIN_INSTALL_DIR})
+install(FILES ${PROJECT_NAME}.desktop DESTINATION ${SERVICES_INSTALL_DIR})

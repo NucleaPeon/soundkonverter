@@ -1,13 +1,16 @@
 project(soundkonverter_replaygain_metaflac)
 
-set(soundkonverter_replaygain_metaflac_SRCS
+set(${PROJECT_NAME}_SRCS
    soundkonverter_replaygain_metaflac.cpp
-)
 
-add_library(soundkonverter_replaygain_metaflac MODULE ${soundkonverter_replaygain_metaflac_SRCS})
-target_link_libraries(soundkonverter_replaygain_metaflac KF5::WidgetsAddons soundkonvertercore)
+)
+add_library(${PROJECT_NAME} MODULE ${${PROJECT_NAME}_SRCS})
+target_link_libraries(${PROJECT_NAME}
+   KF${KDE_DEFAULT_MAJOR_VERSION}::WidgetsAddons
+   soundkonvertercore)
+
 
 ########### install files ###############
 
-install(TARGETS soundkonverter_replaygain_metaflac DESTINATION ${PLUGIN_INSTALL_DIR})
-install(FILES soundkonverter_replaygain_metaflac.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+install(TARGETS ${PROJECT_NAME} DESTINATION ${PLUGIN_INSTALL_DIR})
+install(FILES ${PROJECT_NAME}.desktop DESTINATION ${SERVICES_INSTALL_DIR})

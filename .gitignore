@@ -12,3 +12,4 @@ po/
 src/version.h
 prefix.sh
 CTestTestfile.cmake
+build/*

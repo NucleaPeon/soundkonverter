@@ -62,8 +62,14 @@ if(${KDE_DEFAULT_MAJOR_VERSION} STREQUAL "5")
     find_package(KDELibs4Support)
 endif()
 
-find_package(KF${KDE_DEFAULT_MAJOR_VERSION} REQUIRED COMPONENTS I18n XmlGui KIO Solid Config ConfigWidgets WidgetsAddons)
-find_package(KF${KDE_DEFAULT_MAJOR_VERSION}Cddb)
+find_package(KF${KDE_DEFAULT_MAJOR_VERSION} REQUIRED COMPONENTS
+    I18n
+    XmlGui
+    KIO
+    Solid
+    Config
+    ConfigWidgets
+    WidgetsAddons)
 
 
 # additional libs
@@ -102,6 +108,8 @@ target_link_libraries(${PROJECT_NAME}core
     KF${KDE_DEFAULT_MAJOR_VERSION}::WidgetsAddons
     KF${KDE_DEFAULT_MAJOR_VERSION}::KIOFileWidgets
     KF${KDE_DEFAULT_MAJOR_VERSION}::KIOCore)
+
+
 
 
 if(${KDE_DEFAULT_MAJOR_VERSION} STREQUAL "5")
@@ -176,7 +184,6 @@ target_link_libraries(${PROJECT_NAME}
     KF${KDE_DEFAULT_MAJOR_VERSION}::KIOFileWidgets
     KF${KDE_DEFAULT_MAJOR_VERSION}::KIOCore
     KF${KDE_DEFAULT_MAJOR_VERSION}::Solid
-    KF${KDE_DEFAULT_MAJOR_VERSION}::Cddb
     Taglib::Taglib
     ${CDPARANOIA_LIBRARIES})
 
@@ -188,10 +195,6 @@ endif()
 if(${QT_DEFAULT_MAJOR_VERSION} STREQUAL "5")
     target_link_libraries(Phonon::phonon4qt5)
 endif()
-
-
-
-target_link_libraries(${PROJECT_NAME} KF5::WidgetsAddons KF5::KIOFileWidgets KF5::KIOCore  KF5::KDELibs4Support soundkonvertercore)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION ${BIN_INSTALL_DIR})
 

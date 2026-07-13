@@ -1,14 +1,16 @@
 project(soundkonverter_codec_neroaac)
 
-set(soundkonverter_codec_neroaac_SRCS
+set(${PROJECT_NAME}_SRCS
    soundkonverter_codec_neroaac.cpp
    neroaaccodecwidget.cpp
 )
 
-add_library(soundkonverter_codec_neroaac MODULE ${soundkonverter_codec_neroaac_SRCS})
-target_link_libraries(soundkonverter_codec_neroaac KF5::WidgetsAddons Qt5::Xml soundkonvertercore)
+add_library(${PROJECT_NAME} MODULE ${${PROJECT_NAME}_SRCS})
+target_link_libraries(${PROJECT_NAME}
+   KF${KDE_DEFAULT_MAJOR_VERSION}::WidgetsAddons
+   Qt${QT_DEFAULT_MAJOR_VERSION}::Xml soundkonvertercore)
 
 ########### install files ###############
 
-install(TARGETS soundkonverter_codec_neroaac DESTINATION ${PLUGIN_INSTALL_DIR})
-install(FILES soundkonverter_codec_neroaac.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+install(TARGETS ${PROJECT_NAME} DESTINATION ${PLUGIN_INSTALL_DIR})
+install(FILES ${PROJECT_NAME}.desktop DESTINATION ${SERVICES_INSTALL_DIR})
