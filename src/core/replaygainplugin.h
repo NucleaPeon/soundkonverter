@@ -4,6 +4,7 @@
 
 #include <kcoreaddons_export.h>
 #include <QVariantList>
+#include <QList>
 
 #include "backendplugin.h"
 
@@ -59,7 +60,7 @@ public:
     virtual QList<ReplayGainPipe> codecTable() = 0;
 
     /** adds replaygain to one or more files */
-    virtual int apply( const KUrl::List& fileList, ApplyMode mode = Add ) = 0;
+    virtual int apply( const QList<QUrl>& fileList, ApplyMode mode = Add ) = 0;
 };
 
 #define K_EXPORT_SOUNDKONVERTER_REPLAYGAIN(libname, classname) \

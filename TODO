@@ -1,2 +1,1 @@
-[ ] KUrl -> QUrl in code, either we need to macro all code with it, or do a complete conversion to QUrl and ensure qt5/kf5 works this way.
-    [ ] Perhaps creating our own SKUrl that incorporates both and allows the same methods to be used from it?
+[ ] Convert all KUrl to QUrl. Easiest way. Support that one.
