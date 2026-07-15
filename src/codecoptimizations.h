@@ -3,7 +3,7 @@
 #ifndef CODECOPTIMIZATIONS_H
 #define CODECOPTIMIZATIONS_H
 
-#include <KDialog>
+#include <QDialog>
 
 class QRadioButton;
 

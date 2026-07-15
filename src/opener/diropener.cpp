@@ -20,7 +20,7 @@
 
 
 DirOpener::DirOpener( Config *_config, Mode _mode, QWidget *parent, Qt::WFlags f )
-    : KDialog( parent, f ),
+    : QDialog( parent, f ),
     dialogAborted( false ),
     config( _config ),
     mode( _mode )
@@ -30,15 +30,15 @@ DirOpener::DirOpener( Config *_config, Mode _mode, QWidget *parent, Qt::WFlags f
 
     if( mode == Convert )
     {
-        setButtons( KDialog::User1 | KDialog::Cancel );
+        setButtons( QDialog::User1 | QDialog::Cancel );
     }
     else if( mode == ReplayGain )
     {
-        setButtons( KDialog::Ok | KDialog::Cancel );
+        setButtons( QDialog::Ok | QDialog::Cancel );
     }
 
-    setButtonText( KDialog::User1, i18n("Proceed") );
-    setButtonIcon( KDialog::User1, KIcon("go-next") );
+    setButtonText( QDialog::User1, i18n("Proceed") );
+    setButtonIcon( QDialog::User1, KIcon("go-next") );
 
     const int fontHeight = QFontMetrics(QApplication::font()).boundingRect("M").size().height();
 
@@ -184,7 +184,7 @@ void DirOpener::proceedClicked()
         lSelector->setFont( font );
         font.setBold( true );
         lOptions->setFont( font );
-        setButtons( KDialog::Ok | KDialog::Cancel );
+        setButtons( QDialog::Ok | QDialog::Cancel );
     }
 }
 

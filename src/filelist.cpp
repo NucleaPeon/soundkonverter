@@ -121,7 +121,7 @@ void FileList::dragEnterEvent( QDragEnterEvent *event )
 void FileList::dropEvent( QDropEvent *event )
 {
     QList<QUrl> q_urls = event->mimeData()->urls();
-    KUrl::List k_urls;
+    QUrl::List k_urls;
     QStringList errorList;
     //    codec    @0 files @1 solutions
     QMap< QString, QList<QStringList> > problems;
@@ -157,7 +157,7 @@ void FileList::dropEvent( QDropEvent *event )
             )
                 continue;
 
-            fileName = KUrl(q_urls.at(i)).pathOrUrl();
+            fileName = QUrl(q_urls.at(i)).pathOrUrl();
 
             if( codecName.isEmpty() )
                 codecName = mimeType;
@@ -504,7 +504,7 @@ void FileList::updateItem( FileListItem *item )
     item->setToolTip( Column_Output, "" );
     item->setToolTip( Column_Quality, "" );
 
-    // KUrl outputUrl;
+    // QUrl outputUrl;
     // if( !item->outputUrl.toLocalFile().isEmpty() )
     // {
     //     outputUrl = item->outputUrl;
@@ -513,7 +513,7 @@ void FileList::updateItem( FileListItem *item )
     // {
     //     outputUrl = OutputDirectory::calcPath( item, config );
     // }
-    const KUrl outputUrl = OutputDirectory::calcPath( item, config );
+    const QUrl outputUrl = OutputDirectory::calcPath( item, config );
     item->setText( Column_Output, outputUrl.toLocalFile() );
 
     removeItemWidget( item, Column_State );
@@ -1431,8 +1431,8 @@ void FileList::load( const QString& fileListPath )
                 {
                     QDomElement file = files.at(i).toElement();
                     FileListItem *item = new FileListItem( this );
-                    item->url = KUrl(file.attribute("url"));
-                    // item->outputUrl = KUrl(file.attribute("outputUrl"));
+                    item->url = QUrl(file.attribute("url"));
+                    // item->outputUrl = QUrl(file.attribute("outputUrl"));
                     item->codecName = file.attribute("codecName");
                     item->conversionOptionsId = conversionOptionsIds[file.attribute("conversionOptionsId").toInt()]; // TODO check if id exists
                     item->local = file.attribute("local").toInt();

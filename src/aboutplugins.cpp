@@ -4,8 +4,8 @@
 
 #include <QApplication>
 #include <KLocale>
-#include <KIcon>
-#include <KPushButton>
+#include <QICon>
+#include <QPushButton>
 #include <QLayout>
 #include <QLabel>
 #include <QListWidget>
@@ -13,14 +13,14 @@
 
 
 AboutPlugins::AboutPlugins( Config *_config, QWidget* parent, Qt::WFlags f )
-    : KDialog( parent, f ),
+    : QDialog( parent, f ),
     config( _config ),
     currentPlugin( 0 )
 {
-    setCaption( i18n("About plugins") );
-    setWindowIcon( KIcon("preferences-plugin") );
-    setButtons( KDialog::Close );
-    setButtonFocus( KDialog::Close );
+    setCaption( tr("About plugins") );
+    setWindowIcon( QIcon("preferences-plugin") );
+    setButtons( QDialog::Close );
+    setButtonFocus( QDialog::Close );
 
     const int fontHeight = QFontMetrics(QApplication::font()).boundingRect("M").size().height();
 
@@ -31,7 +31,7 @@ AboutPlugins::AboutPlugins( Config *_config, QWidget* parent, Qt::WFlags f )
     QVBoxLayout *pluginListBox = new QVBoxLayout( widget );
     box->addLayout( pluginListBox );
 
-    QLabel *installedPlugins = new QLabel( i18n("Installed plugins:"), this );
+    QLabel *installedPlugins = new QLabel( tr("Installed plugins:"), this );
     pluginListBox->addWidget( installedPlugins );
 
     QListWidget *pluginsList = new QListWidget( this );
@@ -92,7 +92,7 @@ AboutPlugins::AboutPlugins( Config *_config, QWidget* parent, Qt::WFlags f )
 
     QHBoxLayout *configurePluginBox = new QHBoxLayout( widget );
     pluginInfoBox->addLayout( configurePluginBox );
-    configurePlugin = new KPushButton( KIcon("configure"), "", widget );
+    configurePlugin = new QPushButton( QIcon("configure"), "", widget );
     configurePlugin->hide();
     configurePluginBox->addWidget( configurePlugin );
     configurePluginBox->addStretch();
@@ -128,22 +128,22 @@ void AboutPlugins::currentPluginChanged( const QString& pluginName )
     }
 
     QStringList info;
-    info += i18n("About plugin %1:",pluginName);
+    info += tr("About plugin %1:",pluginName);
 
-    info += i18n("Plugin type: %1",currentPlugin->type());
+    info += tr("Plugin type: %1",currentPlugin->type());
 
     QMap<QString,QString> binaries = currentPlugin->binaries;
     QStringList binariesString;
     if( binaries.count() > 0 )
     {
-        binariesString += i18n("Backend binaries:");
+        binariesString += tr("Backend binaries:");
     }
     for( int i=0; i<binaries.count(); i++ )
     {
         if( !binaries.values().at(i).isEmpty() )
-            binariesString += i18n("%1 (found at: %2)",binaries.keys().at(i),"<span style=\"color:green\">" + binaries.values().at(i) + "</span>");
+            binariesString += tr("%1 (found at: %2)",binaries.keys().at(i),"<span style=\"color:green\">" + binaries.values().at(i) + "</span>");
         else
-            binariesString += "<span style=\"color:red\">" + i18n("%1 (not found)",binaries.keys().at(i)) + "</span>";
+            binariesString += "<span style=\"color:red\">" + tr("%1 (not found)",binaries.keys().at(i)) + "</span>";
     }
     info += binariesString.join("<br>");
 
@@ -164,23 +164,23 @@ void AboutPlugins::currentPluginChanged( const QString& pluginName )
             if( codecTable.at(i).codecFrom != "wav" )
                 decodeCodecs[codecTable.at(i).codecFrom] += codecTable.at(i).enabled;
         }
-        codecsString += i18n("Supported codecs:");
+        codecsString += tr("Supported codecs:");
         QStringList list;
         for( int i=0; i<encodeCodecs.count(); i++ )
         {
             const QString codecName = encodeCodecs.keys().at(i);
-            problemInfos["encode-"+codecName] = i18n("Currently deactivated.") + "\n\n" + config->pluginLoader()->pluginEncodeProblems( pluginName, codecName );
+            problemInfos["encode-"+codecName] = tr("Currently deactivated.") + "\n\n" + config->pluginLoader()->pluginEncodeProblems( pluginName, codecName );
             list += encodeCodecs.values().at(i) ? "<span style=\"color:green\">" + codecName + "</span>" : "<a style=\"color:red\" href=\"encode-"+codecName+"\">" + codecName + "</a>";
         }
-        codecsString += i18n("Encode: %1",list.join(", "));
+        codecsString += tr("Encode: %1",list.join(", "));
         list.clear();
         for( int i=0; i<decodeCodecs.count(); i++ )
         {
             const QString codecName = decodeCodecs.keys().at(i);
-            problemInfos["decode-"+codecName] = i18n("Currently deactivated.") + "\n\n" + config->pluginLoader()->pluginDecodeProblems( pluginName, codecName );
+            problemInfos["decode-"+codecName] = tr("Currently deactivated.") + "\n\n" + config->pluginLoader()->pluginDecodeProblems( pluginName, codecName );
             list += decodeCodecs.values().at(i) ? "<span style=\"color:green\">" + codecName + "</span>" : "<a style=\"color:red\" href=\"decode-"+codecName+"\">" + codecName + "</a>";
         }
-        codecsString += i18n("Decode: %1",list.join(", "));
+        codecsString += tr("Decode: %1",list.join(", "));
         info += codecsString.join("<br>");
     }
     else if( currentPlugin->type() == "filter" )
@@ -199,23 +199,23 @@ void AboutPlugins::currentPluginChanged( const QString& pluginName )
             if( codecTable.at(i).codecFrom != "wav" )
                 decodeCodecs[codecTable.at(i).codecFrom] += codecTable.at(i).enabled;
         }
-        codecsString += i18n("Supported codecs:");
+        codecsString += tr("Supported codecs:");
         QStringList list;
         for( int i=0; i<encodeCodecs.count(); i++ )
         {
             const QString codecName = encodeCodecs.keys().at(i);
-            problemInfos["encode-"+codecName] = i18n("Currently deactivated.") + "\n\n" + config->pluginLoader()->pluginEncodeProblems( pluginName, codecName );
+            problemInfos["encode-"+codecName] = tr("Currently deactivated.") + "\n\n" + config->pluginLoader()->pluginEncodeProblems( pluginName, codecName );
             list += encodeCodecs.values().at(i) ? "<span style=\"color:green\">" + codecName + "</span>" : "<a style=\"color:red\" href=\"encode-"+codecName+"\">" + codecName + "</a>";
         }
-        codecsString += i18n("Encode: %1",list.join(", "));
+        codecsString += tr("Encode: %1",list.join(", "));
         list.clear();
         for( int i=0; i<decodeCodecs.count(); i++ )
         {
             const QString codecName = decodeCodecs.keys().at(i);
-            problemInfos["decode-"+codecName] = i18n("Currently deactivated.") + "\n\n" + config->pluginLoader()->pluginDecodeProblems( pluginName, codecName );
+            problemInfos["decode-"+codecName] = tr("Currently deactivated.") + "\n\n" + config->pluginLoader()->pluginDecodeProblems( pluginName, codecName );
             list += decodeCodecs.values().at(i) ? "<span style=\"color:green\">" + codecName + "</span>" : "<a style=\"color:red\" href=\"decode-"+codecName+"\">" + codecName + "</a>";
         }
-        codecsString += i18n("Decode: %1",list.join(", "));
+        codecsString += tr("Decode: %1",list.join(", "));
         info += codecsString.join("<br>");
     }
     else if( currentPlugin->type() == "replaygain" )
@@ -227,10 +227,10 @@ void AboutPlugins::currentPluginChanged( const QString& pluginName )
         for( int i=0; i<codecTable.count(); i++ )
         {
             const QString codecName = codecTable.at(i).codecName;
-            problemInfos["replaygain-"+codecName] = i18n("Currently deactivated.") + "\n\n" + config->pluginLoader()->pluginReplayGainProblems( pluginName, codecName );
+            problemInfos["replaygain-"+codecName] = tr("Currently deactivated.") + "\n\n" + config->pluginLoader()->pluginReplayGainProblems( pluginName, codecName );
             codecs += codecTable.at(i).enabled ? "<span style=\"color:green\">" + codecName + "</span>" : "<a style=\"color:red\" href=\"replaygain-"+codecName+"\">" + codecName + "</a>";
         }
-        info += QString( i18n("Supported codecs:") + "<br>" + codecs.join(", ") );
+        info += QString( tr("Supported codecs:") + "<br>" + codecs.join(", ") );
     }
     else if( currentPlugin->type() == "ripper" )
     {
@@ -240,7 +240,7 @@ void AboutPlugins::currentPluginChanged( const QString& pluginName )
 
     if( currentPlugin->isConfigSupported(BackendPlugin::General,"") )
     {
-        configurePlugin->setText( i18n("Configure %1 ...",currentPlugin->name()) );
+        configurePlugin->setText( tr("Configure %1 ...",currentPlugin->name()) );
         configurePlugin->show();
     }
     else

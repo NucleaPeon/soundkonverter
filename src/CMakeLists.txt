@@ -10,6 +10,14 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/version.h.in ${CMAKE_CURRENT_SOURCE_D
 
 set(CMAKE_CXX_STANDARD 11)
 
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
+
+include_directories(BEFORE /usr/include/KCddb6
+                           /usr/include/KCddb6/KCDDB)
+
 # show more warnings
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 # strict ISO C and ISO C++
@@ -44,6 +52,7 @@ endif()
 
 find_package(Qt${QT_DEFAULT_MAJOR_VERSION} NAMES Qt5 Qt6 REQUIRED COMPONENTS
     Core
+    Multimedia
     Widgets
     Xml
 )
@@ -60,23 +69,28 @@ endif()
 
 if(${KDE_DEFAULT_MAJOR_VERSION} STREQUAL "5")
     find_package(KDELibs4Support)
+else()
+    find_package(KCddb6 REQUIRED)  # Uses cmake/FindKCddb6.cmake
 endif()
 
 find_package(KF${KDE_DEFAULT_MAJOR_VERSION} REQUIRED COMPONENTS
     I18n
+    KCMUtils
     XmlGui
     KIO
     Solid
     Config
     ConfigWidgets
-    WidgetsAddons)
+    WidgetsAddons
+)
 
 
 # additional libs
 find_package(Cdparanoia REQUIRED)
 
 set(TAGLIB_MIN_VERSION "1.10")
-find_package(Taglib ${TAGLIB_MIN_VERSION} REQUIRED)
+find_package(Taglib
+${TAGLIB_MIN_VERSION} REQUIRED)
 
 
 # plugins 
@@ -107,10 +121,9 @@ add_library(${PROJECT_NAME}core SHARED ${soundkonvertercore_SRCS})
 target_link_libraries(${PROJECT_NAME}core
     KF${KDE_DEFAULT_MAJOR_VERSION}::WidgetsAddons
     KF${KDE_DEFAULT_MAJOR_VERSION}::KIOFileWidgets
-    KF${KDE_DEFAULT_MAJOR_VERSION}::KIOCore)
-
-
-
+    KF${KDE_DEFAULT_MAJOR_VERSION}::KIOCore
+    KF${KDE_DEFAULT_MAJOR_VERSION}::KCMUtils
+)
 
 if(${KDE_DEFAULT_MAJOR_VERSION} STREQUAL "5")
     find_package(KF${KDE_DEFAULT_MAJOR_VERSION}::KDELibs4Support)
@@ -119,6 +132,7 @@ endif()
 
 target_link_libraries(${PROJECT_NAME}core
     Qt${QT_DEFAULT_MAJOR_VERSION}::Core
+    Qt${QT_DEFAULT_MAJOR_VERSION}::Multimedia
     Qt${QT_DEFAULT_MAJOR_VERSION}::Widgets
     Qt${QT_DEFAULT_MAJOR_VERSION}::Xml
 )
@@ -184,6 +198,7 @@ target_link_libraries(${PROJECT_NAME}
     KF${KDE_DEFAULT_MAJOR_VERSION}::KIOFileWidgets
     KF${KDE_DEFAULT_MAJOR_VERSION}::KIOCore
     KF${KDE_DEFAULT_MAJOR_VERSION}::Solid
+    KF${KDE_DEFAULT_MAJOR_VERSION}::KCMUtils
     Taglib::Taglib
     ${CDPARANOIA_LIBRARIES})
 
@@ -192,6 +207,7 @@ if(${KDE_DEFAULT_MAJOR_VERSION} STREQUAL "5")
     target_link_libraries(KF${KDE_DEFAULT_MAJOR_VERSION}::KDELibs4Support)
 elseif()
     target_link_libraries(KF${KDE_DEFAULT_MAJOR_VERSION}::XmlGui)
+    target_link_libraries(KCddb6)  # Uses cmake/FindKCddb6.cmake
 endif()
 
 if(${QT_DEFAULT_MAJOR_VERSION} STREQUAL "5")

@@ -2,7 +2,7 @@
 #ifndef DIRDIALOG_H
 #define DIRDIALOG_H
 
-#include <kdialog.h>
+#include <QDialog>
 
 class Config;
 class Options;
@@ -20,7 +20,7 @@ class KListWidget;
  * @author Daniel Faust <hessijames@gmail.com>
  * @version 0.3
  */
-class DirOpener : public KDialog
+class DirOpener : public QDialog
 {
     Q_OBJECT
 public:

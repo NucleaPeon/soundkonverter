@@ -3,7 +3,7 @@
 #ifndef ABOUTPLUGINS_H
 #define ABOUTPLUGINS_H
 
-#include <KDialog>
+#include <QDialog>
 
 class Config;
 class BackendPlugin;
@@ -16,7 +16,7 @@ class KPushButton;
  * @author Daniel Faust <hessijames@gmail.com>
  * @version 1.0
  */
-class AboutPlugins : public KDialog
+class AboutPlugins : public QDialog
 {
     Q_OBJECT
 public:
@@ -32,7 +32,7 @@ private:
     BackendPlugin *currentPlugin;
 
     QLabel *aboutPluginLabel;
-    KPushButton *configurePlugin;
+    QPushButton *configurePlugin;
 
     QMap<QString,QString> problemInfos;
 

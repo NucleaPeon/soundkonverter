@@ -118,16 +118,16 @@ QString OutputDirectory::filesystemForDirectory( const QString& dir )
     return mp->mountType();
 }
 
-KUrl OutputDirectory::calcPath( FileListItem *fileListItem, Config *config, const QStringList& usedOutputNames )
+QUrl OutputDirectory::calcPath( FileListItem *fileListItem, Config *config, const QStringList& usedOutputNames )
 {
     QRegExp regEx( "%[abcdfgnpsty]{1,1}", Qt::CaseInsensitive );
 
     const ConversionOptions *options = config->conversionOptionsManager()->getConversionOptions(fileListItem->conversionOptionsId);
     if( !options )
-        return KUrl();
+        return QUrl();
 
     QString path;
-    KUrl url;
+    QUrl url;
 
     QString extension;
     if( config->pluginLoader()->codecExtensions(options->codecName).count() > 0 )
@@ -152,7 +152,7 @@ KUrl OutputDirectory::calcPath( FileListItem *fileListItem, Config *config, cons
         if( options->outputFilesystem == "ntfs" || options->outputFilesystem == "fuseblk" )
             path = ntfsPath( path );
 
-        url = changeExtension( KUrl(path), extension );
+        url = changeExtension( QUrl(path), extension );
 
         if( config->data.general.conflictHandling == Config::Data::General::NewFileName )
             url = uniqueFileName( url, usedOutputNames );
@@ -286,7 +286,7 @@ KUrl OutputDirectory::calcPath( FileListItem *fileListItem, Config *config, cons
         if( options->outputFilesystem == "ntfs" || options->outputFilesystem == "fuseblk" )
             path = ntfsPath( path );
 
-        url = KUrl( path + "." + extension );
+        url = QUrl( path + "." + extension );
 
         if( config->data.general.conflictHandling == Config::Data::General::NewFileName )
             url = uniqueFileName( url, usedOutputNames );
@@ -311,7 +311,7 @@ KUrl OutputDirectory::calcPath( FileListItem *fileListItem, Config *config, cons
         if( options->outputFilesystem == "ntfs" || options->outputFilesystem == "fuseblk" )
             path = ntfsPath( path );
 
-        url = changeExtension( KUrl(path), extension );
+        url = changeExtension( QUrl(path), extension );
 
         if( config->data.general.conflictHandling == Config::Data::General::NewFileName )
             url = uniqueFileName( url, usedOutputNames );
@@ -325,7 +325,7 @@ KUrl OutputDirectory::calcPath( FileListItem *fileListItem, Config *config, cons
         if( config->data.general.useVFATNames )
             path = vfatPath( path );
 
-        url = changeExtension( KUrl(path), extension );
+        url = changeExtension( QUrl(path), extension );
 
         if( config->data.general.conflictHandling == Config::Data::General::NewFileName )
             url = uniqueFileName( url, usedOutputNames );
@@ -334,9 +334,9 @@ KUrl OutputDirectory::calcPath( FileListItem *fileListItem, Config *config, cons
     }
 }
 
-KUrl OutputDirectory::changeExtension( const KUrl& url, const QString& extension )
+QUrl OutputDirectory::changeExtension( const QUrl& url, const QString& extension )
 {
-    KUrl changedUrl = url;
+    QUrl changedUrl = url;
 
     const QString urlFileName = url.fileName();
     const QString fileName = urlFileName.left( urlFileName.lastIndexOf(".")+1 ) + extension;
@@ -345,9 +345,9 @@ KUrl OutputDirectory::changeExtension( const KUrl& url, const QString& extension
     return changedUrl;
 }
 
-KUrl OutputDirectory::uniqueFileName( const KUrl& url, const QStringList& usedOutputNames )
+QUrl OutputDirectory::uniqueFileName( const QUrl& url, const QStringList& usedOutputNames )
 {
-    KUrl uniqueUrl = url;
+    QUrl uniqueUrl = url;
 
     while( QFile::exists(uniqueUrl.toLocalFile()) || usedOutputNames.contains(uniqueUrl.toLocalFile()) )
     {
@@ -360,7 +360,7 @@ KUrl OutputDirectory::uniqueFileName( const KUrl& url, const QStringList& usedOu
     return uniqueUrl;
 }
 
-KUrl OutputDirectory::makePath( const KUrl& url )
+QUrl OutputDirectory::makePath( const QUrl& url )
 {
     QFileInfo fileInfo( url.toLocalFile() );
 
@@ -375,7 +375,7 @@ KUrl OutputDirectory::makePath( const KUrl& url )
         {
             if( !dir.mkdir(mkDir) )
             {
-                return KUrl();
+                return QUrl();
             }
         }
     }

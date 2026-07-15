@@ -1,1 +1,4 @@
-[ ] Convert all KUrl to QUrl. Easiest way. Support that one.
+[X] Convert all KUrl to QUrl. Easiest way. Support that one.
+[ ] Change signal slots to better format
+[ ] Continue converting codebase
+[ ] QtMultimedia instead of phonon as it's no longer in gentoo repos

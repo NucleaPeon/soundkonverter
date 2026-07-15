@@ -3,7 +3,7 @@
 #ifndef CODECPROBLEMS_H
 #define CODECPROBLEMS_H
 
-#include <KDialog>
+#include <QDialog>
 
 
 /**

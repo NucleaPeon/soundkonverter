@@ -12,7 +12,7 @@
 #ifndef PLAYLISTOPENER_H
 #define PLAYLISTOPENER_H
 
-#include <KDialog>
+#include <QDialog>
 
 #include <QUrl>
 
@@ -20,12 +20,12 @@ class Config;
 class Options;
 class QLabel;
 class ConversionOptions;
-class KDialog;
+class QDialog;
 class KPushButton;
 class KFileDialog;
 
 /** @author Daniel Faust <hessijames@gmail.com> */
-class PlaylistOpener : public KDialog
+class PlaylistOpener : public QDialog
 {
     Q_OBJECT
 public:

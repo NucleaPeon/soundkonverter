@@ -4,7 +4,7 @@
 #define OUTPUTDIRECTORY_H
 
 #include <QWidget>
-#include <KUrl>
+#include <QUrl>
 
 class FileListItem;
 
@@ -41,10 +41,10 @@ public:
     void setDirectory( const QString& directory );
     QString filesystem();
 
-    static KUrl calcPath( FileListItem *fileListItem, Config *config, const QStringList& usedOutputNames = QStringList() );
-    static KUrl changeExtension( const KUrl& url, const QString& extension );
-    static KUrl uniqueFileName( const KUrl& url, const QStringList& usedOutputNames );
-    static KUrl makePath( const KUrl& url );
+    static QUrl calcPath( FileListItem *fileListItem, Config *config, const QStringList& usedOutputNames = QStringList() );
+    static QUrl changeExtension( const QUrl& url, const QString& extension );
+    static QUrl uniqueFileName( const QUrl& url, const QStringList& usedOutputNames );
+    static QUrl makePath( const QUrl& url );
     static QString vfatPath( const QString& path );
     static QString ntfsPath( const QString& path );
 

@@ -2,12 +2,12 @@
 #ifndef CDOPENER_H
 #define CDOPENER_H
 
-#include <KDialog>
+#include <QDialog>
 #include <QTimer>
-
-#include <KCddb/Kcddb>
-#include <KCddb/Client>
-#include <KCddb/Cdinfo>
+//
+#include <KCDDB/KCDDB>
+#include <KCDDB/Client>
+#include <KCDDB/CDInfo>
 
 extern "C"
 {
@@ -15,12 +15,19 @@ extern "C"
 #include <cdda_paranoia.h>
 }
 
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 #include <phonon/audiooutput.h>
 #include <phonon/seekslider.h>
 #include <phonon/mediaobject.h>
 #include <phonon/volumeslider.h>
 #include <phonon/backendcapabilities.h>
 #include <phonon/MediaController>
+
+#else
+
+
+
+#endif
 
 
 class TagEngine;
@@ -75,7 +82,7 @@ signals:
  * @author Daniel Faust <hessijames@gmail.com>
  * @version 1.0
  */
-class CDOpener : public KDialog
+class CDOpener : public QDialog
 {
      Q_OBJECT
 public:

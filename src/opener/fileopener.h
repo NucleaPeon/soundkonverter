@@ -12,7 +12,7 @@
 #ifndef FILEOPENER_H
 #define FILEOPENER_H
 
-#include <KDialog>
+#include <QDialog>
 
 #include <QUrl>
 
@@ -20,12 +20,12 @@ class Config;
 class Options;
 class QLabel;
 class ConversionOptions;
-class KDialog;
+class QDialog;
 class KPushButton;
 class KFileDialog;
 
 /** @author Daniel Faust <hessijames@gmail.com> */
-class FileOpener : public KDialog
+class FileOpener : public QDialog
 {
     Q_OBJECT
 public:

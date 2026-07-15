@@ -3,7 +3,7 @@
 #ifndef LOGVIEWER_H
 #define LOGVIEWER_H
 
-#include <KDialog>
+#include <QDialog>
 
 class Logger;
 class KComboBox;
@@ -15,7 +15,7 @@ class KTextEdit;
  * @author Daniel Faust <hessijames@gmail.com>
  * @version 1.0
  */
-class LogViewer : public KDialog
+class LogViewer : public QDialog
 {
 Q_OBJECT
 public:

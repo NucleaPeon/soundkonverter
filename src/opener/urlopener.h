@@ -12,7 +12,7 @@
 #ifndef URLOPENER_H
 #define URLOPENER_H
 
-#include <KDialog>
+#include <QDialog>
 
 #include <QUrl>
 
@@ -20,7 +20,7 @@ class Config;
 class Options;
 class QLabel;
 class ConversionOptions;
-class KDialog;
+class QDialog;
 class KFileWidget;
 class KPushButton;
 class KUrlRequester;
@@ -28,7 +28,7 @@ class KUrlRequester;
 /**
 	@author Daniel Faust <hessijames@gmail.com>
 */
-class UrlOpener : public KDialog
+class UrlOpener : public QDialog
 {
     Q_OBJECT
 public:

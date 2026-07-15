@@ -6,7 +6,7 @@
 #ifndef SOUNDKONVERTER_H
 #define SOUNDKONVERTER_H
 
-
+#include <QObject>
 #include <KXmlGuiWindow>
 #include <KUrl>
 #include <kdeversion.h>

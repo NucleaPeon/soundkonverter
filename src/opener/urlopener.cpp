@@ -31,7 +31,7 @@
 // TODO message box if url can't be added -> maybe in file list
 
 UrlOpener::UrlOpener( Config *_config, QWidget *parent, Qt::WFlags f )
-    : KDialog( parent, f ),
+    : QDialog( parent, f ),
     config( _config )
 {
     setCaption( i18n("Add url") );
