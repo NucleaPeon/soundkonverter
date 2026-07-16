@@ -89,7 +89,7 @@ void Convert::convert( ConvertItem *item )
     if( !conversionOptions )
         return;
 
-    KUrl inputUrl;
+    QUrl inputUrl;
     if( !item->tempInputUrl.toLocalFile().isEmpty() )
         inputUrl = item->tempInputUrl;
     else
@@ -112,14 +112,14 @@ void Convert::convert( ConvertItem *item )
         if( QFile::exists(item->outputUrl.toLocalFile()) )
         {
             logger->log( item->logID, "\tOutput file already exists" );
-            item->outputUrl = KUrl();
+            item->outputUrl = QUrl();
             remove( item, FileListItem::Skipped );
             return;
         }
-        if( OutputDirectory::makePath(item->outputUrl) == KUrl() )
+        if( OutputDirectory::makePath(item->outputUrl) == QUrl() )
         {
             logger->log( item->logID, "\t" + i18n("Cannot create output directory \"%1\"",item->outputUrl.toLocalFile()) );
-            item->outputUrl = KUrl();
+            item->outputUrl = QUrl();
             remove( item, FileListItem::CantWriteOutput );
             return;
         }
@@ -231,8 +231,8 @@ void Convert::convert( ConvertItem *item )
             {
                 BackendPlugin *plugin = trunk.plugin;
                 QStringList command;
-                const KUrl inUrl = ( step == 0 ) ? inputUrl : KUrl();
-                const KUrl outUrl = ( step == stepCount ) ? item->outputUrl : KUrl();
+                const QUrl inUrl = ( step == 0 ) ? inputUrl : QUrl();
+                const QUrl outUrl = ( step == stepCount ) ? item->outputUrl : QUrl();
                 if( plugin->type() == "codec" || plugin->type() == "filter" )
                 {
                     if( step == stepCount && trunk.data.hasInternalReplayGain && item->mode & ConvertItem::replaygain )
@@ -352,14 +352,14 @@ void Convert::convertNextBackend( ConvertItem *item )
     if( !plugin )
         return;
 
-    KUrl inputUrl;
+    QUrl inputUrl;
     if( !item->tempInputUrl.toLocalFile().isEmpty() )
         inputUrl = item->tempInputUrl;
     else
         inputUrl = item->inputUrl;
 
-    const KUrl inUrl = ( step == 0 ) ? inputUrl : item->tempConvertUrls.at(step - 1);
-    const KUrl outUrl = ( step == stepCount ) ? item->outputUrl : item->tempConvertUrls.at(step);
+    const QUrl inUrl = ( step == 0 ) ? inputUrl : item->tempConvertUrls.at(step - 1);
+    const QUrl outUrl = ( step == stepCount ) ? item->outputUrl : item->tempConvertUrls.at(step);
 
     if( step == 0 )
     {
@@ -500,7 +500,7 @@ void Convert::replaygain( ConvertItem *item )
     item->state = ConvertItem::replaygain;
     item->backendPlugin = item->replaygainPipes.at(item->take).plugin;
 
-    KUrl::List urlList;
+    QList<QUrl> urlList;
     QStringList directories;
     foreach( ConvertItem *albumItem, albumItems )
     {
@@ -583,7 +583,7 @@ void Convert::writeTags( ConvertItem *item )
 
     config->tagEngine()->writeTags( item->outputUrl, item->fileListItem->tags );
 
-    KUrl inputUrl;
+    QUrl inputUrl;
     if( !item->tempInputUrl.toLocalFile().isEmpty() )
         inputUrl = item->tempInputUrl;
     else
@@ -607,8 +607,8 @@ void Convert::writeTags( ConvertItem *item )
 //     logger->log( item->logID, i18n("Running user script") );
 //     item->state = ConvertItem::execute_userscript;
 //
-//     KUrl source( item->fileListItem->options.filePathName );
-//     KUrl destination( item->outputFilePathName );
+//     QUrl source( item->fileListItem->options.filePathName );
+//     QUrl destination( item->outputFilePathName );
 //
 //     item->fileListItem->setText( 0, i18n("Running user script")+"... 00 %" );
 //
@@ -717,7 +717,7 @@ void Convert::executeSameStep( ConvertItem *item )
         case ConvertItem::encode:
         {
             // remove temp/failed files
-            foreach( const KUrl& url, item->tempConvertUrls )
+            foreach( const QUrl& url, item->tempConvertUrls )
             {
                 if( QFile::exists(url.toLocalFile()) )
                 {
@@ -808,7 +808,7 @@ void Convert::kioJobFinished( KJob *job )
             else
             {
                 // remove temp/failed files
-                KUrl url;
+                QUrl url;
                 if( item->state == ConvertItem::get )
                 {
                     url = item->tempInputUrl;
@@ -1099,16 +1099,16 @@ void Convert::pluginLog( int id, const QString& message )
 
 void Convert::add( FileListItem *fileListItem )
 {
-    KUrl fileName;
+    QUrl fileName;
     if( fileListItem->track >= 0 )
     {
         if( fileListItem->tags )
         {
-            fileName = KUrl( i18nc("identificator for the logger","CD track %1: %2 - %3",QString().sprintf("%02i",fileListItem->tags->track),fileListItem->tags->artist,fileListItem->tags->title) );
+            fileName = QUrl( i18nc("identificator for the logger","CD track %1: %2 - %3",QString().sprintf("%02i",fileListItem->tags->track),fileListItem->tags->artist,fileListItem->tags->title) );
         }
         else // shouldn't be possible
         {
-            fileName = KUrl( i18nc("identificator for the logger","CD track %1",fileListItem->track) );
+            fileName = QUrl( i18nc("identificator for the logger","CD track %1",fileListItem->track) );
         }
     }
     else
@@ -1306,7 +1306,7 @@ void Convert::remove( ConvertItem *item, FileListItem::ReturnCode returnCode )
     {
         QFile::remove(item->tempInputUrl.toLocalFile());
     }
-    foreach( const KUrl& url, item->tempConvertUrls )
+    foreach( const QUrl& url, item->tempConvertUrls )
     {
         if( QFile::exists(url.toLocalFile()) )
         {

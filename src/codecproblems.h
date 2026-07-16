@@ -11,7 +11,7 @@
  * @author Daniel Faust <hessijames@gmail.com>
  * @version 1.0
  */
-class CodecProblems : public KDialog
+class CodecProblems : public QDialog
 {
     Q_OBJECT
 public:
@@ -29,7 +29,7 @@ public:
     };
     
     /** Default Constructor */
-    CodecProblems( Mode mode, const QList<Problem>& problemList, QWidget *parent, Qt::WFlags f=0 );
+    CodecProblems( Mode mode, const QList<Problem>& problemList, QWidget *parent, Qt::WindowFlags f=Qt::Widget );
 
     /** Default Destructor */
     ~CodecProblems();

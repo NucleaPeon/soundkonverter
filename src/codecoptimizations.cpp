@@ -10,14 +10,14 @@
 #include <QRadioButton>
 
 
-CodecOptimizations::CodecOptimizations( const QList<Optimization>& _optimizationList, QWidget* parent, Qt::WFlags f )
-    : KDialog( parent, f ),
+CodecOptimizations::CodecOptimizations( const QList<Optimization>& _optimizationList, QWidget* parent, Qt::WindowFlags f )
+    : QDialog( parent, f ),
     optimizationList( _optimizationList )
 {
     setCaption( i18n("Solutions for backend problems") );
     setWindowIcon( KIcon("help-about") );
-    setButtons( KDialog::Ok | KDialog::Cancel );
-    setButtonFocus( KDialog::Cancel );
+    setButtons( QDialog::Ok | QDialog::Cancel );
+    setButtonFocus( QDialog::Cancel );
     connect( this, SIGNAL(okClicked()), this, SLOT(okClicked()) );
 
     QWidget *widget = new QWidget( this );

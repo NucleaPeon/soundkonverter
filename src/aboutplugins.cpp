@@ -12,7 +12,7 @@
 #include <QToolTip>
 
 
-AboutPlugins::AboutPlugins( Config *_config, QWidget* parent, Qt::WFlags f )
+AboutPlugins::AboutPlugins( Config *_config, QWidget* parent, Qt::WindowFlags f )
     : QDialog( parent, f ),
     config( _config ),
     currentPlugin( 0 )

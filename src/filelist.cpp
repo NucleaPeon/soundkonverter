@@ -121,7 +121,7 @@ void FileList::dragEnterEvent( QDragEnterEvent *event )
 void FileList::dropEvent( QDropEvent *event )
 {
     QList<QUrl> q_urls = event->mimeData()->urls();
-    QUrl::List k_urls;
+    QList<QUrl> k_urls;
     QStringList errorList;
     //    codec    @0 files @1 solutions
     QMap< QString, QList<QStringList> > problems;

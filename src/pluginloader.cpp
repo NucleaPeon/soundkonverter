@@ -771,7 +771,7 @@ QString PluginLoader::getCodecFromM4aFile( QFile *file )
     return "";
 }
 
-QString PluginLoader::getCodecFromFile( const KUrl& filename, QString *mimeType, bool checkM4a )
+QString PluginLoader::getCodecFromFile( const QUrl& filename, QString *mimeType, bool checkM4a )
 {
     QString codec = "";
     short rating = 0;

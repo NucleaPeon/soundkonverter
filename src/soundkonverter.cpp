@@ -97,12 +97,12 @@ void soundKonverter::showSystemTray()
     systemTray->setToolTip( "soundkonverter", i18n("Waiting"), "" );
 }
 
-void soundKonverter::addConvertFiles( const KUrl::List& urls, const QString& profile, const QString& format, const QString& directory, const QString& notifyCommand )
+void soundKonverter::addConvertFiles( const QList<QUrl>& urls, const QString& profile, const QString& format, const QString& directory, const QString& notifyCommand )
 {
     m_view->addConvertFiles( urls, profile, format, directory, notifyCommand );
 }
 
-void soundKonverter::addReplayGainFiles( const KUrl::List& urls )
+void soundKonverter::addReplayGainFiles( const QList<QUrl>& urls )
 {
     showReplayGainScanner();
     replayGainScanner.data()->addFiles( urls );

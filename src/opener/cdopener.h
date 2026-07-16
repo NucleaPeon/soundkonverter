@@ -51,7 +51,7 @@ class PlayerWidget : public QWidget
 {
      Q_OBJECT
 public:
-    PlayerWidget( Phonon::MediaObject *mediaObject, int _track, QTreeWidgetItem *_treeWidgetItem, QWidget *parent, Qt::WindowFlags f = 0 );
+    PlayerWidget( Phonon::MediaObject *mediaObject, int _track, QTreeWidgetItem *_treeWidgetItem, QWidget *parent, Qt::WindowFlags f = Qt::Widget );
     ~PlayerWidget();
 
     void trackChanged( int track );
@@ -102,7 +102,7 @@ public:
     };
 
     /** Constructor */
-    CDOpener( Config *_config, const QString& _device, QWidget *parent, Qt::WFlags f=0 );
+    CDOpener( Config *_config, const QString& _device, QWidget *parent, Qt::WindowFlags f=Qt::Widget );
 
     /** Destructor */
     ~CDOpener();

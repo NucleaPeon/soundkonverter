@@ -61,7 +61,7 @@ public:
         PublisherLogo      = 0x14
     };
 
-    CoverData( const QByteArray& _data = QByteArray(), const QString& _mimyType = QString::null, Role _role = Other, const QString& _description = QString::null );
+    CoverData( const QByteArray& _data = QByteArray(), const QString& _mimyType = QString(), Role _role = Other, const QString& _description = QString() );
     ~CoverData();
 
     QByteArray data;

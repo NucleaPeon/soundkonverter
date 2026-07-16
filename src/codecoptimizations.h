@@ -13,7 +13,7 @@ class QRadioButton;
  * @author Daniel Faust <hessijames@gmail.com>
  * @version 1.0
  */
-class CodecOptimizations : public KDialog
+class CodecOptimizations : public QDialog
 {
     Q_OBJECT
 public:
@@ -34,7 +34,7 @@ public:
     };
 
     /** Default Constructor */
-    CodecOptimizations( const QList<Optimization>& optimizationList, QWidget *parent, Qt::WFlags f=0 );
+    CodecOptimizations( const QList<Optimization>& optimizationList, QWidget *parent, Qt::WindowFlags f=Qt::Widget );
 
     /** Default Destructor */
     ~CodecOptimizations();

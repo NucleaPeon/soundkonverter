@@ -12,7 +12,7 @@
 #include <QCheckBox>
 #include <KLocale>
 #include <KComboBox>
-#include <KDialog>
+#include <QDialog>
 #include <QSpinBox>
 #include <QGroupBox>
 #include <QSlider>
@@ -109,9 +109,9 @@ void soundkonverter_codec_lame::showConfigDialog( ActionType action, const QStri
 
     if( !configDialog.data() )
     {
-        configDialog = new KDialog( parent );
+        configDialog = new QDialog( parent );
         configDialog.data()->setCaption( i18n("Configure %1",*global_plugin_name) );
-        configDialog.data()->setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Default );
+        configDialog.data()->setButtons( QDialog::Ok | QDialog::Cancel | QDialog::Default );
 
         QWidget *configDialogWidget = new QWidget( configDialog.data() );
         QHBoxLayout *configDialogBox = new QHBoxLayout( configDialogWidget );
@@ -164,9 +164,9 @@ bool soundkonverter_codec_lame::hasInfo()
 
 void soundkonverter_codec_lame::showInfo( QWidget *parent )
 {
-    KDialog *dialog = new KDialog( parent );
+    QDialog *dialog = new QDialog( parent );
     dialog->setCaption( i18n("About %1",*global_plugin_name) );
-    dialog->setButtons( KDialog::Ok );
+    dialog->setButtons( QDialog::Ok );
 
     QLabel *widget = new QLabel( dialog );
 

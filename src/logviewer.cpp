@@ -17,8 +17,8 @@
 #include <KGlobal>
 
 
-LogViewer::LogViewer( Logger* _logger, QWidget *parent, Qt::WFlags f )
-    : KDialog( parent, f ),
+LogViewer::LogViewer( Logger* _logger, QWidget *parent, Qt::WindowFlags f )
+    : QDialog( parent, f ),
     logger( _logger )
 {
     const int fontHeight = QFontMetrics(QApplication::font()).boundingRect("M").size().height();
@@ -28,14 +28,14 @@ LogViewer::LogViewer( Logger* _logger, QWidget *parent, Qt::WFlags f )
 
     setCaption( i18n("Log Viewer") );
     setWindowIcon( KIcon("view-list-text") );
-    setButtons( KDialog::User1 | KDialog::User2 | KDialog::Close );
-    setButtonText( KDialog::User1, i18n("Update") );
-    setButtonIcon( KDialog::User1, KIcon("view-refresh") );
+    setButtons( QDialog::User1 | QDialog::User2 | QDialog::Close );
+    setButtonText( QDialog::User1, i18n("Update") );
+    setButtonIcon( QDialog::User1, KIcon("view-refresh") );
     connect( this, SIGNAL(user1Clicked()), this, SLOT(refillLogs()) );
-    setButtonText( KDialog::User2, i18n("Save to file...") );
-    setButtonIcon( KDialog::User2, KIcon("document-save") );
+    setButtonText( QDialog::User2, i18n("Save to file...") );
+    setButtonIcon( QDialog::User2, KIcon("document-save") );
     connect( this, SIGNAL(user2Clicked()), this, SLOT(save()) );
-    setButtonFocus( KDialog::Close );
+    setButtonFocus( QDialog::Close );
 
     QWidget *widget = new QWidget( this );
     setMainWidget( widget );

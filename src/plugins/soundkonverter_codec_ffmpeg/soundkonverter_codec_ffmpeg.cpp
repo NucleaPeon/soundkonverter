@@ -7,7 +7,7 @@
 #include "../../metadata/tagengine.h"
 
 #include <KMessageBox>
-#include <KDialog>
+#include <QDialog>
 #include <QCheckBox>
 #include <QHBoxLayout>
 #include <QFileInfo>
@@ -272,9 +272,9 @@ void soundkonverter_codec_ffmpeg::showConfigDialog( ActionType action, const QSt
 
     if( !configDialog.data() )
     {
-        configDialog = new KDialog( parent );
+        configDialog = new QDialog( parent );
         configDialog.data()->setCaption( i18n("Configure %1",*global_plugin_name) );
-        configDialog.data()->setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Default );
+        configDialog.data()->setButtons( QDialog::Ok | QDialog::Cancel | QDialog::Default );
 
         QWidget *configDialogWidget = new QWidget( configDialog.data() );
         QHBoxLayout *configDialogBox = new QHBoxLayout( configDialogWidget );

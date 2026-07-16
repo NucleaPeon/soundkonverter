@@ -25,7 +25,7 @@ class ReplayGainScanner : public QDialog
 {
     Q_OBJECT
 public:
-    ReplayGainScanner( Config*, Logger*, bool showMainWindowButton, QWidget *parent, Qt::WFlags f=0 );
+    ReplayGainScanner( Config*, Logger*, bool showMainWindowButton, QWidget *parent, Qt::WindowFlags f=Qt::Widget );
     ~ReplayGainScanner();
 
     void addFiles( QList<QUrl> urls );

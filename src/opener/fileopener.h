@@ -29,7 +29,7 @@ class FileOpener : public QDialog
 {
     Q_OBJECT
 public:
-    FileOpener( Config *_config, QWidget *parent, Qt::WFlags f=0 );
+    FileOpener( Config *_config, QWidget *parent, Qt::WindowFlags f=Qt::Widget );
     ~FileOpener();
 
     /** true if the file dialog was aborted (don't execute the dialog) */

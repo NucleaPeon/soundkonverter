@@ -11,7 +11,7 @@
 #include <QCheckBox>
 #include <KLocale>
 #include <KComboBox>
-#include <KDialog>
+#include <QDialog>
 #include <QSpinBox>
 #include <QGroupBox>
 #include <QSlider>
@@ -65,9 +65,9 @@ void soundkonverter_codec_twolame::showConfigDialog( ActionType action, const QS
     Q_UNUSED(codecName)
     Q_UNUSED(parent)
 
-//     KDialog *dialog = new KDialog( parent );
+//     QDialog *dialog = new QDialog( parent );
 //     dialog->setCaption( i18n("Configure %1",*global_plugin_name) );
-//     dialog->setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Apply );
+//     dialog->setButtons( QDialog::Ok | QDialog::Cancel | QDialog::Apply );
 
 //     QWidget *widget = new QWidget( dialog );
 
@@ -88,9 +88,9 @@ bool soundkonverter_codec_twolame::hasInfo()
 
 void soundkonverter_codec_twolame::showInfo( QWidget *parent )
 {
-    KDialog *dialog = new KDialog( parent );
+    QDialog *dialog = new QDialog( parent );
     dialog->setCaption( i18n("About %1",*global_plugin_name) );
-    dialog->setButtons( KDialog::Ok );
+    dialog->setButtons( QDialog::Ok );
 
     QLabel *widget = new QLabel( dialog );
 

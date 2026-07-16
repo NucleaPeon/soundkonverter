@@ -26,7 +26,7 @@
 #include <KIcon>
 
 
-FileOpener::FileOpener( Config *_config, QWidget *parent, Qt::WFlags f )
+FileOpener::FileOpener( Config *_config, QWidget *parent, Qt::WindowFlags f )
     : QDialog( parent, f ),
     dialogAborted( false ),
     config( _config )

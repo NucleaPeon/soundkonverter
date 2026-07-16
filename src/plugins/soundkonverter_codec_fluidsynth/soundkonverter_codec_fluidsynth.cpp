@@ -6,7 +6,7 @@
 #include "fluidsynthcodecwidget.h"
 
 #include <QApplication>
-#include <KDialog>
+#include <QDialog>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <KUrlRequester>
@@ -81,9 +81,9 @@ void soundkonverter_codec_fluidsynth::showConfigDialog( ActionType action, const
     {
         const int fontHeight = QFontMetrics(QApplication::font()).boundingRect("M").size().height();
 
-        configDialog = new KDialog( parent );
+        configDialog = new QDialog( parent );
         configDialog.data()->setCaption( i18n("Configure %1",*global_plugin_name) );
-        configDialog.data()->setButtons( KDialog::Ok | KDialog::Cancel );
+        configDialog.data()->setButtons( QDialog::Ok | QDialog::Cancel );
 
         QWidget *configDialogWidget = new QWidget( configDialog.data() );
         QHBoxLayout *configDialogBox = new QHBoxLayout( configDialogWidget );

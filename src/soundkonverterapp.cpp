@@ -9,7 +9,7 @@
 
 
 soundKonverterApp::soundKonverterApp()
-    : KUniqueApplication()
+    : QApplication()
 {
     mainWindow = new soundKonverter();
     setActiveWindow( mainWindow );
@@ -83,7 +83,7 @@ int soundKonverterApp::newInstance()
 
     if( args->isSet( "replaygain" ) )
     {
-        KUrl::List urls;
+        QList<QUrl> urls;
         for( int i=0; i<args->count(); i++ )
         {
             urls.append( args->arg(i) );
@@ -96,7 +96,7 @@ int soundKonverterApp::newInstance()
     }
     else
     {
-        KUrl::List urls;
+        QList<QUrl> urls;
         for( int i=0; i<args->count(); i++ )
         {
             urls.append( args->arg(i) );

@@ -51,7 +51,7 @@ public:
     int length;
 
     QStringList directories();
-    QUrl::List urls();
+    QList<QUrl> urls();
     void setState( State newState );
 
 };

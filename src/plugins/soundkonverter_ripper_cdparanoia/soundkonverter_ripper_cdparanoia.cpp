@@ -11,7 +11,7 @@
 #include <QCheckBox>
 #include <QSpinBox>
 #include <KLocale>
-#include <KDialog>
+#include <QDialog>
 
 
 soundkonverter_ripper_cdparanoia::soundkonverter_ripper_cdparanoia( QObject *parent, const QVariantList& args  )
@@ -78,9 +78,9 @@ void soundkonverter_ripper_cdparanoia::showConfigDialog( ActionType action, cons
 
     if( !configDialog.data() )
     {
-        configDialog = new KDialog( parent );
+        configDialog = new QDialog( parent );
         configDialog.data()->setCaption( i18n("Configure %1",*global_plugin_name) );
-        configDialog.data()->setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Default );
+        configDialog.data()->setButtons( QDialog::Ok | QDialog::Cancel | QDialog::Default );
 
         QWidget *configDialogWidget = new QWidget( configDialog.data() );
         QVBoxLayout *configDialogBox = new QVBoxLayout( configDialogWidget );
@@ -194,7 +194,7 @@ void soundkonverter_ripper_cdparanoia::showInfo( QWidget *parent )
     Q_UNUSED(parent)
 }
 
-int soundkonverter_ripper_cdparanoia::rip( const QString& device, int track, int tracks, const KUrl& outputFile )
+int soundkonverter_ripper_cdparanoia::rip( const QString& device, int track, int tracks, const QUrl& outputFile )
 {
     QStringList command;
 
@@ -258,7 +258,7 @@ int soundkonverter_ripper_cdparanoia::rip( const QString& device, int track, int
     return newItem->id;
 }
 
-QStringList soundkonverter_ripper_cdparanoia::ripCommand( const QString& device, int track, int tracks, const KUrl& outputFile )
+QStringList soundkonverter_ripper_cdparanoia::ripCommand( const QString& device, int track, int tracks, const QUrl& outputFile )
 {
     Q_UNUSED(device)
     Q_UNUSED(track)

@@ -8,13 +8,13 @@
 #include <QScrollArea>
 
 
-CodecProblems::CodecProblems( Mode mode, const QList<Problem>& problemList, QWidget* parent, Qt::WFlags f )
-    : KDialog( parent, f )
+CodecProblems::CodecProblems( Mode mode, const QList<Problem>& problemList, QWidget* parent, Qt::WindowFlags f )
+    : QDialog( parent, f )
 {
     setCaption( i18n("Solutions for backend problems") );
     setWindowIcon( KIcon("help-about") );
-    setButtons( KDialog::Close );
-    setButtonFocus( KDialog::Close );
+    setButtons( QDialog::Close );
+    setButtonFocus( QDialog::Close );
 
     QWidget *widget = new QWidget( this );
     setMainWidget( widget );

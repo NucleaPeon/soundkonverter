@@ -370,7 +370,7 @@ int ReplayGainFileList::listDir( const QString& directory, const QStringList& fi
     return count;
 }
 
-void ReplayGainFileList::addFiles( const QUrl::List& fileList, const QString& _codecName )
+void ReplayGainFileList::addFiles( const QList<QUrl>& fileList, const QString& _codecName )
 {
     ReplayGainFileListItem *newAlbumItem, *newTrackItem;
     QString codecName;

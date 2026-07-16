@@ -104,8 +104,8 @@ void PlayerWidget::trackChanged( int _track )
 }
 
 
-CDOpener::CDOpener( Config *_config, const QString& _device, QWidget *parent, Qt::WFlags f )
-    : KDialog( parent, f ),
+CDOpener::CDOpener( Config *_config, const QString& _device, QWidget *parent, Qt::WindowFlags f )
+    : QDialog( parent, f ),
     noCdFound( false ),
     config( _config ),
     cdDrive( 0 ),

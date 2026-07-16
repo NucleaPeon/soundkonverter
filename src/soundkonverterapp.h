@@ -4,6 +4,8 @@
 #include <QtCore/QtGlobal>
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 #include <kuniqueapplication.h>
+#else
+#include <QApplication>
 #endif
 
 class soundKonverter;
@@ -13,7 +15,7 @@ class soundKonverter;
  * @author Daniel Faust <hessijames@gmail.com>
  * @version 0.3
  */
-class soundKonverterApp : public KUniqueApplication
+class soundKonverterApp : public QApplication
 {
     Q_OBJECT
 public:

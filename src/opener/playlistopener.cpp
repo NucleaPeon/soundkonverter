@@ -26,7 +26,7 @@
 #include <KIcon>
 
 
-PlaylistOpener::PlaylistOpener( Config *_config, QWidget *parent, Qt::WFlags f )
+PlaylistOpener::PlaylistOpener( Config *_config, QWidget *parent, Qt::WindowFlags f )
     : QDialog( parent, f ),
     dialogAborted( false ),
     config( _config )

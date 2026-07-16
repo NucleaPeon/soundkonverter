@@ -8,7 +8,7 @@
 #include <QDateTime>
 
 class ConversionOptions;
-class KDialog;
+class QDialog;
 class QCheckBox;
 
 
@@ -58,7 +58,7 @@ private:
     QWeakPointer<KProcess> infoProcess;
     QString infoProcessOutputData;
 
-    QWeakPointer<KDialog> configDialog;
+    QWeakPointer<QDialog> configDialog;
     QCheckBox *configDialogExperimantalCodecsEnabledCheckBox;
 
     int configVersion;

@@ -8,7 +8,7 @@
 #include <QDateTime>
 
 class FilterOptions;
-class KDialog;
+class QDialog;
 class KComboBox;
 
 
@@ -55,7 +55,7 @@ private:
     QWeakPointer<KProcess> infoProcess;
     QString infoProcessOutputData;
 
-    QWeakPointer<KDialog> configDialog;
+    QWeakPointer<QDialog> configDialog;
     KComboBox *configDialogSamplingRateQualityComboBox;
 
     int configVersion;

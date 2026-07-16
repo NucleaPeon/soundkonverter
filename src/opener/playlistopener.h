@@ -29,7 +29,7 @@ class PlaylistOpener : public QDialog
 {
     Q_OBJECT
 public:
-    PlaylistOpener( Config *_config, QWidget *parent, Qt::WFlags f=0 );
+    PlaylistOpener( Config *_config, QWidget *parent, Qt::WindowFlags f=Qt::Widget );
     ~PlaylistOpener();
 
     /** true if the file dialog was aborted (don't execute the dialog) */

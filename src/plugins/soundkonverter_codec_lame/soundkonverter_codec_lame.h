@@ -8,7 +8,7 @@
 #include <KUrl>
 
 class ConversionOptions;
-class KDialog;
+class QDialog;
 class KComboBox;
 
 
@@ -39,7 +39,7 @@ public:
     ConversionOptions *conversionOptionsFromXml( QDomElement conversionOptions, QList<QDomElement> *filterOptionsElements = 0 );
 
 private:
-    QWeakPointer<KDialog> configDialog;
+    QWeakPointer<QDialog> configDialog;
     KComboBox *configDialogStereoModeComboBox;
 
     int configVersion;

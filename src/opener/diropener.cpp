@@ -19,7 +19,7 @@
 #include <KMessageBox>
 
 
-DirOpener::DirOpener( Config *_config, Mode _mode, QWidget *parent, Qt::WFlags f )
+DirOpener::DirOpener( Config *_config, Mode _mode, QWidget *parent, Qt::WindowFlags f )
     : QDialog( parent, f ),
     dialogAborted( false ),
     config( _config ),
