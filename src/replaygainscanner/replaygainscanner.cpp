@@ -25,7 +25,7 @@
 
 
 ReplayGainScanner::ReplayGainScanner( Config* _config, Logger* _logger, bool showMainWindowButton, QWidget *parent, Qt::WFlags f )
-    : KDialog( parent, f ),
+    : QDialog( parent, f ),
     config( _config ),
     logger( _logger )
 {

@@ -102,8 +102,8 @@ void ReplayGainFileList::dragMoveEvent( QDragMoveEvent *event )
 void ReplayGainFileList::dropEvent( QDropEvent *event )
 {
     const QList<QUrl> q_urls = event->mimeData()->urls();
-    KUrl::List k_urls;
-    KUrl::List k_urls_dirs;
+    QList<QUrl> k_urls;
+    QList<QUrl> k_urls_dirs;
     QStringList errorList;
     //    codec    @0 files @1 solutions
     QMap< QString, QList<QStringList> > problems;
@@ -201,7 +201,7 @@ void ReplayGainFileList::dropEvent( QDropEvent *event )
                 )
                     continue;
 
-                fileName = KUrl(url).pathOrUrl();
+                fileName = QUrl(url).pathOrUrl();
 
                 if( codecName.isEmpty() )
                     codecName = mimeType;
@@ -274,7 +274,7 @@ void ReplayGainFileList::dropEvent( QDropEvent *event )
         {
             addFiles( k_urls );
         }
-        foreach( const KUrl& url, k_urls_dirs )
+        foreach( const QUrl& url, k_urls_dirs )
         {
             addDir( url, true, config->pluginLoader()->formatList(PluginLoader::ReplayGain,PluginLoader::CompressionType(PluginLoader::InferiorQuality|PluginLoader::Lossy|PluginLoader::Lossless|PluginLoader::Hybrid)) );
         }
@@ -370,12 +370,12 @@ int ReplayGainFileList::listDir( const QString& directory, const QStringList& fi
     return count;
 }
 
-void ReplayGainFileList::addFiles( const KUrl::List& fileList, const QString& _codecName )
+void ReplayGainFileList::addFiles( const QUrl::List& fileList, const QString& _codecName )
 {
     ReplayGainFileListItem *newAlbumItem, *newTrackItem;
     QString codecName;
 
-    foreach( const KUrl& url, fileList )
+    foreach( const QUrl& url, fileList )
     {
         if( !_codecName.isEmpty() )
         {
@@ -1083,7 +1083,7 @@ void ReplayGainFileList::moveSelectedItems()
             newAlbumItem->albumName = i18n("New album");
             newAlbumItem->codecName = item->codecName;
             newAlbumItem->samplingRate = item->samplingRate;
-            newAlbumItem->url = KUrl(item->url.directory());
+            newAlbumItem->url = QUrl(item->url.directory());
             newAlbumItem->setExpanded( true );
             newAlbumItem->setFlags( newAlbumItem->flags() ^ Qt::ItemIsDragEnabled );
         }

@@ -68,7 +68,7 @@ void ReplayGainProcessor::replaygain( ReplayGainProcessorItem *item )
 
     item->backendPlugin = item->replaygainPipes.at(item->take).plugin;
 
-    KUrl::List urlList = item->fileListItem->urls();
+    QList<QUrl> urlList = item->fileListItem->urls();
 
     if( item->backendPlugin->name() == "Vorbis Gain" )
     {

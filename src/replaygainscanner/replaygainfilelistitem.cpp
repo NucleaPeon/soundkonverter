@@ -65,9 +65,9 @@ QStringList ReplayGainFileListItem::directories()
     return directories;
 }
 
-KUrl::List ReplayGainFileListItem::urls()
+QUrl::List ReplayGainFileListItem::urls()
 {
-    KUrl::List urls;
+    QUrl::List urls;
 
     if( type == ReplayGainFileListItem::Track )
     {

@@ -2,7 +2,7 @@
 #ifndef REPLAYGAINSCANNER_H
 #define REPLAYGAINSCANNER_H
 
-#include <KDialog>
+#include <QDialog>
 #include <QUrl>
 
 class Config;
@@ -21,7 +21,7 @@ class KFileDialog;
  * @short The Replay Gain Tool
  * @author Daniel Faust <hessijames@gmail.com>
  */
-class ReplayGainScanner : public KDialog
+class ReplayGainScanner : public QDialog
 {
     Q_OBJECT
 public:

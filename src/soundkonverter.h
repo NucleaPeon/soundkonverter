@@ -6,14 +6,19 @@
 #ifndef SOUNDKONVERTER_H
 #define SOUNDKONVERTER_H
 
+
+#include <QtCore/QtGlobal>
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+#include <kdeversion.h>
+#endif
+
 #include <QObject>
 #include <KXmlGuiWindow>
-#include <KUrl>
-#include <kdeversion.h>
+#include <QUrl>
 
 class soundKonverterView;
 class KToggleAction;
-class KUrl;
+class QUrl;
 class Config;
 class Logger;
 class LogViewer;
@@ -44,8 +49,8 @@ public:
     virtual void saveProperties( KConfigGroup& configGroup );
 
     void showSystemTray();
-    void addConvertFiles( const KUrl::List& urls, const QString& profile, const QString& format, const QString& directory, const QString& notifyCommand );
-    void addReplayGainFiles( const KUrl::List& urls );
+    void addConvertFiles( const QList<QUrl>& urls, const QString& profile, const QString& format, const QString& directory, const QString& notifyCommand );
+    void addReplayGainFiles( const QList<QUrl>& urls );
     bool ripCd( const QString& device, const QString& profile, const QString& format, const QString& directory, const QString& notifyCommand );
     void setAutoClose( bool enabled ) { autoclose = enabled; }
     void startConversion();

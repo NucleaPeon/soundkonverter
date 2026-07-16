@@ -8,7 +8,7 @@
 
 
 #include <QWidget>
-#include <KUrl>
+#include <QUrl>
 
 
 class KPushButton;
@@ -26,7 +26,7 @@ class FileList;
 class OptionsLayer;
 
 // class QPainter;
-// class KUrl;
+// class QUrl;
 
 /**
  * This is the main view class for soundKonverter.  Most of the non-menu,
@@ -48,7 +48,7 @@ public:
     /** Destructor */
     ~soundKonverterView();
 
-    void addConvertFiles( const KUrl::List& urls, QString _profile, QString _format, const QString& directory, const QString& notifyCommand = "" );
+    void addConvertFiles( const QList<QUrl>& urls, QString _profile, QString _format, const QString& directory, const QString& notifyCommand = "" );
     void loadAutosaveFileList();
     void loadFileList(const QString& fileListPath);
 

@@ -1,10 +1,10 @@
-
-
 #ifndef SOUNDKONVERTERAPP_H
 #define SOUNDKONVERTERAPP_H
 
-
+#include <QtCore/QtGlobal>
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 #include <kuniqueapplication.h>
+#endif
 
 class soundKonverter;
 
