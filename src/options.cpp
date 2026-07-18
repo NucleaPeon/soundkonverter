@@ -8,7 +8,7 @@
 
 #include <QLayout>
 
-#include <KLocale>
+#include <QLocale>
 #include <KTabWidget>
 
 

@@ -11,10 +11,10 @@
 #include <QBoxLayout>
 #include <QLabel>
 
-#include <KLocale>
+#include <QLocale>
 #include <QFrame>
 #include <QChar>
-#include <KIcon>
+#include <QIcon>
 #include <KComboBox>
 #include <KPushButton>
 #include <KInputDialog>
@@ -60,7 +60,7 @@ OptionsDetailed::OptionsDetailed( Config* _config, QWidget* parent )
     cPlugin->setSizeAdjustPolicy( QComboBox::AdjustToContents );
     connect( cPlugin, SIGNAL(activated(const QString&)), this, SLOT(encoderChanged(const QString&)) );
     connect( cPlugin, SIGNAL(activated(const QString&)), this, SLOT(somethingChanged()) );
-    pConfigurePlugin = new KPushButton( KIcon("configure"), "", this );
+    pConfigurePlugin = new KPushButton( QIcon("configure"), "", this );
     pConfigurePlugin->setFixedSize( cPlugin->sizeHint().height(), cPlugin->sizeHint().height() );
     pConfigurePlugin->setFlat( true );
     topBox->addWidget( pConfigurePlugin );
@@ -133,14 +133,14 @@ OptionsDetailed::OptionsDetailed( Config* _config, QWidget* parent )
     lEstimSize = new QLabel( QString(QChar(8776))+"? B / min." );
     lEstimSize->hide(); // hide for now because most plugins report inaccurate data
     bottomBox->addWidget( lEstimSize );
-    pProfileSave = new KPushButton( KIcon("document-save"), "", this );
+    pProfileSave = new KPushButton( QIcon("document-save"), "", this );
     bottomBox->addWidget( pProfileSave );
     pProfileSave->setFixedWidth( pProfileSave->height() );
     pProfileSave->setToolTip( i18n("Save current options as a profile") );
     connect( pProfileSave, SIGNAL(clicked()), this, SLOT(saveCustomProfile()) );
     pProfileLoad = new QToolButton( this );
     bottomBox->addWidget( pProfileLoad );
-    pProfileLoad->setIcon( KIcon("document-open") );
+    pProfileLoad->setIcon( QIcon("document-open") );
     pProfileLoad->setPopupMode( QToolButton::InstantPopup );
     pProfileLoad->setFixedWidth( pProfileLoad->height() );
     pProfileLoad->setToolTip( i18n("Load saved profiles") );

@@ -15,7 +15,7 @@
 #include "../codecproblems.h"
 
 #include <QApplication>
-#include <KLocale>
+#include <QLocale>
 #include <KPushButton>
 #include <QLabel>
 #include <QLayout>
@@ -23,7 +23,7 @@
 #include <KMessageBox>
 #include <KFileDialog>
 #include <QDir>
-#include <KIcon>
+#include <QIcon>
 
 
 PlaylistOpener::PlaylistOpener( Config *_config, QWidget *parent, Qt::WindowFlags f )
@@ -32,7 +32,7 @@ PlaylistOpener::PlaylistOpener( Config *_config, QWidget *parent, Qt::WindowFlag
     config( _config )
 {
     setCaption( i18n("Add playlist") );
-    setWindowIcon( KIcon("view-media-playlist") );
+    setWindowIcon( QIcon("view-media-playlist") );
     setButtons( 0 );
 
     const int fontHeight = QFontMetrics(QApplication::font()).boundingRect("M").size().height();
@@ -50,10 +50,10 @@ PlaylistOpener::PlaylistOpener( Config *_config, QWidget *parent, Qt::WindowFlag
     mainGrid->addLayout( controlBox, 2, 0 );
     controlBox->addStretch();
 
-    pAdd = new KPushButton( KIcon("dialog-ok"), i18n("Ok"), widget );
+    pAdd = new KPushButton( QIcon("dialog-ok"), i18n("Ok"), widget );
     controlBox->addWidget( pAdd );
     connect( pAdd, SIGNAL(clicked()), this, SLOT(okClickedSlot()) );
-    pCancel = new KPushButton( KIcon("dialog-cancel"), i18n("Cancel"), widget );
+    pCancel = new KPushButton( QIcon("dialog-cancel"), i18n("Cancel"), widget );
     controlBox->addWidget( pCancel );
     connect( pCancel, SIGNAL(clicked()), this, SLOT(reject()) );
 

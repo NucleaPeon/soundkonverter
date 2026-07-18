@@ -4,7 +4,7 @@
 #include "ffmpegcodecwidget.h"
 #include "../../core/conversionoptions.h"
 
-#include <KLocale>
+#include <QLocale>
 #include <KComboBox>
 #include <KLineEdit>
 #include <QLayout>

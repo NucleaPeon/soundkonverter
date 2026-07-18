@@ -11,7 +11,7 @@
 //
 #include "global.h"
 
-#include <KLocale>
+#include <QLocale>
 #include <KGlobal>
 
 

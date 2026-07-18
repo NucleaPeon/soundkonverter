@@ -1,8 +1,8 @@
 
 #include "codecproblems.h"
 
-#include <KLocale>
-#include <KIcon>
+#include <QLocale>
+#include <QIcon>
 #include <QLayout>
 #include <QLabel>
 #include <QScrollArea>

@@ -10,7 +10,7 @@
 #include <QLabel>
 #include <QCheckBox>
 #include <KLineEdit>
-#include <KLocale>
+#include <QLocale>
 #include <KComboBox>
 
 

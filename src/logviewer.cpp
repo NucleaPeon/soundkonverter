@@ -6,8 +6,8 @@
 #include <QLabel>
 #include <QApplication>
 
-#include <KLocale>
-#include <KIcon>
+#include <QLocale>
+#include <QIcon>
 #include <KPushButton>
 #include <KComboBox>
 #include <KTextEdit>
@@ -27,13 +27,13 @@ LogViewer::LogViewer( Logger* _logger, QWidget *parent, Qt::WindowFlags f )
     connect( logger, SIGNAL(updateProcess(int)), this, SLOT(updateProcess(int)) );
 
     setCaption( i18n("Log Viewer") );
-    setWindowIcon( KIcon("view-list-text") );
+    setWindowIcon( QIcon("view-list-text") );
     setButtons( QDialog::User1 | QDialog::User2 | QDialog::Close );
     setButtonText( QDialog::User1, i18n("Update") );
-    setButtonIcon( QDialog::User1, KIcon("view-refresh") );
+    setButtonIcon( QDialog::User1, QIcon("view-refresh") );
     connect( this, SIGNAL(user1Clicked()), this, SLOT(refillLogs()) );
     setButtonText( QDialog::User2, i18n("Save to file...") );
-    setButtonIcon( QDialog::User2, KIcon("document-save") );
+    setButtonIcon( QDialog::User2, QIcon("document-save") );
     connect( this, SIGNAL(user2Clicked()), this, SLOT(save()) );
     setButtonFocus( QDialog::Close );
 

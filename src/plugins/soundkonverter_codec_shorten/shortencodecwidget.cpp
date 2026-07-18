@@ -7,7 +7,7 @@
 #include <QLayout>
 #include <QCheckBox>
 #include <KLineEdit>
-#include <KLocale>
+#include <QLocale>
 
 
 ShortenCodecWidget::ShortenCodecWidget()

@@ -3,7 +3,7 @@
 
 #include "soundkonverter_replaygain_musepackgain.h"
 
-#include <KStandardDirs>
+#include <QStandardPaths>
 #include <QFile>
 
 

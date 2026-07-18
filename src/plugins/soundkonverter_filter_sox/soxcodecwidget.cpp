@@ -13,7 +13,7 @@
 #include <QSpinBox>
 #include <QSlider>
 #include <KComboBox>
-#include <KLocale>
+#include <QLocale>
 #include <KLineEdit>
 
 

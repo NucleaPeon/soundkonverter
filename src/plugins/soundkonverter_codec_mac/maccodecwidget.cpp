@@ -12,7 +12,7 @@
 #include <QSlider>
 #include <QCheckBox>
 #include <KLineEdit>
-#include <KLocale>
+#include <QLocale>
 
 
 MacCodecWidget::MacCodecWidget()

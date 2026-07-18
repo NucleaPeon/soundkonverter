@@ -7,7 +7,7 @@
 #include "replaygainfilelist.h"
 #include "global.h"
 
-#include <KLocale>
+#include <QLocale>
 
 #include <QFile>
 #include <QFileInfo>

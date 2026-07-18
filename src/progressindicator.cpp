@@ -9,7 +9,7 @@
 #include <QProgressBar>
 #include <QToolTip>
 
-#include <KLocale>
+#include <QLocale>
 
 
 TrailingAverage::TrailingAverage()

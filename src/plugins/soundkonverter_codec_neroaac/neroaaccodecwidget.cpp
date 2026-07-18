@@ -9,7 +9,7 @@
 #include <QApplication>
 #include <QLayout>
 #include <QLabel>
-#include <KLocale>
+#include <QLocale>
 #include <KComboBox>
 #include <QDoubleSpinBox>
 #include <QSlider>

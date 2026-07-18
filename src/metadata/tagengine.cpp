@@ -8,7 +8,7 @@
 #include <QDir>
 #include <QBuffer>
 
-#include <KLocale>
+#include <QLocale>
 
 #include <fileref.h>
 #include <id3v1genres.h> //used to load genre list

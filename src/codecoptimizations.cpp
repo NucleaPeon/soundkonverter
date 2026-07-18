@@ -1,8 +1,8 @@
 
 #include "codecoptimizations.h"
 
-#include <KLocale>
-#include <KIcon>
+#include <QLocale>
+#include <QIcon>
 #include <QLayout>
 #include <QLabel>
 #include <QScrollArea>
@@ -15,7 +15,7 @@ CodecOptimizations::CodecOptimizations( const QList<Optimization>& _optimization
     optimizationList( _optimizationList )
 {
     setCaption( i18n("Solutions for backend problems") );
-    setWindowIcon( KIcon("help-about") );
+    setWindowIcon( QIcon("help-about") );
     setButtons( QDialog::Ok | QDialog::Cancel );
     setButtonFocus( QDialog::Cancel );
     connect( this, SIGNAL(okClicked()), this, SLOT(okClicked()) );

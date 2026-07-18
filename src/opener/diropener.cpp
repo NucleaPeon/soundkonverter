@@ -10,10 +10,10 @@
 #include <QLabel>
 #include <QDir>
 #include <QCheckBox>
-#include <KLocale>
+#include <QLocale>
 #include <KPushButton>
 #include <KFileDialog>
-#include <KIcon>
+#include <QIcon>
 #include <KListWidget>
 #include <KUrlRequester>
 #include <KMessageBox>
@@ -26,7 +26,7 @@ DirOpener::DirOpener( Config *_config, Mode _mode, QWidget *parent, Qt::WindowFl
     mode( _mode )
 {
     setCaption( i18n("Add folder") );
-    setWindowIcon( KIcon("folder") );
+    setWindowIcon( QIcon("folder") );
 
     if( mode == Convert )
     {
@@ -38,7 +38,7 @@ DirOpener::DirOpener( Config *_config, Mode _mode, QWidget *parent, Qt::WindowFl
     }
 
     setButtonText( QDialog::User1, i18n("Proceed") );
-    setButtonIcon( QDialog::User1, KIcon("go-next") );
+    setButtonIcon( QDialog::User1, QIcon("go-next") );
 
     const int fontHeight = QFontMetrics(QApplication::font()).boundingRect("M").size().height();
 
@@ -127,11 +127,11 @@ DirOpener::DirOpener( Config *_config, Mode _mode, QWidget *parent, Qt::WindowFl
     fileTypesBox->addLayout( fileTypesButtonsBox );
     fileTypesButtonsBox->addStretch();
 
-    pSelectAll = new KPushButton( KIcon("edit-select-all"), i18n("Select all"), dirOpenerWidget );
+    pSelectAll = new KPushButton( QIcon("edit-select-all"), i18n("Select all"), dirOpenerWidget );
     fileTypesButtonsBox->addWidget( pSelectAll );
     connect( pSelectAll, SIGNAL(clicked()), this, SLOT(selectAllClicked()) );
 
-    pSelectNone = new KPushButton( KIcon("application-x-zerosize"), i18n("Select none"), dirOpenerWidget );
+    pSelectNone = new KPushButton( QIcon("application-x-zerosize"), i18n("Select none"), dirOpenerWidget );
     fileTypesButtonsBox->addWidget( pSelectNone );
     connect( pSelectNone, SIGNAL(clicked()), this, SLOT(selectNoneClicked()) );
 

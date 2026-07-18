@@ -13,7 +13,7 @@
 
 #include "../config.h"
 
-#include <KLocale>
+#include <QLocale>
 #include <KComboBox>
 #include <KLineEdit>
 #include <KPushButton>

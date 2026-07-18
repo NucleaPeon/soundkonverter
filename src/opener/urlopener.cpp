@@ -15,7 +15,7 @@
 #include "../config.h"
 
 #include <QApplication>
-#include <KLocale>
+#include <QLocale>
 #include <KPushButton>
 #include <QLabel>
 #include <QLayout>
@@ -23,7 +23,7 @@
 
 #include <KUrlRequester>
 #include <QDir>
-#include <KIcon>
+#include <QIcon>
 
 
 // TODO enable proceed button only if at least one file got selected // copy'n'paste error ???
@@ -35,7 +35,7 @@ UrlOpener::UrlOpener( Config *_config, QWidget *parent, Qt::WindowFlags f )
     config( _config )
 {
     setCaption( i18n("Add url") );
-    setWindowIcon( KIcon("network-workgroup") );
+    setWindowIcon( QIcon("network-workgroup") );
     setButtons( 0 );
 
     page = FileOpenPage;
@@ -82,14 +82,14 @@ UrlOpener::UrlOpener( Config *_config, QWidget *parent, Qt::WindowFlags f )
     mainGrid->addLayout( controlBox, 5, 0 );
     controlBox->addStretch();
 
-    pProceed = new KPushButton( KIcon("go-next"), i18n("Proceed"), widget );
+    pProceed = new KPushButton( QIcon("go-next"), i18n("Proceed"), widget );
     controlBox->addWidget( pProceed );
     connect( pProceed, SIGNAL(clicked()), this, SLOT(proceedClickedSlot()) );
-    pAdd = new KPushButton( KIcon("dialog-ok"), i18n("Ok"), widget );
+    pAdd = new KPushButton( QIcon("dialog-ok"), i18n("Ok"), widget );
     controlBox->addWidget( pAdd );
     pAdd->hide();
     connect( pAdd, SIGNAL(clicked()), this, SLOT(okClickedSlot()) );
-    pCancel = new KPushButton( KIcon("dialog-cancel"), i18n("Cancel"), widget );
+    pCancel = new KPushButton( QIcon("dialog-cancel"), i18n("Cancel"), widget );
     controlBox->addWidget( pCancel );
     connect( pCancel, SIGNAL(clicked()), this, SLOT(reject()) );
 

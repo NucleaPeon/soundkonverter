@@ -10,7 +10,7 @@
 #include <QComboBox>
 #include <QCheckBox>
 #include <QSpinBox>
-#include <KLocale>
+#include <QLocale>
 #include <QDialog>
 
 

@@ -20,9 +20,9 @@
 #include "options.h"
 #include "codecproblems.h"
 
-#include <KLocale>
+#include <QLocale>
 #include <KPushButton>
-#include <KIcon>
+#include <QIcon>
 #include <KFileDialog>
 #include <KMenu>
 #include <KAction>
@@ -79,11 +79,11 @@ soundKonverterView::soundKonverterView( Logger *_logger, Config *_config, CDMana
     //font.setWeight( QFont::DemiBold );
     font.setPointSize( font.pointSize() + 3 );
     cAdd->setFont( font );
-    cAdd->insertItem( KIcon("audio-x-generic"), i18n("Add files...") );
-    cAdd->insertItem( KIcon("folder"), i18n("Add folder...") );
-    cAdd->insertItem( KIcon("media-optical-audio"), i18n("Add CD tracks...") );
-    cAdd->insertItem( KIcon("network-workgroup"), i18n("Add url...") );
-    cAdd->insertItem( KIcon("view-media-playlist"), i18n("Add playlist...") );
+    cAdd->insertItem( QIcon("audio-x-generic"), i18n("Add files...") );
+    cAdd->insertItem( QIcon("folder"), i18n("Add folder...") );
+    cAdd->insertItem( QIcon("media-optical-audio"), i18n("Add CD tracks...") );
+    cAdd->insertItem( QIcon("network-workgroup"), i18n("Add url...") );
+    cAdd->insertItem( QIcon("view-media-playlist"), i18n("Add playlist...") );
     cAdd->increaseHeight( 0.3*fontHeight );
     addBox->addWidget( cAdd, 0, Qt::AlignVCenter );
     connect( cAdd, SIGNAL(clicked(int)), this, SLOT(addClicked(int)) );
@@ -91,30 +91,30 @@ soundKonverterView::soundKonverterView( Logger *_logger, Config *_config, CDMana
 
     addBox->addSpacing( fontHeight );
 
-    startAction = new KAction( KIcon("system-run"), i18n("Start"), this );
+    startAction = new KAction( QIcon("system-run"), i18n("Start"), this );
     connect( startAction, SIGNAL(triggered()), fileList, SLOT(startConversion()) );
 
-    pStart = new KPushButton( KIcon("system-run"), i18n("Start"), this );
+    pStart = new KPushButton( QIcon("system-run"), i18n("Start"), this );
     pStart->setFixedHeight( pStart->size().height() );
     pStart->setEnabled( false );
     startAction->setEnabled( false );
     addBox->addWidget( pStart, 0, Qt::AlignVCenter );
     connect( pStart, SIGNAL(clicked()), fileList, SLOT(startConversion()) );
 
-    stopActionMenu = new KActionMenu( KIcon("process-stop"), i18n("Stop"), this );
+    stopActionMenu = new KActionMenu( QIcon("process-stop"), i18n("Stop"), this );
     stopActionMenu->setDelayed( false );
-    killAction = new KAction( KIcon("flag-red"), i18n("Stop immediatelly"), this );
+    killAction = new KAction( QIcon("flag-red"), i18n("Stop immediatelly"), this );
     stopActionMenu->addAction( killAction );
     connect( killAction, SIGNAL(triggered()), fileList, SLOT(killConversion()) );
-    stopAction = new KAction( KIcon("flag-yellow"), i18n("Stop after current conversions are completed"), this );
+    stopAction = new KAction( QIcon("flag-yellow"), i18n("Stop after current conversions are completed"), this );
     stopActionMenu->addAction( stopAction );
     connect( stopAction, SIGNAL(triggered()), fileList, SLOT(stopConversion()) );
-    continueAction = new KAction( KIcon("flag-green"), i18n("Continue after current conversions are completed"), this );
+    continueAction = new KAction( QIcon("flag-green"), i18n("Continue after current conversions are completed"), this );
     stopActionMenu->addAction( continueAction );
     connect( continueAction, SIGNAL(triggered()), fileList, SLOT(continueConversion()) );
     queueModeChanged( true );
 
-    pStop = new KPushButton( KIcon("process-stop"), i18n("Stop"), this );
+    pStop = new KPushButton( QIcon("process-stop"), i18n("Stop"), this );
     pStop->setFixedHeight( pStop->size().height() );
     pStop->hide();
     stopActionMenu->setEnabled( false );

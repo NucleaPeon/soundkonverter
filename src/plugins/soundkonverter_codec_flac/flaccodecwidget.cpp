@@ -8,7 +8,7 @@
 
 #include <QLayout>
 #include <QLabel>
-#include <KLocale>
+#include <QLocale>
 #include <QSpinBox>
 #include <QSlider>
 

@@ -3,10 +3,11 @@
 #include "soundkonverterapp.h"
 #include "soundkonverter.h"
 #include "global.h"
+#include "version.h"
 
 #include <KMainWindow>
-#include <KUniqueApplication>
-#include <K4AboutData>
+#include <QApplication>
+#include <KAboutData>
 #include <KCmdLineArgs>
 #include <KLocale>
 #include <KLocalizedString>
@@ -14,20 +15,24 @@
 static const char description[] =
 I18N_NOOP("soundKonverter is a frontend to various audio converters, Replay Gain tools and CD rippers.\n\nPlease file bug reports at https://github.com/dfaust/soundkonverter/issues");
 
-static const char version[] = SOUNDKONVERTER_VERSION_STRING;
+using namespace SoundKonverter;
 
 int main(int argc, char **argv)
 {
     KLocalizedString::setApplicationDomain("soundkonverter");
     
-    K4AboutData about("soundkonverter", 0, ki18n("soundKonverter"), version, ki18n(description), K4AboutData::License_GPL, ki18n("(C) 2005-2017 Daniel Faust"), KLocalizedString(), 0, "hessijames@gmail.com");
-    about.addAuthor( ki18n("Daniel Faust"), KLocalizedString(), "hessijames@gmail.com" );
-    about.addCredit( ki18n("David Vignoni"), ki18n("Nuvola icon theme"), 0, "http://www.icon-king.com" );
-    about.addCredit( ki18n("Scott Wheeler"), ki18n("TagLib"), "wheeler@kde.org", "http://ktown.kde.org/~wheeler" );
-    about.addCredit( ki18n("Marco Nelles"), ki18n("Audex"), 0, "http://opensource.maniatek.de/audex" );
-    about.addCredit( ki18n("Amarok developers"), ki18n("Amarok"), 0, "http://amarok.kde.org" );
-    about.addCredit( ki18n("All programmers of audio converters"), ki18n("Backends") );
-    about.addCredit( ki18n("Patrick Auernig"), ki18n("Inital Port to KDE Frameworks 5"), "patrick.auernig@gmail.com" );
+    QString version = QString("%1.%2.%3").arg(Version::RELEASE, Version::MAJOR, Version::MINOR);
+
+    KAboutData about("soundkonverter", ki18n("soundKonverter").toString(), version.toLatin1(), ki18n(description).toString(),
+                     KAboutLicense::GPL, ki18n("(C) 2005-2017 Daniel Faust").toString(), KLocalizedString().toString(), "hessijames@gmail.com");
+    about.addAuthor( ki18n("Daniel Faust").toString(), "", "hessijames@gmail.com" );
+    about.addCredit( ki18n("David Vignoni").toString(), ki18n("Nuvola icon theme").toString(), 0, "http://www.icon-king.com" );
+    about.addCredit( ki18n("Scott Wheeler").toString(), ki18n("TagLib").toString(), "wheeler@kde.org", "http://ktown.kde.org/~wheeler" );
+    about.addCredit( ki18n("Marco Nelles").toString(), ki18n("Audex").toString(), 0, "http://opensource.maniatek.de/audex" );
+    about.addCredit( ki18n("Amarok developers").toString(), ki18n("Amarok").toString(), 0, "http://amarok.kde.org" );
+    about.addCredit( ki18n("All programmers of audio converters").toString(), ki18n("Backends").toString() );
+    about.addCredit( ki18n("Patrick Auernig").toString(), ki18n("Inital Port to KDE Frameworks 5").toString(), "patrick.auernig@gmail.com" );
+    about.addCredit( ki18n("Daniel Kettle").toString(), ki18n("Inital Port to Qt6").toString(), "initial.dann@gmail.com", "https://github.com/NucleaPeon");
     KCmdLineArgs::init(argc, argv, &about);
 
     KCmdLineOptions options;

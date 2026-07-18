@@ -8,7 +8,7 @@
 #include <math.h>
 
 #include <QApplication>
-#include <KLocale>
+#include <QLocale>
 #include <KComboBox>
 #include <QLayout>
 #include <QBoxLayout>

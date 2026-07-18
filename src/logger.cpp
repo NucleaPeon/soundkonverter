@@ -1,8 +1,8 @@
 
 #include "logger.h"
 
-#include <KLocale>
-#include <KStandardDirs>
+#include <QLocale>
+#include <QStandardPaths>
 #include <KConfigGroup>
 
 #include <cstdlib>
@@ -19,7 +19,7 @@ LoggerItem::LoggerItem( int logId, const QString& logIdentifier )
 {
     id = logId;
     identifier = logIdentifier;
-    file.setFileName( KStandardDirs::locateLocal("data",QString("soundkonverter/log/%1.log").arg(id)) );
+    file.setFileName( QStandardPaths::locate(QStandardPaths::AppDataLocation, QString("soundkonverter/log/%1.log").arg(id)) );
     completed = false;
     succeeded = false;
 }

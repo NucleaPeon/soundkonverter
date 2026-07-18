@@ -3,8 +3,8 @@
 #include "config.h"
 
 #include <QApplication>
-#include <KLocale>
-#include <QICon>
+#include <QLocale>
+#include <QIcon>
 #include <QPushButton>
 #include <QLayout>
 #include <QLabel>

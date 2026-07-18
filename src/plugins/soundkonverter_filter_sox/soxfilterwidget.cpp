@@ -6,7 +6,7 @@
 #include "soxfilteroptions.h"
 
 #include <QApplication>
-#include <KLocale>
+#include <QLocale>
 #include <QCheckBox>
 #include <QLayout>
 #include <QLabel>

@@ -7,10 +7,10 @@
 #include <QLayout>
 #include <QFrame>
 
-#include <KLocale>
+#include <QLocale>
 
 #include <KPushButton>
-#include <KIcon>
+#include <QIcon>
 #include <KMessageBox>
 #include <KApplication>
 
@@ -46,10 +46,10 @@ OptionsLayer::OptionsLayer( Config *config, QWidget *parent )
     QHBoxLayout *buttonBox = new QHBoxLayout();
     frameLayout->addLayout( buttonBox );
     buttonBox->addStretch();
-    pOk = new KPushButton( KIcon("dialog-ok"), i18n("Ok"), this );
+    pOk = new KPushButton( QIcon("dialog-ok"), i18n("Ok"), this );
     buttonBox->addWidget( pOk );
     connect( pOk, SIGNAL(clicked()), this, SLOT(ok()) );
-    pCancel = new KPushButton( KIcon("dialog-cancel"), i18n("Cancel"), this );
+    pCancel = new KPushButton( QIcon("dialog-cancel"), i18n("Cancel"), this );
     buttonBox->addWidget( pCancel );
     connect( pCancel, SIGNAL(clicked()), this, SLOT(abort()) );
 

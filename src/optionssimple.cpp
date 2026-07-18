@@ -12,8 +12,8 @@
 #include <QString>
 #include <QToolTip>
 
-#include <KLocale>
-#include <KIcon>
+#include <QLocale>
+#include <QIcon>
 #include <KMessageBox>
 #include <KComboBox>
 #include <QCheckBox>
@@ -44,12 +44,12 @@ OptionsSimple::OptionsSimple( Config *_config, /*OptionsDetailed* _optionsDetail
     topBoxQuality->addWidget( cProfile );
     connect( cProfile, SIGNAL(activated(int)), this, SLOT(profileChanged()) );
     topBoxQuality->addSpacing( 0.25*fontHeight );
-    pProfileRemove = new KPushButton( KIcon("edit-delete"), i18n("Remove"), this );
+    pProfileRemove = new KPushButton( QIcon("edit-delete"), i18n("Remove"), this );
     topBoxQuality->addWidget( pProfileRemove );
     pProfileRemove->setToolTip( i18n("Remove the selected profile") );
     pProfileRemove->hide();
     connect( pProfileRemove, SIGNAL(clicked()), this, SLOT(profileRemove()) );
-    pProfileInfo = new KPushButton( KIcon("dialog-information"), i18n("Info"), this );
+    pProfileInfo = new KPushButton( QIcon("dialog-information"), i18n("Info"), this );
     topBoxQuality->addWidget( pProfileInfo );
     pProfileInfo->setToolTip( i18n("Information about the selected profile") );
 //     cProfile->setFixedHeight( pProfileInfo->minimumSizeHint().height() );
@@ -68,7 +68,7 @@ OptionsSimple::OptionsSimple( Config *_config, /*OptionsDetailed* _optionsDetail
 //     connect( cFormat, SIGNAL(activated(int)), this, SLOT(formatChanged()) );
     connect( cFormat, SIGNAL(activated(int)), this, SLOT(somethingChanged()) );
     topBoxFormat->addSpacing( 0.25*fontHeight );
-    pFormatInfo = new KPushButton( KIcon("dialog-information"), i18n("Info"), this );
+    pFormatInfo = new KPushButton( QIcon("dialog-information"), i18n("Info"), this );
     topBoxFormat->addWidget( pFormatInfo );
     pFormatInfo->setToolTip( i18n("Information about the selected file format") );
 //     cFormat->setFixedHeight( pFormatInfo->minimumSizeHint().height() );

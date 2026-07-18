@@ -4,7 +4,7 @@
 #include "aftencodecwidget.h"
 #include "../../core/conversionoptions.h"
 
-#include <KLocale>
+#include <QLocale>
 #include <KComboBox>
 #include <QLayout>
 #include <QLabel>

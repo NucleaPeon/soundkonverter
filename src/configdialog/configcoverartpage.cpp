@@ -3,7 +3,7 @@
 
 #include "../config.h"
 
-#include <KLocale>
+#include <QLocale>
 #include <KLineEdit>
 
 #include <QLayout>
