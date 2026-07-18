@@ -14,10 +14,6 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-
-include_directories(BEFORE /usr/include/KCddb6
-                           /usr/include/KCddb6/KCDDB)
-
 # show more warnings
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 # strict ISO C and ISO C++
@@ -70,6 +66,7 @@ endif()
 if(${KDE_DEFAULT_MAJOR_VERSION} STREQUAL "5")
     find_package(KDELibs4Support)
 else()
+    find_package(KC6)
     find_package(KCddb6 REQUIRED)  # Uses cmake/FindKCddb6.cmake
     find_package(KF6XmlGui REQUIRED)
 endif()
@@ -100,7 +97,7 @@ add_subdirectory(plugins)
 
 # include directories
 include_directories(${CDPARANOIA_INCLUDE_DIR})
-
+include_directories(/usr/include BEFORE)
 
 # translation
 include(ECMOptionalAddSubdirectory)
@@ -213,9 +210,12 @@ target_link_libraries(${PROJECT_NAME}
 
 if(${KDE_DEFAULT_MAJOR_VERSION} STREQUAL "5")
     target_link_libraries(KF${KDE_DEFAULT_MAJOR_VERSION}::KDELibs4Support)
-elseif()
+else()
     target_link_libraries(KF${KDE_DEFAULT_MAJOR_VERSION}::XmlGui)
-    target_link_libraries(KCddb6)  # Uses cmake/FindKCddb6.cmake
+    # This include_directories statement needs to be here since KCddb6 includes "kcddb6_version.h" (no prefix)
+    # and the find_package() and target_link_libraries() fails to find it.
+    include_directories(/usr/include/KCddb6 BEFORE)
+    target_link_libraries(KCddb6)
 endif()
 
 if(${QT_DEFAULT_MAJOR_VERSION} STREQUAL "5")

@@ -5,9 +5,13 @@
 #include <QDialog>
 #include <QTimer>
 //
-#include <KCDDB/KCDDB>
-#include <KCDDB/Client>
-#include <KCDDB/CDInfo>
+
+#include <KCddb6/kcddb_version.h>
+#include <KCddb6/kcddb/kcddb.h>
+
+// #include <KCDDB/KCDDB>
+// #include <KCDDB/Client>
+// #include <KCDDB/CDInfo>
 
 extern "C"
 {
