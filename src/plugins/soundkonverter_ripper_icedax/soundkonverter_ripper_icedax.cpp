@@ -3,7 +3,7 @@
 
 #include "soundkonverter_ripper_icedax.h"
 
-#include <KLocale>
+#include <QLocale>
 
 soundkonverter_ripper_icedax::soundkonverter_ripper_icedax( QObject *parent, const QVariantList& args  )
     : RipperPlugin( parent )
@@ -31,7 +31,7 @@ QList<ConversionPipeTrunk> soundkonverter_ripper_icedax::codecTable()
     newTrunk.rating = 100;
     newTrunk.enabled = ( binaries["icedax"] != "" );
     newTrunk.data.canRipEntireCd = true;
-    newTrunk.problemInfo = i18n( "In order to rip audio cds per track or to a single file, you need to install 'icedax'.\n'icedax' is usually shipped with your distribution, the package name can vary." );
+    newTrunk.problemInfo = tr( "In order to rip audio cds per track or to a single file, you need to install 'icedax'.\n'icedax' is usually shipped with your distribution, the package name can vary." );
     table.append( newTrunk );
 
     return table;
@@ -62,7 +62,7 @@ void soundkonverter_ripper_icedax::showInfo( QWidget *parent )
     Q_UNUSED(parent)
 }
 
-int soundkonverter_ripper_icedax::rip( const QString& device, int track, int tracks, const KUrl& outputFile )
+int soundkonverter_ripper_icedax::rip( const QString& device, int track, int tracks, const QUrl& outputFile )
 {
     QStringList command;
 
@@ -100,7 +100,7 @@ int soundkonverter_ripper_icedax::rip( const QString& device, int track, int tra
     return newItem->id;
 }
 
-QStringList soundkonverter_ripper_icedax::ripCommand( const QString& device, int track, int tracks, const KUrl& outputFile )
+QStringList soundkonverter_ripper_icedax::ripCommand( const QString& device, int track, int tracks, const QUrl& outputFile )
 {
     Q_UNUSED(device)
     Q_UNUSED(track)

@@ -10,7 +10,7 @@
 #include <QLabel>
 
 #include <KComboBox>
-#include <KPushButton>
+#include <QPushButton>
 #include <QIcon>
 
 
@@ -20,12 +20,12 @@ SoxEffectWidget::SoxEffectWidget( QWidget *parent )
     QHBoxLayout *box = new QHBoxLayout( this );
     box->setMargin( 0 );
 
-    QLabel *lEffect = new QLabel( i18n("Effect:") );
+    QLabel *lEffect = new QLabel( tr("Effect:") );
     box->addWidget( lEffect );
 
     cEffect = new KComboBox( this );
     connect( cEffect, SIGNAL(activated(int)), this, SLOT(effectChanged(int)) );
-    cEffect->addItem( i18n("Disabled") );
+    cEffect->addItem( tr("Disabled") );
 //     cEffect->addItem( "allpass" );
 //     cEffect->addItem( "band" );
 //     cEffect->addItem( "bandpass" );
@@ -99,13 +99,13 @@ SoxEffectWidget::SoxEffectWidget( QWidget *parent )
 
     box->addStretch();
 
-    pRemove = new KPushButton( QIcon("list-remove"), i18n("Remove"), this );
-    pRemove->setToolTip( i18n("Remove this effect") );
+    pRemove = new KPushButton( QIcon("list-remove"), tr("Remove"), this );
+    pRemove->setToolTip( tr("Remove this effect") );
     box->addWidget( pRemove );
     connect( pRemove, SIGNAL(clicked()), this, SLOT(removeClicked()) );
 
-    pAdd = new KPushButton( QIcon("list-add"), i18n("Add"), this );
-    pAdd->setToolTip( i18n("Add another effect") );
+    pAdd = new KPushButton( QIcon("list-add"), tr("Add"), this );
+    pAdd->setToolTip( tr("Add another effect") );
     box->addWidget( pAdd );
     connect( pAdd, SIGNAL(clicked()), SIGNAL(addEffectWidgetClicked()) );
     pAdd->setEnabled( false );
@@ -144,11 +144,11 @@ void SoxEffectWidget::effectChanged( int index )
 
     if( effect == "norm" )
     {
-        cEffect->setToolTip( i18n("Normalize:\nChange the volume so all files have the same loudness") );
+        cEffect->setToolTip( tr("Normalize:\nChange the volume so all files have the same loudness") );
 
         QDoubleSpinBox *dNormalizeVolume = new QDoubleSpinBox( this );
         dNormalizeVolume->setRange( -99, 99 );
-        dNormalizeVolume->setSuffix( " " + i18nc("decibel","dB") );
+        dNormalizeVolume->setSuffix( " " + trc("decibel","dB") );
         connect( dNormalizeVolume, SIGNAL(valueChanged(double)), this, SLOT(normalizeVolumeChanged(double)) );
         connect( dNormalizeVolume, SIGNAL(valueChanged(double)), SIGNAL(optionsChanged()) );
         widgetsBox->addWidget( dNormalizeVolume );
@@ -160,11 +160,11 @@ void SoxEffectWidget::effectChanged( int index )
     }
     else if( effect == "bass" )
     {
-        cEffect->setToolTip( i18n("Bass:\nAmplify the low frequencies") );
+        cEffect->setToolTip( tr("Bass:\nAmplify the low frequencies") );
 
         QDoubleSpinBox *dBassGain = new QDoubleSpinBox( this );
         dBassGain->setRange( -99, 99 );
-        dBassGain->setSuffix( " " + i18nc("decibel","dB") );
+        dBassGain->setSuffix( " " + trc("decibel","dB") );
         connect( dBassGain, SIGNAL(valueChanged(double)), SIGNAL(optionsChanged()) );
         widgetsBox->addWidget( dBassGain );
 
@@ -174,11 +174,11 @@ void SoxEffectWidget::effectChanged( int index )
     }
     else if( effect == "treble" )
     {
-        cEffect->setToolTip( i18n("Treble:\nAmplify the high frequencies") );
+        cEffect->setToolTip( tr("Treble:\nAmplify the high frequencies") );
 
         QDoubleSpinBox *dTrebleGain = new QDoubleSpinBox( this );
         dTrebleGain->setRange( -99, 99 );
-        dTrebleGain->setSuffix( " " + i18nc("decibel","dB") );
+        dTrebleGain->setSuffix( " " + trc("decibel","dB") );
         connect( dTrebleGain, SIGNAL(valueChanged(double)), SIGNAL(optionsChanged()) );
         widgetsBox->addWidget( dTrebleGain );
 
@@ -187,7 +187,7 @@ void SoxEffectWidget::effectChanged( int index )
         widgets.append( (QWidget*)dTrebleGain );
     }
 
-    pAdd->setEnabled( cEffect->currentText() != i18n("Disabled") );
+    pAdd->setEnabled( cEffect->currentText() != tr("Disabled") );
 }
 
 SoxFilterOptions::EffectData SoxEffectWidget::currentEffectOptions()

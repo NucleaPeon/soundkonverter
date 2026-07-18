@@ -5,8 +5,8 @@
 #include <QLayout>
 #include <QString>
 #include <QAbstractItemView>
-#include <KIcon>
-#include <KPushButton>
+#include <QIcon>
+#include <QPushButton>
 #include <KComboBox>
 
 
@@ -53,7 +53,7 @@ void ComboButton::balanceSize()
 void ComboButton::repaintButton()
 {
     m_button->setText( m_box->currentText() );
-    m_button->setIcon( KIcon(m_box->itemIcon(m_box->currentIndex())) );
+    m_button->setIcon( QIcon(m_box->itemIcon(m_box->currentIndex())) );
     balanceSize();
 }
 
@@ -65,7 +65,7 @@ void ComboButton::insertItem( const QString &text, int index )
     repaintButton();
 }
 
-void ComboButton::insertItem( const KIcon &icon, const QString &text, int index )
+void ComboButton::insertItem( const QIcon &icon, const QString &text, int index )
 {
     if( index == -1 ) index = m_box->count();
     m_box->insertItem( index, icon, text );

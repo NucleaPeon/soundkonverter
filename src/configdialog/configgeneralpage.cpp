@@ -16,8 +16,8 @@
 #include <QLocale>
 #include <KComboBox>
 #include <KLineEdit>
-#include <KPushButton>
-#include <KFileDialog>
+#include <QPushButton>
+#include <QFileDialog>
 #include <KIntSpinBox>
 
 #include <QLayout>
@@ -40,7 +40,7 @@ ConfigGeneralPage::ConfigGeneralPage( Config *_config, QWidget *parent )
     QFont groupFont;
     groupFont.setBold( true );
 
-    QLabel *lUserInterface = new QLabel( i18n("User interface"), this );
+    QLabel *lUserInterface = new QLabel( tr("User interface"), this );
     lUserInterface->setFont( groupFont );
     box->addWidget( lUserInterface );
 
@@ -49,12 +49,12 @@ ConfigGeneralPage::ConfigGeneralPage( Config *_config, QWidget *parent )
     QHBoxLayout *startTabBox = new QHBoxLayout();
     startTabBox->addSpacing( spacingOffset );
     box->addLayout( startTabBox );
-    QLabel *lStartTab = new QLabel( i18n("Start in Mode:"), this );
+    QLabel *lStartTab = new QLabel( tr("Start in Mode:"), this );
     startTabBox->addWidget( lStartTab );
     cStartTab = new KComboBox( this );
-    cStartTab->addItem( i18n("Last used") );
-    cStartTab->addItem( i18n("Simple") );
-    cStartTab->addItem( i18n("Detailed") );
+    cStartTab->addItem( tr("Last used") );
+    cStartTab->addItem( tr("Simple") );
+    cStartTab->addItem( tr("Detailed") );
     cStartTab->setCurrentIndex( config->data.general.startTab );
     startTabBox->addWidget( cStartTab );
     connect( cStartTab, SIGNAL(activated(int)), this, SLOT(somethingChanged()) );
@@ -64,25 +64,25 @@ ConfigGeneralPage::ConfigGeneralPage( Config *_config, QWidget *parent )
     QHBoxLayout *defaultProfileBox = new QHBoxLayout();
     defaultProfileBox->addSpacing( spacingOffset );
     box->addLayout( defaultProfileBox );
-    QLabel *lDefaultProfile = new QLabel( i18n("Default profile:"), this );
+    QLabel *lDefaultProfile = new QLabel( tr("Default profile:"), this );
     defaultProfileBox->addWidget( lDefaultProfile );
     cDefaultProfile = new KComboBox( this );
     QStringList sDefaultProfile;
-    sDefaultProfile += i18n("Last used");
-    sDefaultProfile += i18n("Very low");
-    sDefaultProfile += i18n("Low");
-    sDefaultProfile += i18n("Medium");
-    sDefaultProfile += i18n("High");
-    sDefaultProfile += i18n("Very high");
-    sDefaultProfile += i18n("Lossless");
-//     sDefaultProfile += i18n("Hybrid"); // currently unused
+    sDefaultProfile += tr("Last used");
+    sDefaultProfile += tr("Very low");
+    sDefaultProfile += tr("Low");
+    sDefaultProfile += tr("Medium");
+    sDefaultProfile += tr("High");
+    sDefaultProfile += tr("Very high");
+    sDefaultProfile += tr("Lossless");
+//     sDefaultProfile += tr("Hybrid"); // currently unused
     sDefaultProfile += config->customProfiles();
     cDefaultProfile->addItems( sDefaultProfile );
     cDefaultProfile->setCurrentIndex( cDefaultProfile->findText(config->data.general.defaultProfile) );
     defaultProfileBox->addWidget( cDefaultProfile );
     connect( cDefaultProfile, SIGNAL(activated(int)), this, SLOT(profileChanged()) );
     connect( cDefaultProfile, SIGNAL(activated(int)), this, SLOT(somethingChanged()) );
-    QLabel *lDefaultFormat = new QLabel( i18n("Default format:"), this );
+    QLabel *lDefaultFormat = new QLabel( tr("Default format:"), this );
     defaultProfileBox->addWidget( lDefaultFormat );
     cDefaultFormat = new KComboBox( this );
     cDefaultFormat->setCurrentIndex( cDefaultFormat->findText(config->data.general.defaultFormat) );
@@ -92,7 +92,7 @@ ConfigGeneralPage::ConfigGeneralPage( Config *_config, QWidget *parent )
 
     box->addSpacing( spacingBig );
 
-    QLabel *lConversion = new QLabel( i18n("Conversion"), this );
+    QLabel *lConversion = new QLabel( tr("Conversion"), this );
     lConversion->setFont( groupFont );
     box->addWidget( lConversion );
 
@@ -100,11 +100,11 @@ ConfigGeneralPage::ConfigGeneralPage( Config *_config, QWidget *parent )
 
 //     QHBoxLayout *priorityBox = new QHBoxLayout();
 //     box->addLayout( priorityBox );
-//     QLabel *lPriority = new QLabel( i18n("Process priority of the backends:"), this );
+//     QLabel *lPriority = new QLabel( tr("Process priority of the backends:"), this );
 //     priorityBox->addWidget( lPriority );
 //     cPriority = new KComboBox( this );
-//     sPriority += i18n("Normal");
-//     sPriority += i18n("Low");
+//     sPriority += tr("Normal");
+//     sPriority += tr("Low");
 //     cPriority->addItems( sPriority );
 //     cPriority->setCurrentIndex( config->data.general.priority / 10 ); // NOTE that just works for 'normal' and 'low'
 //     priorityBox->addWidget( cPriority );
@@ -115,13 +115,13 @@ ConfigGeneralPage::ConfigGeneralPage( Config *_config, QWidget *parent )
     QHBoxLayout *conflictHandlingBox = new QHBoxLayout();
     conflictHandlingBox->addSpacing( spacingOffset );
     box->addLayout( conflictHandlingBox );
-    QLabel *lConflictHandling = new QLabel( i18n("Conflict handling:"), this );
+    QLabel *lConflictHandling = new QLabel( tr("Conflict handling:"), this );
     conflictHandlingBox->addWidget( lConflictHandling );
     cConflictHandling = new KComboBox( this );
-    cConflictHandling->addItem( i18n("Generate new file name") );
-    cConflictHandling->addItem( i18n("Skip file") );
-//     cConflictHandling->addItem( i18n("Overwrite file") );
-    cConflictHandling->setToolTip( i18n("Do that if the output file already exists") );
+    cConflictHandling->addItem( tr("Generate new file name") );
+    cConflictHandling->addItem( tr("Skip file") );
+//     cConflictHandling->addItem( tr("Overwrite file") );
+    cConflictHandling->setToolTip( tr("Do that if the output file already exists") );
     cConflictHandling->setCurrentIndex( (int)config->data.general.conflictHandling );
     conflictHandlingBox->addWidget( cConflictHandling );
     connect( cConflictHandling, SIGNAL(activated(int)), this, SLOT(somethingChanged()) );
@@ -131,10 +131,10 @@ ConfigGeneralPage::ConfigGeneralPage( Config *_config, QWidget *parent )
     QHBoxLayout *numFilesBox = new QHBoxLayout();
     numFilesBox->addSpacing( spacingOffset );
     box->addLayout( numFilesBox );
-    QLabel *lNumFiles = new QLabel( i18n("Number of files to convert at once:"), this );
+    QLabel *lNumFiles = new QLabel( tr("Number of files to convert at once:"), this );
     numFilesBox->addWidget( lNumFiles );
     iNumFiles = new KIntSpinBox( this );
-    iNumFiles->setToolTip( i18n("You shouldn't set this number higher than the amount of installed processor cores.\nThere have been %1 processor cores detected.", processorsCount) );
+    iNumFiles->setToolTip( tr("You shouldn't set this number higher than the amount of installed processor cores.\nThere have been %1 processor cores detected.", processorsCount) );
     iNumFiles->setRange( 1, 100 );
     iNumFiles->setValue( config->data.general.numFiles );
     numFilesBox->addWidget( iNumFiles );
@@ -147,8 +147,8 @@ ConfigGeneralPage::ConfigGeneralPage( Config *_config, QWidget *parent )
     QHBoxLayout *waitForAlbumGainBox = new QHBoxLayout();
     waitForAlbumGainBox->addSpacing( spacingOffset );
     box->addLayout( waitForAlbumGainBox );
-    cWaitForAlbumGain = new QCheckBox( i18n("Apply album gain to converted files"), this );
-    cWaitForAlbumGain->setToolTip( i18n("Keep songs of the same album waiting in file list in order to apply album gain to all files.") );
+    cWaitForAlbumGain = new QCheckBox( tr("Apply album gain to converted files"), this );
+    cWaitForAlbumGain->setToolTip( tr("Keep songs of the same album waiting in file list in order to apply album gain to all files.") );
     cWaitForAlbumGain->setChecked( config->data.general.waitForAlbumGain );
     waitForAlbumGainBox->addWidget( cWaitForAlbumGain );
     connect( cWaitForAlbumGain, SIGNAL(toggled(bool)), this, SLOT(somethingChanged()) );
@@ -158,15 +158,15 @@ ConfigGeneralPage::ConfigGeneralPage( Config *_config, QWidget *parent )
     QHBoxLayout *copyIfSameCodecBox = new QHBoxLayout();
     copyIfSameCodecBox->addSpacing( spacingOffset );
     box->addLayout( copyIfSameCodecBox );
-    cCopyIfSameCodec = new QCheckBox( i18n("Copy files instead of converting to the same file format"), this );
-    cCopyIfSameCodec->setToolTip( i18n("If the input and the output file format are the same, copy the files instead of re-encoding them.") );
+    cCopyIfSameCodec = new QCheckBox( tr("Copy files instead of converting to the same file format"), this );
+    cCopyIfSameCodec->setToolTip( tr("If the input and the output file format are the same, copy the files instead of re-encoding them.") );
     cCopyIfSameCodec->setChecked( config->data.general.copyIfSameCodec );
     copyIfSameCodecBox->addWidget( cCopyIfSameCodec );
     connect( cCopyIfSameCodec, SIGNAL(toggled(bool)), this, SLOT(somethingChanged()) );
 
     box->addSpacing( spacingBig );
 
-    QLabel *lReplayGainTool = new QLabel( i18n("Replay Gain tool"), this );
+    QLabel *lReplayGainTool = new QLabel( tr("Replay Gain tool"), this );
     lReplayGainTool->setFont( groupFont );
     box->addWidget( lReplayGainTool );
 
@@ -175,12 +175,12 @@ ConfigGeneralPage::ConfigGeneralPage( Config *_config, QWidget *parent )
     QHBoxLayout *replayGainGroupingBox = new QHBoxLayout();
     replayGainGroupingBox->addSpacing( spacingOffset );
     box->addLayout( replayGainGroupingBox );
-    QLabel* lReplayGainGrouping = new QLabel( i18n("Group files in the Replay Gain tool by:"), this );
+    QLabel* lReplayGainGrouping = new QLabel( tr("Group files in the Replay Gain tool by:"), this );
     replayGainGroupingBox->addWidget( lReplayGainGrouping );
     cReplayGainGrouping = new KComboBox( this );
-    cReplayGainGrouping->addItem( i18nc("Group files in the Replay Gain tool by","Album tags and directories") );
-    cReplayGainGrouping->addItem( i18nc("Group files in the Replay Gain tool by","Album tags only") );
-    cReplayGainGrouping->addItem( i18nc("Group files in the Replay Gain tool by","Directories only") );
+    cReplayGainGrouping->addItem( trc("Group files in the Replay Gain tool by","Album tags and directories") );
+    cReplayGainGrouping->addItem( trc("Group files in the Replay Gain tool by","Album tags only") );
+    cReplayGainGrouping->addItem( trc("Group files in the Replay Gain tool by","Directories only") );
     cReplayGainGrouping->setCurrentIndex( (int)config->data.general.replayGainGrouping );
     replayGainGroupingBox->addWidget( cReplayGainGrouping );
     connect( cReplayGainGrouping, SIGNAL(activated(int)), this, SLOT(somethingChanged()) );
@@ -190,10 +190,10 @@ ConfigGeneralPage::ConfigGeneralPage( Config *_config, QWidget *parent )
     QHBoxLayout *numReplayGainFilesBox = new QHBoxLayout();
     numReplayGainFilesBox->addSpacing( spacingOffset );
     box->addLayout( numReplayGainFilesBox );
-    QLabel *lNumReplayGainFiles = new QLabel( i18n("Number of items to process at once:"), this );
+    QLabel *lNumReplayGainFiles = new QLabel( tr("Number of items to process at once:"), this );
     numReplayGainFilesBox->addWidget( lNumReplayGainFiles );
     iNumReplayGainFiles = new KIntSpinBox( this );
-    iNumReplayGainFiles->setToolTip( i18n("You shouldn't set this number higher than the amount of installed processor cores.\nThere have been %1 processor cores detected.", processorsCount) );
+    iNumReplayGainFiles->setToolTip( tr("You shouldn't set this number higher than the amount of installed processor cores.\nThere have been %1 processor cores detected.", processorsCount) );
     iNumReplayGainFiles->setRange( 1, 100 );
     iNumReplayGainFiles->setValue( config->data.general.numReplayGainFiles );
     numReplayGainFilesBox->addWidget( iNumReplayGainFiles );
@@ -263,23 +263,23 @@ void ConfigGeneralPage::profileChanged()
 
     cDefaultFormat->clear();
 
-    if( profile == i18n("Last used") )
+    if( profile == tr("Last used") )
     {
-        cDefaultFormat->addItem( i18n("Last used") );
+        cDefaultFormat->addItem( tr("Last used") );
     }
-    else if( profile == i18n("Very low") || profile == i18n("Low") || profile == i18n("Medium") || profile == i18n("High") || profile == i18n("Very high") )
+    else if( profile == tr("Very low") || profile == tr("Low") || profile == tr("Medium") || profile == tr("High") || profile == tr("Very high") )
     {
-        cDefaultFormat->addItem( i18n("Last used") );
+        cDefaultFormat->addItem( tr("Last used") );
         cDefaultFormat->addItems( config->pluginLoader()->formatList(PluginLoader::Encode,PluginLoader::Lossy) );
     }
-    else if( profile == i18n("Lossless") )
+    else if( profile == tr("Lossless") )
     {
-        cDefaultFormat->addItem( i18n("Last used") );
+        cDefaultFormat->addItem( tr("Last used") );
         cDefaultFormat->addItems( config->pluginLoader()->formatList(PluginLoader::Encode,PluginLoader::Lossless) );
     }
-    else if( profile == i18n("Hybrid") )
+    else if( profile == tr("Hybrid") )
     {
-        cDefaultFormat->addItem( i18n("Last used") );
+        cDefaultFormat->addItem( tr("Last used") );
         cDefaultFormat->addItems( config->pluginLoader()->formatList(PluginLoader::Encode,PluginLoader::Hybrid) );
     }
     else

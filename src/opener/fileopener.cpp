@@ -16,12 +16,12 @@
 
 #include <QApplication>
 #include <QLocale>
-#include <KPushButton>
+#include <QPushButton>
 #include <QLabel>
 #include <QLayout>
 #include <QBoxLayout>
 #include <KMessageBox>
-#include <KFileDialog>
+#include <QFileDialog>
 #include <QDir>
 #include <QIcon>
 
@@ -31,7 +31,7 @@ FileOpener::FileOpener( Config *_config, QWidget *parent, Qt::WindowFlags f )
     dialogAborted( false ),
     config( _config )
 {
-    setCaption( i18n("Add Files") );
+    setCaption( tr("Add Files") );
     setWindowIcon( QIcon("audio-x-generic") );
     setButtons( 0 );
 
@@ -52,12 +52,12 @@ FileOpener::FileOpener( Config *_config, QWidget *parent, Qt::WindowFlags f )
             continue;
         extensionFilter = "*." + extensionFilter;
         allFilter += extensionFilter;
-        filterList += extensionFilter + "|" + i18n("%1 files",format.replace("/","\\/"));
+        filterList += extensionFilter + "|" + tr("%1 files",format.replace("/","\\/").toLatin1());
     }
-    filterList.prepend( allFilter.join(" ") + "|" + i18n("All supported files") );
-    filterList += "*.*|" + i18n("All files");
+    filterList.prepend( allFilter.join(" ") + "|" + tr("All supported files") );
+    filterList += "*.*|" + tr("All files");
 
-    options = new Options( config, i18n("Select your desired output options and click on \"Ok\"."), widget );
+    options = new Options( config, tr("Select your desired output options and click on \"Ok\"."), widget );
     mainGrid->addWidget( options, 1, 0 );
 
     // add a horizontal box layout for the control elements
@@ -65,19 +65,19 @@ FileOpener::FileOpener( Config *_config, QWidget *parent, Qt::WindowFlags f )
     mainGrid->addLayout( controlBox, 2, 0 );
     controlBox->addStretch();
 
-    pAdd = new KPushButton( QIcon("dialog-ok"), i18n("Ok"), widget );
+    pAdd = new QPushButton( QIcon("dialog-ok"), tr("Ok"), widget );
     controlBox->addWidget( pAdd );
     connect( pAdd, SIGNAL(clicked()), this, SLOT(okClickedSlot()) );
-    pCancel = new KPushButton( QIcon("dialog-cancel"), i18n("Cancel"), widget );
+    pCancel = new QPushButton( QIcon("dialog-cancel"), tr("Cancel"), widget );
     controlBox->addWidget( pCancel );
     connect( pCancel, SIGNAL(clicked()), this, SLOT(reject()) );
 
     // add the control elements
-    formatHelp = new QLabel( "<a href=\"format-help\">" + i18n("Are you missing some file formats?") + "</a>", widget );
+    formatHelp = new QLabel( "<a href=\"format-help\">" + tr("Are you missing some file formats?") + "</a>", widget );
     connect( formatHelp, SIGNAL(linkActivated(const QString&)), this, SLOT(showHelp()) );
 
-    fileDialog = new KFileDialog( QUrl("kfiledialog:///soundkonverter-add-media"), filterList.join("\n"), this, formatHelp );
-    fileDialog->setWindowTitle( i18n("Add Files") );
+    fileDialog = new QFileDialog( QUrl("QFileDialog:///soundkonverter-add-media"), filterList.join("\n"), this, formatHelp );
+    fileDialog->setWindowTitle( tr("Add Files") );
     fileDialog->setMode( KFile::Files | KFile::ExistingOnly );
     connect( fileDialog, SIGNAL(accepted()), this, SLOT(fileDialogAccepted()) );
     connect( fileDialog, SIGNAL(rejected()), this, SLOT(reject()) );
@@ -140,7 +140,7 @@ void FileOpener::fileDialogAccepted()
             }
             else
             {
-                problems[codecName][1] += i18n("This file type is unknown to soundKonverter.\nMaybe you need to install an additional soundKonverter plugin.\nYou should have a look at your distribution's package manager for this.");
+                problems[codecName][1] += tr("This file type is unknown to soundKonverter.\nMaybe you need to install an additional soundKonverter plugin.\nYou should have a look at your distribution's package manager for this.");
             }
             urls.removeAt(i);
             i--;
@@ -180,7 +180,7 @@ void FileOpener::fileDialogAccepted()
             {
                 problem.affectedFiles += problems.value(problem.codecName).at(0).at(0);
                 problem.affectedFiles += problems.value(problem.codecName).at(0).at(1);
-                problem.affectedFiles += i18n("... and %1 more files",problems.value(problem.codecName).at(0).count()-2);
+                problem.affectedFiles += tr("... and %1 more files",problems.value(problem.codecName).at(0).count()-2);
             }
             problemList += problem;
         }
@@ -207,7 +207,7 @@ void FileOpener::okClickedSlot()
     }
     else
     {
-        KMessageBox::error( this, i18n("No conversion options selected.") );
+        KMessageBox::error( this, tr("No conversion options selected.") );
     }
 }
 

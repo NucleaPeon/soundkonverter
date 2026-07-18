@@ -19,7 +19,7 @@
 
 #include <QLocale>
 #include <QIcon>
-#include <KPushButton>
+#include <QPushButton>
 
 #include <QDialogButtonBox>
 
@@ -28,7 +28,7 @@ ConfigDialog::ConfigDialog( Config *_config, QWidget *parent/*, Page startPage*/
     config( _config )
 {
     setStandardButtons( QDialogButtonBox::Help | QDialogButtonBox::RestoreDefaults | QDialogButtonBox::Apply | QDialogButtonBox::Ok | QDialogButtonBox::Cancel );
-    setWindowTitle(i18n("Settings"));
+    setWindowTitle(tr("Settings"));
 
     generalPageChanged = false;
     advancedlPageChanged = false;
@@ -41,25 +41,25 @@ ConfigDialog::ConfigDialog( Config *_config, QWidget *parent/*, Page startPage*/
     connect( button(QDialogButtonBox::RestoreDefaults), SIGNAL(clicked()), this, SLOT(defaultClicked()) );
 
     configGeneralPage = new ConfigGeneralPage( config, this );
-    generalPage = addPage( qobject_cast<QWidget*>(configGeneralPage), i18n("General") );
+    generalPage = addPage( qobject_cast<QWidget*>(configGeneralPage), tr("General") );
     generalPage->setHeader( "" );
     generalPage->setIcon( QIcon("configure") );
     connect( configGeneralPage, SIGNAL(configChanged(bool)), this, SLOT(configChanged(bool)) );
 
     configAdvancedPage = new ConfigAdvancedPage( config, this );
-    advancedPage = addPage( qobject_cast<QWidget*>(configAdvancedPage), i18n("Advanced") );
+    advancedPage = addPage( qobject_cast<QWidget*>(configAdvancedPage), tr("Advanced") );
     advancedPage->setHeader( "" );
     advancedPage->setIcon( QIcon("preferences-desktop-gaming") );
     connect( configAdvancedPage, SIGNAL(configChanged(bool)), this, SLOT(configChanged(bool)) );
 
     configCoverArtPage = new ConfigCoverArtPage( config, this );
-    coverArtPage = addPage( qobject_cast<QWidget*>(configCoverArtPage), i18n("Cover art") );
+    coverArtPage = addPage( qobject_cast<QWidget*>(configCoverArtPage), tr("Cover art") );
     coverArtPage->setHeader( "" );
     coverArtPage->setIcon( QIcon("image-x-generic") );
     connect( configCoverArtPage, SIGNAL(configChanged(bool)), this, SLOT(configChanged(bool)) );
 
     configBackendsPage = new ConfigBackendsPage( config, this );
-    backendsPage = addPage( qobject_cast<QWidget*>(configBackendsPage), i18n("Backends") );
+    backendsPage = addPage( qobject_cast<QWidget*>(configBackendsPage), tr("Backends") );
     backendsPage->setHeader( "" );
     backendsPage->setIcon( QIcon("applications-system") );
     connect( configBackendsPage, SIGNAL(configChanged(bool)), this, SLOT(configChanged(bool)) );

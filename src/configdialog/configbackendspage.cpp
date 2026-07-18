@@ -15,10 +15,10 @@
 
 #include <QBoxLayout>
 #include <KComboBox>
-#include <KIcon>
-#include <KLocale>
+#include <QIcon>
+#include <QLocale>
 #include <KMessageBox>
-#include <KPushButton>
+#include <QPushButton>
 #include <QCheckBox>
 #include <QLabel>
 #include <QLayout>
@@ -42,28 +42,28 @@ BackendsListWidget::BackendsListWidget( const QString& _name, Config *_config, Q
     box->addLayout( arrowBox );
 
     pUp = new QToolButton( this );
-    pUp->setIcon( KIcon("arrow-up") );
+    pUp->setIcon( QIcon("arrow-up") );
     pUp->setAutoRaise( true );
     pUp->setEnabled( false );
     connect( pUp, SIGNAL(clicked()), this, SLOT(up()) );
     arrowBox->addWidget( pUp );
 
     pDown = new QToolButton( this );
-    pDown->setIcon( KIcon("arrow-down") );
+    pDown->setIcon( QIcon("arrow-down") );
     pDown->setAutoRaise( true );
     pDown->setEnabled( false );
     connect( pDown, SIGNAL(clicked()), this, SLOT(down()) );
     arrowBox->addWidget( pDown );
 
     pConfigure = new QToolButton( this );
-    pConfigure->setIcon( KIcon("configure") );
+    pConfigure->setIcon( QIcon("configure") );
     pConfigure->setAutoRaise( true );
     pConfigure->setEnabled( false );
     connect( pConfigure, SIGNAL(clicked()), this, SLOT(configure()) );
     arrowBox->addWidget( pConfigure );
 
     pInfo = new QToolButton( this );
-    pInfo->setIcon( KIcon("help-about") );
+    pInfo->setIcon( QIcon("help-about") );
     pInfo->setAutoRaise( true );
     pInfo->setEnabled( false );
     arrowBox->addWidget( pInfo );
@@ -253,7 +253,7 @@ ConfigBackendsPage::ConfigBackendsPage( Config *_config, QWidget *parent )
     ripperBox->setStretchFactor( cSelectorRipper, 1 );
     connect( cSelectorRipper, SIGNAL(activated(int)), this, SLOT(somethingChanged()) );
     connect( cSelectorRipper, SIGNAL(activated(const QString&)), this, SLOT(ripperChanged(const QString&)) );
-    pConfigureRipper = new KPushButton( KIcon("configure"), "", this );
+    pConfigureRipper = new QPushButton( QIcon("configure"), "", this );
     pConfigureRipper->setFixedSize( cSelectorRipper->sizeHint().height(), cSelectorRipper->sizeHint().height() );
     pConfigureRipper->setFlat( true );
     ripperBox->addWidget( pConfigureRipper );
@@ -288,7 +288,7 @@ ConfigBackendsPage::ConfigBackendsPage( Config *_config, QWidget *parent )
         filterCheckBoxes.append( newCheckBox );
         connect( newCheckBox, SIGNAL(stateChanged(int)), this, SLOT(somethingChanged()) );
 
-        KPushButton *newConfigButton = new KPushButton( KIcon("configure"), "", this );
+        QPushButton *newConfigButton = new QPushButton( QIcon("configure"), "", this );
         newConfigButton->setFixedSize( cSelectorRipper->sizeHint().height(), cSelectorRipper->sizeHint().height() );
         newConfigButton->setFlat( true );
         filterGrid->addWidget( newConfigButton, row, 2 );
@@ -356,7 +356,7 @@ ConfigBackendsPage::ConfigBackendsPage( Config *_config, QWidget *parent )
     optimizationsBox->addSpacing( spacingOffset );
     formatBox->addLayout( optimizationsBox );
     optimizationsBox->addStretch();
-    pShowOptimizations = new KPushButton( KIcon("games-solve"), i18n("Show possible optimizations"), this );
+    pShowOptimizations = new QPushButton( QIcon("games-solve"), i18n("Show possible optimizations"), this );
     optimizationsBox->addWidget( pShowOptimizations );
     connect( pShowOptimizations, SIGNAL(clicked()), this, SLOT(showOptimizations()) );
     optimizationsBox->addStretch();
@@ -577,7 +577,7 @@ void ConfigBackendsPage::configureRipper()
 void ConfigBackendsPage::configureFilter()
 {
     int i = 0;
-    foreach( const KPushButton *configButton, filterConfigButtons )
+    foreach( const QPushButton *configButton, filterConfigButtons )
     {
         if( configButton == QObject::sender() )
         {

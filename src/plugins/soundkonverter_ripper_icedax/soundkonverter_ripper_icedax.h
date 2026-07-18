@@ -4,7 +4,7 @@
 
 #include "../../core/ripperplugin.h"
 
-#include <KUrl>
+#include <QUrl>
 #include <KProcess>
 #include <QList>
 
@@ -28,8 +28,8 @@ public:
     bool hasInfo();
     void showInfo( QWidget *parent );
 
-    int rip( const QString& device, int track, int tracks, const KUrl& outputFile );
-    QStringList ripCommand( const QString& device, int track, int tracks, const KUrl& outputFile );
+    int rip( const QString& device, int track, int tracks, const QUrl& outputFile );
+    QStringList ripCommand( const QString& device, int track, int tracks, const QUrl& outputFile );
     float parseOutput( const QString& output, RipperPluginItem *ripperItem );
     float parseOutput( const QString& output );
 

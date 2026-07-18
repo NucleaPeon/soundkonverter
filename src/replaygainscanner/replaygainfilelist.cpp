@@ -5,16 +5,16 @@
 #include "config.h"
 #include "codecproblems.h"
 
-#include <KApplication>
+#include <QApplication>
 #include <QResizeEvent>
 #include <QGridLayout>
 #include <QProgressBar>
 #include <KMessageBox>
 #include <QDir>
 #include <QFileInfo>
-#include <KAction>
+#include <QAction>
 #include <QMenu>
-#include <KIcon>
+#include <QIcon>
 
 
 ReplayGainFileList::ReplayGainFileList( Config *_config, Logger *_logger, QWidget *parent )
@@ -33,9 +33,9 @@ ReplayGainFileList::ReplayGainFileList( Config *_config, Logger *_logger, QWidge
 
     setColumnCount( 3 );
     QStringList labels;
-    labels.append( i18n("File") );
-    labels.append( i18n("Track") );
-    labels.append( i18n("Album") );
+    labels.append( tr("File") );
+    labels.append( tr("Track") );
+    labels.append( tr("Album") );
     setHeaderLabels( labels );
 //     header()->setClickEnabled( false );
 
@@ -57,23 +57,23 @@ ReplayGainFileList::ReplayGainFileList( Config *_config, Logger *_logger, QWidge
     grid->addWidget( pScanStatus, 1, 1 );
     grid->setColumnStretch( 1, 2 );
 
-    collapseAction = new KAction( KIcon("view-process-all"), i18n("Collapse all"), this );
+    collapseAction = new QAction( QIcon("view-process-all"), tr("Collapse all"), this );
     collapseAction->setShortcut( Qt::CTRL | Qt::Key_Minus );
     connect( collapseAction, SIGNAL(triggered()), this, SLOT(collapseAll()) );
     addAction( collapseAction );
-    expandAction = new KAction( KIcon("view-process-all-tree"), i18n("Expand all"), this );
+    expandAction = new QAction( QIcon("view-process-all-tree"), tr("Expand all"), this );
     expandAction->setShortcut( Qt::CTRL | Qt::Key_Plus );
     connect( expandAction, SIGNAL(triggered()), this, SLOT(expandAll()) );
     addAction( expandAction );
-//     processAddAction = new KAction( KIcon("list-add"), i18n("Calculate Replay Gain"), this );
+//     processAddAction = new QAction( QIcon("list-add"), tr("Calculate Replay Gain"), this );
 //     connect( processAddAction, SIGNAL(triggered()), this, SLOT(processAddSelectedItems()) );
-//     processRemoveAction = new KAction( KIcon("list-remove"), i18n("Remove Replay Gain"), this );
+//     processRemoveAction = new QAction( QIcon("list-remove"), tr("Remove Replay Gain"), this );
 //     connect( processRemoveAction, SIGNAL(triggered()), this, SLOT(processRemoveSelectedItems()) );
-//     killAction = new KAction( KIcon("process-stop"), i18n("Stop calculation"), this );
+//     killAction = new QAction( QIcon("process-stop"), tr("Stop calculation"), this );
 //     connect( killAction, SIGNAL(triggered()), this, SLOT(killSelectedItems()) );
-    moveAction = new KAction( KIcon ("folder-new"), i18n("Move to new Album"), this );
+    moveAction = new QAction( QIcon ("folder-new"), tr("Move to new Album"), this );
     connect( moveAction, SIGNAL(triggered()), this, SLOT(moveSelectedItems()) );
-    removeAction = new KAction( KIcon("edit-delete"), i18n("Remove"), this );
+    removeAction = new QAction( QIcon("edit-delete"), tr("Remove"), this );
     removeAction->setShortcut( QKeySequence::Delete );
     connect( removeAction, SIGNAL(triggered()), this, SLOT(removeSelectedItems()) );
     addAction( removeAction );
@@ -147,7 +147,7 @@ void ReplayGainFileList::dropEvent( QDropEvent *event )
             }
             else if( showMessage )
             {
-                KMessageBox::error( this, i18n("Some tracks can't be added to the album because either the codec or the sampling rate is different.") );
+                KMessageBox::error( this, tr("Some tracks can't be added to the album because either the codec or the sampling rate is different.") );
             }
         }
 
@@ -220,7 +220,7 @@ void ReplayGainFileList::dropEvent( QDropEvent *event )
                 }
                 else
                 {
-                    problems[codecName][1] += i18n("This file type is unknown to soundKonverter.\nMaybe you need to install an additional soundKonverter plugin.\nYou should have a look at your distribution's package manager for this.");
+                    problems[codecName][1] += tr("This file type is unknown to soundKonverter.\nMaybe you need to install an additional soundKonverter plugin.\nYou should have a look at your distribution's package manager for this.");
                 }
             }
         }
@@ -258,7 +258,7 @@ void ReplayGainFileList::dropEvent( QDropEvent *event )
                 {
                     problem.affectedFiles += problems.value(problem.codecName).at(0).at(0);
                     problem.affectedFiles += problems.value(problem.codecName).at(0).at(1);
-                    problem.affectedFiles += i18n("... and %1 more files",problems.value(problem.codecName).at(0).count()-3);
+                    problem.affectedFiles += tr("... and %1 more files",problems.value(problem.codecName).at(0).count()-3);
                 }
                 problemList += problem;
             }
@@ -1080,7 +1080,7 @@ void ReplayGainFileList::moveSelectedItems()
         {
             newAlbumItem = new ReplayGainFileListItem( this );
             newAlbumItem->type = ReplayGainFileListItem::Album;
-            newAlbumItem->albumName = i18n("New album");
+            newAlbumItem->albumName = tr("New album");
             newAlbumItem->codecName = item->codecName;
             newAlbumItem->samplingRate = item->samplingRate;
             newAlbumItem->url = QUrl(item->url.directory());

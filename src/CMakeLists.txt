@@ -190,6 +190,49 @@ set(soundkonverter_SRCS
    progressindicator.cpp
    outputdirectory.cpp
    aboutplugins.cpp
+
+   configdialog/configdialog.h
+   configdialog/configpagebase.h
+   configdialog/configgeneralpage.h
+   configdialog/configbackendspage.h
+   configdialog/configadvancedpage.h
+   configdialog/configcoverartpage.h
+   metadata/tagengine.h
+   metadata/MetaReplayGain.h
+   opener/fileopener.h
+   opener/diropener.h
+   opener/cdopener.h
+   opener/urlopener.h
+   opener/playlistopener.h
+   replaygainscanner/replaygainscanner.h
+   replaygainscanner/replaygainfilelist.h
+   replaygainscanner/replaygainfilelistitem.h
+   replaygainscanner/replaygainprocessor.h
+   global.h
+   soundkonverter.h
+   soundkonverterapp.h
+   soundkonverterview.h
+   codecproblems.h
+   codecoptimizations.h
+   combobutton.h
+   config.h
+   conversionoptionsmanager.h
+   convert.h
+   convertitem.h
+   filelist.h
+   filelistitem.h
+   logger.h
+   logviewer.h
+   options.h
+   optionssimple.h
+   optionsdetailed.h
+   optionseditor.h
+   optionslayer.h
+   pluginloader.h
+   progressindicator.h
+   outputdirectory.h
+   aboutplugins.h
+   version.h
 )
 
 add_executable(${PROJECT_NAME} ${soundkonverter_SRCS})
