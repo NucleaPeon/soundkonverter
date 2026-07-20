@@ -8,7 +8,8 @@
 #include <QDomElement>
 #include <QTime>
 #include <solid/device.h>
-#include <KStandardDirs>
+#include <QStandardPaths>
+#include <QRegularExpression>
 
 
 Config::Config( Logger *_logger, QObject *parent )
@@ -42,9 +43,9 @@ void Config::load()
     data.app.configVersion = group.readEntry( "configVersion", 0 );
     data.general.startTab = group.readEntry( "startTab", 0 );
     data.general.lastTab = group.readEntry( "lastTab", 0 );
-    data.general.defaultProfile = group.readEntry( "defaultProfile", i18n("Last used") );
-    data.general.lastProfile = group.readEntry( "lastProfile", i18n("High") );
-    data.general.defaultFormat = group.readEntry( "defaultFormat", i18n("Last used") );
+    data.general.defaultProfile = group.readEntry( "defaultProfile", tr("Last used") );
+    data.general.lastProfile = group.readEntry( "lastProfile", tr("High") );
+    data.general.defaultFormat = group.readEntry( "defaultFormat", tr("Last used") );
     data.general.lastFormat = group.readEntry( "lastFormat", "ogg vorbis" );
     data.general.lastOutputDirectoryMode = group.readEntry( "lastOutputDirectoryMode", 0 );
     data.general.specifyOutputDirectory = group.readEntry( "specifyOutputDirectory", QDir::homePath() + "/soundKonverter" );
@@ -95,7 +96,7 @@ void Config::load()
         {
             QTextStream t( &chkdf );
             QString s = t.readLine();
-            QRegExp rxlen( "^(?:\\S+)(?:\\s+)(?:\\s+)(\\d+)(?:\\s+)(\\d+)(?:\\s+)(\\d+)(?:\\s+)(\\d+)" );
+            QRegularExpression rxlen( "^(?:\\S+)(?:\\s+)(?:\\s+)(\\d+)(?:\\s+)(\\d+)(?:\\s+)(\\d+)(?:\\s+)(\\d+)" );
             if( s.contains(rxlen) )
             {
                 data.advanced.sharedMemorySize = rxlen.cap(1).toInt();
@@ -111,7 +112,7 @@ void Config::load()
     group = conf->group( "CoverArt" );
     data.coverArt.writeCovers = group.readEntry( "writeCovers", 1 );
     data.coverArt.writeCoverName = group.readEntry( "writeCoverName", 0 );
-    data.coverArt.writeCoverDefaultName = group.readEntry( "writeCoverDefaultName", i18nc("cover file name","cover") );
+    data.coverArt.writeCoverDefaultName = group.readEntry( "writeCoverDefaultName", trc("cover file name","cover") );
 
     group = conf->group( "Backends" );
     formats = group.readEntry( "formats", QStringList() );
@@ -231,7 +232,7 @@ void Config::load()
         const bool internalReplayGainEnabled = pPluginLoader->hasCodecInternalReplayGain(format);
         if( internalReplayGainEnabled )
         {
-            enabledPlugins += i18n("Try internal");
+            enabledPlugins += tr("Try internal");
         }
         newPlugins.clear();
         // register existing enabled plugins as such and list new enabled plugins
@@ -257,9 +258,9 @@ void Config::load()
             }
         }
         // append internal replay gain if it is enabled
-        if( internalReplayGainEnabled && !data.backends.codecs.at(codecIndex).replaygain.contains(i18n("Try internal")) )
+        if( internalReplayGainEnabled && !data.backends.codecs.at(codecIndex).replaygain.contains(tr("Try internal")) )
         {
-            data.backends.codecs[codecIndex].replaygain += i18n("Try internal");
+            data.backends.codecs[codecIndex].replaygain += tr("Try internal");
         }
         // sort new enabled plugins and append them to the replay gain list
         newPlugins.sort();
@@ -328,7 +329,7 @@ void Config::load()
         if( QFile::exists(src) && !QFile::exists(dest) )
         {
             QFile::copy(src, dest);
-            logger->log( 1000, i18n("Importing old profiles from: %1",src) );
+            logger->log( 1000, tr("Importing old profiles from: %1",src) );
         }
     }
 
@@ -394,36 +395,36 @@ void Config::load()
     QString profile;
     QStringList sFormat;
     QStringList sProfile;
-    sProfile += i18n("Last used");
-    sProfile += i18n("Very low");
-    sProfile += i18n("Low");
-    sProfile += i18n("Medium");
-    sProfile += i18n("High");
-    sProfile += i18n("Very high");
-    sProfile += i18n("Lossless");
-    sProfile += i18n("Hybrid");
+    sProfile += tr("Last used");
+    sProfile += tr("Very low");
+    sProfile += tr("Low");
+    sProfile += tr("Medium");
+    sProfile += tr("High");
+    sProfile += tr("Very high");
+    sProfile += tr("Lossless");
+    sProfile += tr("Hybrid");
     sProfile += customProfiles();
     if( sProfile.indexOf(data.general.defaultProfile) == -1 )
     {
-        data.general.defaultProfile = i18n("High");
+        data.general.defaultProfile = tr("High");
     }
     else
     {
         profile = data.general.defaultProfile;
 
-        if( profile == i18n("Very low") || profile == i18n("Low") || profile == i18n("Medium") || profile == i18n("High") || profile == i18n("Very high") )
+        if( profile == tr("Very low") || profile == tr("Low") || profile == tr("Medium") || profile == tr("High") || profile == tr("Very high") )
         {
             sFormat = pPluginLoader->formatList(PluginLoader::Encode,PluginLoader::Lossy);
         }
-        else if( profile == i18n("Lossless") )
+        else if( profile == tr("Lossless") )
         {
             sFormat = pPluginLoader->formatList(PluginLoader::Encode,PluginLoader::Lossless);
         }
-        else if( profile == i18n("Hybrid") )
+        else if( profile == tr("Hybrid") )
         {
             sFormat = pPluginLoader->formatList(PluginLoader::Encode,PluginLoader::Hybrid);
         }
-        else if( profile == i18n("User defined") )
+        else if( profile == tr("User defined") )
         {
             sFormat = pPluginLoader->formatList(PluginLoader::Encode,PluginLoader::CompressionType(PluginLoader::InferiorQuality|PluginLoader::Lossy|PluginLoader::Lossless|PluginLoader::Hybrid));
         }
@@ -435,7 +436,7 @@ void Config::load()
         }
         if( sFormat.indexOf(data.general.defaultFormat) == -1 )
         {
-            data.general.defaultFormat = i18n("Last used");
+            data.general.defaultFormat = tr("Last used");
         }
     }
 
@@ -588,7 +589,7 @@ void Config::writeServiceMenu()
     content += "Actions=ConvertWithSoundkonverter;\n\n";
 
     content += "[Desktop Action ConvertWithSoundkonverter]\n";
-    content += "Name="+i18n("Convert with soundKonverter")+"\n";
+    content += "Name="+tr("Convert with soundKonverter")+"\n";
     content += "Icon=soundkonverter\n";
     content += "Exec=soundkonverter %F\n";
 
@@ -624,7 +625,7 @@ void Config::writeServiceMenu()
     content += "Actions=AddReplayGainWithSoundkonverter;\n\n";
 
     content += "[Desktop Action AddReplayGainWithSoundkonverter]\n";
-    content += "Name="+i18n("Add Replay Gain with soundKonverter")+"\n";
+    content += "Name="+tr("Add Replay Gain with soundKonverter")+"\n";
     content += "Icon=soundkonverter-replaygain\n";
     content += "Exec=soundkonverter --replaygain %F\n";
 

@@ -4,16 +4,19 @@
 #include "soundkonverter.h"
 #include "global.h"
 #include "version.h"
-
-#include <KMainWindow>
+#include <QObject>
+#include <QString>
 #include <QApplication>
+#include <QCommandLineParser>
+#include <QCommandLineOption>
 #include <KAboutData>
-#include <KCmdLineArgs>
-#include <KLocale>
+#include <QLocale>
 #include <KLocalizedString>
 
+
+
 static const char description[] =
-I18N_NOOP("soundKonverter is a frontend to various audio converters, Replay Gain tools and CD rippers.\n\nPlease file bug reports at https://github.com/dfaust/soundkonverter/issues");
+    "soundKonverter is a frontend to various audio converters, Replay Gain tools and CD rippers.\n\nPlease file bug reports at https://github.com/dfaust/soundkonverter/issues";
 
 using namespace SoundKonverter;
 
@@ -23,37 +26,45 @@ int main(int argc, char **argv)
     
     QString version = QString("%1.%2.%3").arg(Version::RELEASE, Version::MAJOR, Version::MINOR);
 
-    KAboutData about("soundkonverter", ki18n("soundKonverter").toString(), version.toLatin1(), ki18n(description).toString(),
-                     KAboutLicense::GPL, ki18n("(C) 2005-2017 Daniel Faust").toString(), KLocalizedString().toString(), "hessijames@gmail.com");
-    about.addAuthor( ki18n("Daniel Faust").toString(), "", "hessijames@gmail.com" );
-    about.addCredit( ki18n("David Vignoni").toString(), ki18n("Nuvola icon theme").toString(), 0, "http://www.icon-king.com" );
-    about.addCredit( ki18n("Scott Wheeler").toString(), ki18n("TagLib").toString(), "wheeler@kde.org", "http://ktown.kde.org/~wheeler" );
-    about.addCredit( ki18n("Marco Nelles").toString(), ki18n("Audex").toString(), 0, "http://opensource.maniatek.de/audex" );
-    about.addCredit( ki18n("Amarok developers").toString(), ki18n("Amarok").toString(), 0, "http://amarok.kde.org" );
-    about.addCredit( ki18n("All programmers of audio converters").toString(), ki18n("Backends").toString() );
-    about.addCredit( ki18n("Patrick Auernig").toString(), ki18n("Inital Port to KDE Frameworks 5").toString(), "patrick.auernig@gmail.com" );
-    about.addCredit( ki18n("Daniel Kettle").toString(), ki18n("Inital Port to Qt6").toString(), "initial.dann@gmail.com", "https://github.com/NucleaPeon");
-    KCmdLineArgs::init(argc, argv, &about);
+    QCommandLineParser parser = QCommandLineParser();
+    parser.addHelpOption();
+    parser.addVersionOption();
 
-    KCmdLineOptions options;
-    options.add( "replaygain", ki18n("Open the Replay Gain tool and add all given files") );
-    options.add( "rip <device>", ki18n("List all tracks on the cd drive <device>, 'auto' will search for a cd") );
-    options.add( "profile <profile>", ki18n("Add all files using the given profile") );
-    options.add( "format <format>", ki18n("Add all files using the given format") );
-    options.add( "output <directory>", ki18n("Output all files to <directory>") );
-    options.add( "invisible", ki18n("Start soundKonverter invisible") );
-    options.add( "autostart", ki18n("Start the conversion immediately (enabled when using '--invisible')") );
-    options.add( "autoclose", ki18n("Close soundKonverter after all files are converted (enabled when using '--invisible')") );
-    options.add( "command <command>", ki18n("Execute <command> after each file has been converted (%i=input file, %o=output file)") );
-    options.add( "file-list <path>", ki18n("Load the file list at <path> after starting soundKonverter") );
-    options.add( "+[files]", ki18n("Audio file(s) to append to the file list") );
-    KCmdLineArgs::addCmdLineOptions(options);
+    KAboutData about(
+        SOUNDKONVERTER_NAME,
+        i18n("soundKonverter"),
+        version.toLatin1(),
+        i18n(description),
+        KAboutLicense::GPL,
+        i18n("(C) 2005-2017 Daniel Faust"),
+        i18n("Audio Application"));
+    about.addAuthor( QObject::tr("Daniel Faust"), "", "hessijames@gmail.com" );
+    about.addCredit( QObject::tr("David Vignoni"), QObject::tr("Nuvola icon theme"), 0, "http://www.icon-king.com" );
+    about.addCredit( QObject::tr("Scott Wheeler"), QObject::tr("TagLib"), "wheeler@kde.org", "http://ktown.kde.org/~wheeler" );
+    about.addCredit( QObject::tr("Marco Nelles"), QObject::tr("Audex"), 0, "http://opensource.maniatek.de/audex" );
+    about.addCredit( QObject::tr("Amarok developers"), QObject::tr("Amarok"), 0, "http://amarok.kde.org" );
+    about.addCredit( QObject::tr("All programmers of audio converters"), QObject::tr("Backends") );
+    about.addCredit( QObject::tr("Patrick Auernig"), QObject::tr("Inital Port to KDE Frameworks 5"), "patrick.auernig@gmail.com" );
+    about.addCredit( QObject::tr("Daniel Kettle"), QObject::tr("Inital Port to Qt6"), "initial.dann@gmail.com", "https://github.com/NucleaPeon");
 
-    soundKonverterApp::addCmdLineOptions();
-    if( !soundKonverterApp::start() )
-    {
-        return 0;
-    }
+    parser.addOption(QCommandLineOption("replaygain", QObject::tr("Open the Replay Gain tool and add all given files")));
+    parser.addOption(QCommandLineOption("rip <device>", QObject::tr("List all tracks on the cd drive <device>, 'auto' will search for a cd")));
+    parser.addOption(QCommandLineOption("profile <profile>", QObject::tr("Add all files using the given profile")));
+    parser.addOption(QCommandLineOption("format <format>", QObject::tr("Add all files using the given format")));
+    parser.addOption(QCommandLineOption("output <directory>", QObject::tr("Output all files to <directory>")));
+    parser.addOption(QCommandLineOption("invisible", QObject::tr("Start soundKonverter invisible")));
+    parser.addOption(QCommandLineOption("autostart", QObject::tr("Start the conversion immediately (enabled when using '--invisible')")));
+    parser.addOption(QCommandLineOption("autoclose", QObject::tr("Close soundKonverter after all files are converted (enabled when using '--invisible')")));
+    parser.addOption(QCommandLineOption("command <command>", QObject::tr("Execute <command> after each file has been converted (%i=input file, %o=output file)")));
+    parser.addOption(QCommandLineOption("file-list <path>", QObject::tr("Load the file list at <path> after starting soundKonverter")));
+    parser.addOption(QCommandLineOption("+[files]", QObject::tr("Audio file(s) to append to the file list")));
+
+
+    // soundKonverterApp::addCmdLineOptions();
+    // if( !soundKonverterApp::start() )
+    // {
+    //     return 0;
+    // }
 
     soundKonverterApp app;
 

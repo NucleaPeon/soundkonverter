@@ -22,7 +22,7 @@ class QLabel;
 class ConversionOptions;
 class QDialog;
 class KFileWidget;
-class KPushButton;
+class QPushButton;
 class KUrlRequester;
 
 /**
@@ -51,9 +51,9 @@ private:
     QLabel *lSelector;
     QLabel *lOptions;
     QList<QUrl> urls;
-    KPushButton *pProceed;
-    KPushButton *pAdd;
-    KPushButton *pCancel;
+    QPushButton *pProceed;
+    QPushButton *pAdd;
+    QPushButton *pCancel;
 
 private slots:
     void proceedClickedSlot();

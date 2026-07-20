@@ -20,3 +20,4 @@ build/*.json
 *_autogen
 */build/*.qt
 */build/
+.qtcreator/

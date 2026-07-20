@@ -16,7 +16,7 @@
 
 #include <QApplication>
 #include <QLocale>
-#include <KPushButton>
+#include <QPushButton>
 #include <QLabel>
 #include <QLayout>
 #include <KMessageBox>
@@ -34,7 +34,7 @@ UrlOpener::UrlOpener( Config *_config, QWidget *parent, Qt::WindowFlags f )
     : QDialog( parent, f ),
     config( _config )
 {
-    setCaption( i18n("Add url") );
+    setCaption( tr("Add url") );
     setWindowIcon( QIcon("network-workgroup") );
     setButtons( 0 );
 
@@ -49,12 +49,12 @@ UrlOpener::UrlOpener( Config *_config, QWidget *parent, Qt::WindowFlags f )
     QGridLayout *topGrid = new QGridLayout( widget );
     mainGrid->addLayout( topGrid, 0, 0 );
 
-    lSelector = new QLabel( i18n("1. Enter url"), widget );
+    lSelector = new QLabel( tr("1. Enter url"), widget );
     QFont font;
     font.setBold( true );
     lSelector->setFont( font );
     topGrid->addWidget( lSelector, 0, 0 );
-    lOptions = new QLabel( i18n("2. Set conversion options"), widget );
+    lOptions = new QLabel( tr("2. Set conversion options"), widget );
     topGrid->addWidget( lOptions, 0, 1 );
 
     // draw a horizontal line
@@ -71,7 +71,7 @@ UrlOpener::UrlOpener( Config *_config, QWidget *parent, Qt::WindowFlags f )
     urlBox->addWidget( urlRequester );
     urlBox->addStretch();
 
-    options = new Options( config, i18n("Select your desired output options and click on \"Ok\"."), widget );
+    options = new Options( config, tr("Select your desired output options and click on \"Ok\"."), widget );
     mainGrid->addWidget( options, 2, 0 );
     adjustSize();
     options->hide();
@@ -82,14 +82,14 @@ UrlOpener::UrlOpener( Config *_config, QWidget *parent, Qt::WindowFlags f )
     mainGrid->addLayout( controlBox, 5, 0 );
     controlBox->addStretch();
 
-    pProceed = new KPushButton( QIcon("go-next"), i18n("Proceed"), widget );
+    pProceed = new QPushButton( QIcon("go-next"), tr("Proceed"), widget );
     controlBox->addWidget( pProceed );
     connect( pProceed, SIGNAL(clicked()), this, SLOT(proceedClickedSlot()) );
-    pAdd = new KPushButton( QIcon("dialog-ok"), i18n("Ok"), widget );
+    pAdd = new QPushButton( QIcon("dialog-ok"), tr("Ok"), widget );
     controlBox->addWidget( pAdd );
     pAdd->hide();
     connect( pAdd, SIGNAL(clicked()), this, SLOT(okClickedSlot()) );
-    pCancel = new KPushButton( QIcon("dialog-cancel"), i18n("Cancel"), widget );
+    pCancel = new QPushButton( QIcon("dialog-cancel"), tr("Cancel"), widget );
     controlBox->addWidget( pCancel );
     connect( pCancel, SIGNAL(clicked()), this, SLOT(reject()) );
 
@@ -115,7 +115,7 @@ void UrlOpener::proceedClickedSlot()
     {
         if( !urlRequester->url().isValid() )
         {
-            KMessageBox::information( this, i18n("The Url you entered is invalid. Please try again.") );
+            KMessageBox::information( this, tr("The Url you entered is invalid. Please try again.") );
             return;
         }
 
@@ -147,7 +147,7 @@ void UrlOpener::okClickedSlot()
         }
         else
         {
-            KMessageBox::error( this, i18n("No conversion options selected.") );
+            KMessageBox::error( this, tr("No conversion options selected.") );
         }
     }
 }
