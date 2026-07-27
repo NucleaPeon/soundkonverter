@@ -19,7 +19,7 @@
 #include <QCheckBox>
 #include <QPushButton>
 #include <QFile>
-#include <KStandardDirs>
+#include <QStandardPaths>
 
 
 // FIXME when changing the output directory, check if the profile is a user defined and set it to 'User defined', if it is
@@ -236,7 +236,7 @@ void OptionsSimple::profileRemove()
     {
         QDomDocument list("soundkonverter_profilelist");
 
-        QFile listFile( KStandardDirs::locateLocal("data","soundkonverter/profiles.xml") );
+        QFile listFile( QStandardPaths::locateLocal("data","soundkonverter/profiles.xml") );
         if( listFile.open( QIODevice::ReadOnly ) )
         {
             if( list.setContent( &listFile ) )

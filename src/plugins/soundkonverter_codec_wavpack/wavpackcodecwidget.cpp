@@ -26,14 +26,14 @@ WavPackCodecWidget::WavPackCodecWidget()
     QHBoxLayout *topBox = new QHBoxLayout();
     grid->addLayout( topBox, 0, 0 );
 
-    QLabel *lCompressionLevel = new QLabel( i18n("Compression level:"), this );
+    QLabel *lCompressionLevel = new QLabel( tr("Compression level:"), this );
     topBox->addWidget( lCompressionLevel );
 
     cCompressionLevel = new KComboBox(  this );
-    cCompressionLevel->addItem( i18n("Fast") );
-    cCompressionLevel->addItem( i18n("Normal") );
-    cCompressionLevel->addItem( i18n("High quality") );
-    cCompressionLevel->addItem( i18n("Very high quality") );
+    cCompressionLevel->addItem( tr("Fast") );
+    cCompressionLevel->addItem( tr("Normal") );
+    cCompressionLevel->addItem( tr("High quality") );
+    cCompressionLevel->addItem( tr("Very high quality") );
     topBox->addWidget( cCompressionLevel );
 
     topBox->addStretch();
@@ -43,7 +43,7 @@ WavPackCodecWidget::WavPackCodecWidget()
     QHBoxLayout *cmdArgumentsBox = new QHBoxLayout();
     grid->addLayout( cmdArgumentsBox, 1, 0 );
 
-    cCmdArguments = new QCheckBox( i18n("Additional encoder arguments:"), this );
+    cCmdArguments = new QCheckBox( tr("Additional encoder arguments:"), this );
     cmdArgumentsBox->addWidget( cCmdArguments );
     lCmdArguments = new KLineEdit( this );
     lCmdArguments->setEnabled( false );
@@ -88,12 +88,12 @@ void WavPackCodecWidget::setCurrentFormat( const QString& format )
 
 QString WavPackCodecWidget::currentProfile()
 {
-    return i18n("Lossless");
+    return tr("Lossless");
 }
 
 bool WavPackCodecWidget::setCurrentProfile( const QString& profile )
 {
-    return profile == i18n("Lossless");
+    return profile == tr("Lossless");
 }
 
 int WavPackCodecWidget::currentDataRate()

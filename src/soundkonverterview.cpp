@@ -21,12 +21,11 @@
 #include "codecproblems.h"
 
 #include <QLocale>
-#include <KPushButton>
+#include <QPushButton>
 #include <QIcon>
-#include <KFileDialog>
-#include <KMenu>
-#include <KAction>
-#include <KActionMenu>
+#include <QFileDialog>
+#include <QMenu>
+#include <QAction>
 #include <KMessageBox>
 
 #include <QApplication>
@@ -79,11 +78,11 @@ soundKonverterView::soundKonverterView( Logger *_logger, Config *_config, CDMana
     //font.setWeight( QFont::DemiBold );
     font.setPointSize( font.pointSize() + 3 );
     cAdd->setFont( font );
-    cAdd->insertItem( QIcon("audio-x-generic"), i18n("Add files...") );
-    cAdd->insertItem( QIcon("folder"), i18n("Add folder...") );
-    cAdd->insertItem( QIcon("media-optical-audio"), i18n("Add CD tracks...") );
-    cAdd->insertItem( QIcon("network-workgroup"), i18n("Add url...") );
-    cAdd->insertItem( QIcon("view-media-playlist"), i18n("Add playlist...") );
+    cAdd->insertItem( QIcon("audio-x-generic"), tr("Add files...") );
+    cAdd->insertItem( QIcon("folder"), tr("Add folder...") );
+    cAdd->insertItem( QIcon("media-optical-audio"), tr("Add CD tracks...") );
+    cAdd->insertItem( QIcon("network-workgroup"), tr("Add url...") );
+    cAdd->insertItem( QIcon("view-media-playlist"), tr("Add playlist...") );
     cAdd->increaseHeight( 0.3*fontHeight );
     addBox->addWidget( cAdd, 0, Qt::AlignVCenter );
     connect( cAdd, SIGNAL(clicked(int)), this, SLOT(addClicked(int)) );
@@ -91,30 +90,30 @@ soundKonverterView::soundKonverterView( Logger *_logger, Config *_config, CDMana
 
     addBox->addSpacing( fontHeight );
 
-    startAction = new KAction( QIcon("system-run"), i18n("Start"), this );
+    startAction = new QAction( QIcon("system-run"), tr("Start"), this );
     connect( startAction, SIGNAL(triggered()), fileList, SLOT(startConversion()) );
 
-    pStart = new KPushButton( QIcon("system-run"), i18n("Start"), this );
+    pStart = new QPushButton( QIcon("system-run"), tr("Start"), this );
     pStart->setFixedHeight( pStart->size().height() );
     pStart->setEnabled( false );
     startAction->setEnabled( false );
     addBox->addWidget( pStart, 0, Qt::AlignVCenter );
     connect( pStart, SIGNAL(clicked()), fileList, SLOT(startConversion()) );
 
-    stopActionMenu = new KActionMenu( QIcon("process-stop"), i18n("Stop"), this );
+    stopActionMenu = new QActionMenu( QIcon("process-stop"), tr("Stop"), this );
     stopActionMenu->setDelayed( false );
-    killAction = new KAction( QIcon("flag-red"), i18n("Stop immediatelly"), this );
+    killAction = new QAction( QIcon("flag-red"), tr("Stop immediatelly"), this );
     stopActionMenu->addAction( killAction );
     connect( killAction, SIGNAL(triggered()), fileList, SLOT(killConversion()) );
-    stopAction = new KAction( QIcon("flag-yellow"), i18n("Stop after current conversions are completed"), this );
+    stopAction = new QAction( QIcon("flag-yellow"), tr("Stop after current conversions are completed"), this );
     stopActionMenu->addAction( stopAction );
     connect( stopAction, SIGNAL(triggered()), fileList, SLOT(stopConversion()) );
-    continueAction = new KAction( QIcon("flag-green"), i18n("Continue after current conversions are completed"), this );
+    continueAction = new QAction( QIcon("flag-green"), tr("Continue after current conversions are completed"), this );
     stopActionMenu->addAction( continueAction );
     connect( continueAction, SIGNAL(triggered()), fileList, SLOT(continueConversion()) );
     queueModeChanged( true );
 
-    pStop = new KPushButton( QIcon("process-stop"), i18n("Stop"), this );
+    pStop = new QPushButton( QIcon("process-stop"), tr("Stop"), this );
     pStop->setFixedHeight( pStop->size().height() );
     pStop->hide();
     stopActionMenu->setEnabled( false );
@@ -260,7 +259,7 @@ bool soundKonverterView::showCdDialog( const QString& device, QString _profile, 
     }
     else
     {
-        KMessageBox::error( this, i18n("No CD device found") );
+        KMessageBox::error( this, tr("No CD device found") );
     }
 
     delete dialog;
@@ -344,7 +343,7 @@ void soundKonverterView::addConvertFiles( const KUrl::List& urls, QString _profi
             }
             else
             {
-                problems[codecName][1] += i18n("This file type is unknown to soundKonverter.\nMaybe you need to install an additional soundKonverter plugin.\nYou should have a look at your distribution's package manager for this.");
+                problems[codecName][1] += tr("This file type is unknown to soundKonverter.\nMaybe you need to install an additional soundKonverter plugin.\nYou should have a look at your distribution's package manager for this.");
             }
         }
     }
@@ -366,7 +365,7 @@ void soundKonverterView::addConvertFiles( const KUrl::List& urls, QString _profi
             {
                 problem.affectedFiles += problems.value(problem.codecName).at(0).at(0);
                 problem.affectedFiles += problems.value(problem.codecName).at(0).at(1);
-                problem.affectedFiles += i18n("... and %1 more files",problems.value(problem.codecName).at(0).count()-3);
+                problem.affectedFiles += tr("... and %1 more files",problems.value(problem.codecName).at(0).count()-3);
             }
             problemList += problem;
         }
@@ -413,7 +412,7 @@ void soundKonverterView::addConvertFiles( const KUrl::List& urls, QString _profi
             else
             {
                 // FIXME error message, null pointer for conversion options
-//                 KMessageBox::error( this, i18n("Sorry, this shouldn't happen.\n\nPlease report this bug and attach the following error message:\n\nsoundKonverterView::addConvertFiles; Options::currentConversionOptions returned 0"), i18n("Internal error") );
+//                 KMessageBox::error( this, tr("Sorry, this shouldn't happen.\n\nPlease report this bug and attach the following error message:\n\nsoundKonverterView::addConvertFiles; Options::currentConversionOptions returned 0"), tr("Internal error") );
                 KMessageBox::error( this, "Sorry, this shouldn't happen.\n\nPlease report this bug and attach the following error message:\n\nsoundKonverterView::addConvertFiles; conversionOptions=0, isUserProfile="+QString::number(isUserProfile), "Internal error" );
             }
         }
@@ -530,39 +529,39 @@ void soundKonverterView::cleanupParameters( QString *profile, QString *format )
         }
     }
 
-    if( old_profile.toLower() == i18n("Very low").toLower() || old_profile.toLower() == "very low" || old_profile.toLower() == "very_low" )
+    if( old_profile.toLower() == tr("Very low").toLower() || old_profile.toLower() == "very low" || old_profile.toLower() == "very_low" )
     {
-        new_profile = i18n("Very low");
+        new_profile = tr("Very low");
         new_format = config->pluginLoader()->formatList(PluginLoader::Encode,PluginLoader::CompressionType(PluginLoader::InferiorQuality|PluginLoader::Lossy)).contains(new_format) ? new_format : "";
     }
-    else if( old_profile.toLower() == i18n("Low").toLower() || old_profile.toLower() == "low" )
+    else if( old_profile.toLower() == tr("Low").toLower() || old_profile.toLower() == "low" )
     {
-        new_profile = i18n("Low");
+        new_profile = tr("Low");
         new_format = config->pluginLoader()->formatList(PluginLoader::Encode,PluginLoader::CompressionType(PluginLoader::InferiorQuality|PluginLoader::Lossy)).contains(new_format) ? new_format : "";
     }
-    else if( old_profile.toLower() == i18n("Medium").toLower() || old_profile.toLower() == "medium" )
+    else if( old_profile.toLower() == tr("Medium").toLower() || old_profile.toLower() == "medium" )
     {
-        new_profile = i18n("Medium");
+        new_profile = tr("Medium");
         new_format = config->pluginLoader()->formatList(PluginLoader::Encode,PluginLoader::CompressionType(PluginLoader::InferiorQuality|PluginLoader::Lossy)).contains(new_format) ? new_format : "";
     }
-    else if( old_profile.toLower() == i18n("High").toLower() || old_profile.toLower() == "high" )
+    else if( old_profile.toLower() == tr("High").toLower() || old_profile.toLower() == "high" )
     {
-        new_profile = i18n("High");
+        new_profile = tr("High");
         new_format = config->pluginLoader()->formatList(PluginLoader::Encode,PluginLoader::CompressionType(PluginLoader::InferiorQuality|PluginLoader::Lossy)).contains(new_format) ? new_format : "";
     }
-    else if( old_profile.toLower() == i18n("Very high").toLower() || old_profile.toLower() == "very high" || old_profile.toLower() == "very_high" )
+    else if( old_profile.toLower() == tr("Very high").toLower() || old_profile.toLower() == "very high" || old_profile.toLower() == "very_high" )
     {
-        new_profile = i18n("Very high");
+        new_profile = tr("Very high");
         new_format = config->pluginLoader()->formatList(PluginLoader::Encode,PluginLoader::CompressionType(PluginLoader::InferiorQuality|PluginLoader::Lossy)).contains(new_format) ? new_format : "";
     }
-    else if( old_profile.toLower() == i18n("Lossless").toLower() || old_profile.toLower() == "lossless" )
+    else if( old_profile.toLower() == tr("Lossless").toLower() || old_profile.toLower() == "lossless" )
     {
-        new_profile = i18n("Lossless");
+        new_profile = tr("Lossless");
         new_format = config->pluginLoader()->formatList(PluginLoader::Encode,PluginLoader::Lossless).contains(new_format) ? new_format : "";
     }
-    else if( old_profile.toLower() == i18n("Hybrid").toLower() || old_profile.toLower() == "hybrid" )
+    else if( old_profile.toLower() == tr("Hybrid").toLower() || old_profile.toLower() == "hybrid" )
     {
-        new_profile = i18n("Hybrid");
+        new_profile = tr("Hybrid");
         new_format = config->pluginLoader()->formatList(PluginLoader::Encode,PluginLoader::Hybrid).contains(new_format) ? new_format : "";
     }
     else if( config->data.profiles.contains(old_profile) )

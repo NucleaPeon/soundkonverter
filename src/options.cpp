@@ -9,7 +9,7 @@
 #include <QLayout>
 
 #include <QLocale>
-#include <KTabWidget>
+#include <QTabWidget>
 
 
 Options::Options( Config *_config, const QString& text, QWidget *parent )
@@ -19,7 +19,7 @@ Options::Options( Config *_config, const QString& text, QWidget *parent )
     QGridLayout *gridLayout = new QGridLayout( this );
     gridLayout->setContentsMargins( 0, 0, 0, 0 );
 
-    tab = new KTabWidget( this );
+    tab = new QTabWidget( this );
     gridLayout->addWidget( tab, 0, 0 );
     connect( tab, SIGNAL(currentChanged(int)), this, SLOT(tabChanged(int)) );
 
@@ -40,7 +40,7 @@ Options::Options( Config *_config, const QString& text, QWidget *parent )
 
     QString format;
     const QStringList formats = config->pluginLoader()->formatList(PluginLoader::Encode,PluginLoader::CompressionType(PluginLoader::InferiorQuality|PluginLoader::Lossy|PluginLoader::Lossless|PluginLoader::Hybrid));
-    if( config->data.general.defaultFormat == i18n("Last used") || config->data.general.defaultFormat == "Last used" )
+    if( config->data.general.defaultFormat == tr("Last used") || config->data.general.defaultFormat == "Last used" )
     {
         format = config->data.general.lastFormat;
     }
@@ -61,7 +61,7 @@ Options::Options( Config *_config, const QString& text, QWidget *parent )
     optionsDetailed->setCurrentFormat( format );
 
     QString profile;
-    if( config->data.general.defaultProfile == i18n("Last used") || config->data.general.defaultProfile == "Last used" )
+    if( config->data.general.defaultProfile == tr("Last used") || config->data.general.defaultProfile == "Last used" )
     {
         profile = "soundkonverter_last_used";
     }
@@ -70,14 +70,14 @@ Options::Options( Config *_config, const QString& text, QWidget *parent )
         profile = config->data.general.defaultProfile;
     }
     if( profile.isEmpty() )
-        profile = i18n("High");
+        profile = tr("High");
 
     optionsDetailed->setCurrentProfile( profile );
 
     const int startTab = ( config->data.general.startTab == 0 ) ? config->data.general.lastTab : config->data.general.startTab - 1;
 
-    tab->addTab( optionsSimple, i18n("Simple") );
-    tab->addTab( optionsDetailed, i18n("Detailed") );
+    tab->addTab( optionsSimple, tr("Simple") );
+    tab->addTab( optionsDetailed, tr("Detailed") );
 
     tab->setCurrentIndex( startTab );
 }

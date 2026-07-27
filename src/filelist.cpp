@@ -14,7 +14,7 @@
 #include <QAction>
 // #include <QActioncollection.h>
 #include <KMessageBox>
-#include <KStandardDirs>
+#include <QStandardPaths>
 // #include <KDiskFreeSpaceInfo>
 #include <kmountpoint.h>
 // #include <KIO/Job>

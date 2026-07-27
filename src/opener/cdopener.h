@@ -37,10 +37,10 @@ class Options;
 class ConversionOptions;
 class QTreeWidget;
 class QPushButton;
-class KLineEdit;
-class KComboBox;
-class KIntSpinBox;
-class KTextEdit;
+class QLineEdit;
+class QComboBox;
+class QSpinBox;
+class QTextEdit;
 class QGroupBox;
 class QTreeWidgetItem;
 class QLabel;
@@ -146,17 +146,17 @@ private:
     QTreeWidget *trackList;
 
     /** A combobox for entering the artist or selecting VA of the whole CD */
-    KLineEdit *lArtist;
+    QLineEdit *lArtist;
     /** A lineedit for entering the album name */
-    KLineEdit *lAlbum;
+    QLineEdit *lAlbum;
     /** A spinbox for entering or selecting the disc number */
-    KIntSpinBox *iDisc;
+    QSpinBox *iDisc;
     /** A spinbox for entering or selecting the total disc number */
-    KIntSpinBox *iDiscTotal;
+    QSpinBox *iDiscTotal;
     /** A spinbox for entering or selecting the year of the album */
-    KIntSpinBox *iYear;
+    QSpinBox *iYear;
     /** A combobox for entering or selecting the genre of the album */
-    KComboBox *cGenre;
+    QComboBox *cGenre;
 
     /** The groupbox shows the selected track numbers */
     QGroupBox *tagGroupBox;
@@ -167,16 +167,16 @@ private:
     QPushButton *pTrackDown;
 
     /** A lineedit for entering the title of track */
-    KLineEdit *lTrackTitle;
+    QLineEdit *lTrackTitle;
     QPushButton *pTrackTitleEdit;
     /** A lineedit for entering the artist of a track */
-    KLineEdit *lTrackArtist;
+    QLineEdit *lTrackArtist;
     QPushButton *pTrackArtistEdit;
     /** A lineedit for entering the composer of a track */
-    KLineEdit *lTrackComposer;
+    QLineEdit *lTrackComposer;
     QPushButton *pTrackComposerEdit;
     /** A textedit for entering a comment for a track */
-    KTextEdit *tTrackComment;
+    QTextEdit *tTrackComment;
     QPushButton *pTrackCommentEdit;
 
     Phonon::AudioOutput *audioOutput;

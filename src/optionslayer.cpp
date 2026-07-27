@@ -11,8 +11,8 @@
 
 #include <QPushButton>
 #include <QIcon>
-#include <KMessageBox>
-#include <KApplication>
+#include <QMessageBox>
+#include <QApplication>
 
 
 OptionsLayer::OptionsLayer( Config *config, QWidget *parent )
@@ -136,7 +136,7 @@ void OptionsLayer::ok()
     }
     else
     {
-        KMessageBox::error( this, tr("No conversion options selected.") ); // possibly unneeded tr string
+        QMessageBox::error( this, tr("No conversion options selected.") ); // possibly unneeded tr string
     }
 }
 

@@ -15,12 +15,12 @@
 #include <QFrame>
 #include <QChar>
 #include <QIcon>
-#include <KComboBox>
-#include <KPushButton>
-#include <KInputDialog>
-#include <KMessageBox>
+#include <QComboBox>
+#include <QPushButton>
+#include <QInputDialog>
+#include <QMessageBox>
 #include <QFile>
-#include <KStandardDirs>
+#include <QStandardPaths>
 #include <QMenu>
 #include <QToolButton>
 
@@ -43,9 +43,9 @@ OptionsDetailed::OptionsDetailed( Config* _config, QWidget* parent )
     QHBoxLayout *topBox = new QHBoxLayout();
     grid->addLayout( topBox, 0, 0 );
 
-    QLabel *lFormat = new QLabel( i18n("Format:"), this );
+    QLabel *lFormat = new QLabel( tr("Format:"), this );
     topBox->addWidget( lFormat );
-    cFormat = new KComboBox( this );
+    cFormat = new QComboBox( this );
     topBox->addWidget( cFormat );
     cFormat->addItems( config->pluginLoader()->formatList(PluginLoader::Encode,PluginLoader::CompressionType(PluginLoader::InferiorQuality|PluginLoader::Lossy|PluginLoader::Lossless|PluginLoader::Hybrid)) );
     connect( cFormat, SIGNAL(activated(const QString&)), this, SLOT(formatChanged(const QString&)) );
@@ -53,14 +53,14 @@ OptionsDetailed::OptionsDetailed( Config* _config, QWidget* parent )
 
     topBox->addStretch();
 
-    lPlugin = new QLabel( i18n("Use Plugin:"), this );
+    lPlugin = new QLabel( tr("Use Plugin:"), this );
     topBox->addWidget( lPlugin );
-    cPlugin = new KComboBox( this );
+    cPlugin = new QComboBox( this );
     topBox->addWidget( cPlugin );
     cPlugin->setSizeAdjustPolicy( QComboBox::AdjustToContents );
     connect( cPlugin, SIGNAL(activated(const QString&)), this, SLOT(encoderChanged(const QString&)) );
     connect( cPlugin, SIGNAL(activated(const QString&)), this, SLOT(somethingChanged()) );
-    pConfigurePlugin = new KPushButton( QIcon("configure"), "", this );
+    pConfigurePlugin = new QPushButton( QIcon("configure"), "", this );
     pConfigurePlugin->setFixedSize( cPlugin->sizeHint().height(), cPlugin->sizeHint().height() );
     pConfigurePlugin->setFlat( true );
     topBox->addWidget( pConfigurePlugin );
@@ -118,7 +118,7 @@ OptionsDetailed::OptionsDetailed( Config* _config, QWidget* parent )
     QHBoxLayout *middleBox = new QHBoxLayout( );
     grid->addLayout( middleBox, gridRow++, 0 );
 
-    QLabel *lOutput = new QLabel( i18n("Destination:"), this );
+    QLabel *lOutput = new QLabel( tr("Destination:"), this );
     middleBox->addWidget( lOutput );
     outputDirectory = new OutputDirectory( config, this );
     middleBox->addWidget( outputDirectory );
@@ -126,24 +126,24 @@ OptionsDetailed::OptionsDetailed( Config* _config, QWidget* parent )
     QHBoxLayout *bottomBox = new QHBoxLayout();
     grid->addLayout( bottomBox, gridRow++, 0 );
 
-    cReplayGain = new QCheckBox( i18n("Calculate Replay Gain tags"), this );
+    cReplayGain = new QCheckBox( tr("Calculate Replay Gain tags"), this );
     bottomBox->addWidget( cReplayGain );
     //connect( cReplayGain, SIGNAL(toggled(bool)), this, SLOT(somethingChanged()) );
     bottomBox->addStretch();
     lEstimSize = new QLabel( QString(QChar(8776))+"? B / min." );
     lEstimSize->hide(); // hide for now because most plugins report inaccurate data
     bottomBox->addWidget( lEstimSize );
-    pProfileSave = new KPushButton( QIcon("document-save"), "", this );
+    pProfileSave = new QPushButton( QIcon("document-save"), "", this );
     bottomBox->addWidget( pProfileSave );
     pProfileSave->setFixedWidth( pProfileSave->height() );
-    pProfileSave->setToolTip( i18n("Save current options as a profile") );
+    pProfileSave->setToolTip( tr("Save current options as a profile") );
     connect( pProfileSave, SIGNAL(clicked()), this, SLOT(saveCustomProfile()) );
     pProfileLoad = new QToolButton( this );
     bottomBox->addWidget( pProfileLoad );
     pProfileLoad->setIcon( QIcon("document-open") );
     pProfileLoad->setPopupMode( QToolButton::InstantPopup );
     pProfileLoad->setFixedWidth( pProfileLoad->height() );
-    pProfileLoad->setToolTip( i18n("Load saved profiles") );
+    pProfileLoad->setToolTip( tr("Load saved profiles") );
 }
 
 OptionsDetailed::~OptionsDetailed()
@@ -256,17 +256,17 @@ void OptionsDetailed::formatChanged( const QString& format )
 
         if( !errorList.isEmpty() )
         {
-            errorList.prepend( i18n("Replay Gain is not supported for the %1 file format.\nPossible solutions are listed below.",cFormat->currentText()) );
+            errorList.prepend( tr("Replay Gain is not supported for the %1 file format.\nPossible solutions are listed below.",cFormat->currentText()) );
         }
         else
         {
-            errorList += i18n("Replay Gain is not supported for the %1 file format.\nPlease check your distribution's package manager in order to install an additional Replay Gain plugin.",cFormat->currentText());
+            errorList += tr("Replay Gain is not supported for the %1 file format.\nPlease check your distribution's package manager in order to install an additional Replay Gain plugin.",cFormat->currentText());
         }
         cReplayGain->setToolTip( errorList.join("\n\n") );
     }
     else
     {
-        cReplayGain->setToolTip( i18n("Replay Gain tags can tell your music player how loud a track is\nso it can adjust the volume to play all tracks with equal loudness.") );
+        cReplayGain->setToolTip( tr("Replay Gain tags can tell your music player how loud a track is\nso it can adjust the volume to play all tracks with equal loudness.") );
     }
 
     somethingChanged();
@@ -278,7 +278,7 @@ void OptionsDetailed::encoderChanged( const QString& encoder )
     if( !plugin )
     {
 //         TODO leads to crashes
-//         KMessageBox::error( this, i18n("Sorry, this shouldn't happen.\n\nPlease report this bug and attach the following error message:\n\nOptionsDetailed::encoderChanged; PluginLoader::codecPluginByName returned 0 for encoder: '%1'",encoder), i18n("Internal error") );
+//         QMessageBox::error( this, tr("Sorry, this shouldn't happen.\n\nPlease report this bug and attach the following error message:\n\nOptionsDetailed::encoderChanged; PluginLoader::codecPluginByName returned 0 for encoder: '%1'",encoder), tr("Internal error") );
         return;
     }
     if( wPlugin )
@@ -303,7 +303,7 @@ void OptionsDetailed::encoderChanged( const QString& encoder )
     pConfigurePlugin->setEnabled( plugin->isConfigSupported(BackendPlugin::Encoder,"") );
 
     if( pConfigurePlugin->isEnabled() )
-        pConfigurePlugin->setToolTip( i18n("Configure %1 ...",encoder) );
+        pConfigurePlugin->setToolTip( tr("Configure %1 ...",encoder) );
     else
         pConfigurePlugin->setToolTip( "" );
 }
@@ -319,7 +319,7 @@ void OptionsDetailed::somethingChanged()
     {
         const QString dataRateString = Global::prettyNumber(dataRate,"B");
         lEstimSize->setText( QString(QChar(8776))+" "+dataRateString+" / min." );
-        lEstimSize->setToolTip( i18n("Using the current conversion options will create files with approximately %1 per minute.",dataRateString) );
+        lEstimSize->setToolTip( tr("Using the current conversion options will create files with approximately %1 per minute.",dataRateString) );
     }
     else
     {
@@ -456,34 +456,34 @@ bool OptionsDetailed::saveCustomProfile( bool lastUsed )
         else
         {
             bool ok;
-            profileName = KInputDialog::getText( i18n("New profile"), i18n("Enter a name for the new profile:"), "", &ok );
+            profileName = QInputDialog::getText( tr("New profile"), tr("Enter a name for the new profile:"), "", &ok );
             if( !ok )
                 return false;
         }
 
         if( profileName.isEmpty() )
         {
-            KMessageBox::information( this, i18n("You cannot save a profile without a name."), i18n("Profile name is empty") );
+            QMessageBox::information( this, tr("You cannot save a profile without a name."), tr("Profile name is empty") );
             return false;
         }
 
         QStringList profiles;
-        profiles += i18n("Very low");
-        profiles += i18n("Low");
-        profiles += i18n("Medium");
-        profiles += i18n("High");
-        profiles += i18n("Very high");
-        profiles += i18n("Lossless");
-        profiles += i18n("Hybrid");
-        profiles += i18n("Last used");
+        profiles += tr("Very low");
+        profiles += tr("Low");
+        profiles += tr("Medium");
+        profiles += tr("High");
+        profiles += tr("Very high");
+        profiles += tr("Lossless");
+        profiles += tr("Hybrid");
+        profiles += tr("Last used");
         profiles += "Last used";
-        profiles += i18n("User defined");
+        profiles += tr("User defined");
         if( !lastUsed )
             profiles += "soundkonverter_last_used";
 
         if( profiles.contains(profileName) )
         {
-            KMessageBox::information( this, i18n("You cannot overwrite the built-in profiles."), i18n("Profile already exists") );
+            QMessageBox::information( this, tr("You cannot overwrite the built-in profiles."), tr("Profile already exists") );
             return false;
         }
 
@@ -491,7 +491,7 @@ bool OptionsDetailed::saveCustomProfile( bool lastUsed )
         QDomElement root;
         bool profileFound = false;
 
-        QFile listFile( KStandardDirs::locateLocal("data","soundkonverter/profiles.xml") );
+        QFile listFile( QStandardPaths::locate(QStandardPaths::AppDataLocation,"soundkonverter/profiles.xml") );
         if( listFile.open( QIODevice::ReadOnly ) )
         {
             if( list.setContent( &listFile ) )
@@ -506,11 +506,11 @@ bool OptionsDetailed::saveCustomProfile( bool lastUsed )
                         {
                             int ret;
                             if( lastUsed )
-                                ret = KMessageBox::Yes;
+                                ret = QMessageBox::Yes;
                             else
-                                ret = KMessageBox::questionYesNo( this, i18n("A profile with this name already exists.\n\nDo you want to overwrite the existing one?"), i18n("Profile already exists") );
+                                ret = QMessageBox::question(this, tr("A profile with this name already exists.\n\nDo you want to overwrite the existing one?"), tr("Profile already exists"), QMessageBox::Yes | QMessageBox::No );
 
-                            if( ret == KMessageBox::Yes )
+                            if( ret == QMessageBox::Yes )
                             {
                                 ConversionOptions *conversionOptions = currentConversionOptions( false );
                                 delete config->data.profiles[profileName];

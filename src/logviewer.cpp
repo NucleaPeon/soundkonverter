@@ -8,13 +8,13 @@
 
 #include <QLocale>
 #include <QIcon>
-#include <KPushButton>
-#include <KComboBox>
-#include <KTextEdit>
-#include <KFileDialog>
-#include <KMessageBox>
+#include <QPushButton>
+#include <QComboBox>
+#include <QTextEdit>
+#include <QFileDialog>
+#include <QMessageBox>
 
-#include <KGlobal>
+#include <QtGlobal>
 
 
 LogViewer::LogViewer( Logger* _logger, QWidget *parent, Qt::WindowFlags f )
@@ -26,13 +26,13 @@ LogViewer::LogViewer( Logger* _logger, QWidget *parent, Qt::WindowFlags f )
     connect( logger, SIGNAL(removedProcess(int)), this, SLOT(processRemoved(int)) );
     connect( logger, SIGNAL(updateProcess(int)), this, SLOT(updateProcess(int)) );
 
-    setCaption( i18n("Log Viewer") );
+    setCaption( tr("Log Viewer") );
     setWindowIcon( QIcon("view-list-text") );
     setButtons( QDialog::User1 | QDialog::User2 | QDialog::Close );
-    setButtonText( QDialog::User1, i18n("Update") );
+    setButtonText( QDialog::User1, tr("Update") );
     setButtonIcon( QDialog::User1, QIcon("view-refresh") );
     connect( this, SIGNAL(user1Clicked()), this, SLOT(refillLogs()) );
-    setButtonText( QDialog::User2, i18n("Save to file...") );
+    setButtonText( QDialog::User2, tr("Save to file...") );
     setButtonIcon( QDialog::User2, QIcon("document-save") );
     connect( this, SIGNAL(user2Clicked()), this, SLOT(save()) );
     setButtonFocus( QDialog::Close );
@@ -43,15 +43,15 @@ LogViewer::LogViewer( Logger* _logger, QWidget *parent, Qt::WindowFlags f )
 
     QHBoxLayout *topBox = new QHBoxLayout( widget );
     box->addLayout( topBox );
-    QLabel *lItem = new QLabel( i18n("Log file:") );
+    QLabel *lItem = new QLabel( tr("Log file:") );
     topBox->addWidget( lItem );
     topBox->setStretchFactor( lItem, 0 );
-    cItem = new KComboBox( this );
+    cItem = new QComboBox( this );
     topBox->addWidget( cItem );
     topBox->setStretchFactor( cItem, 1 );
     connect( cItem, SIGNAL(activated(int)), this, SLOT(itemChanged()) );
 
-    kLog = new KTextEdit( this );
+    kLog = new QTextEdit( this );
     kLog->setTabStopWidth( kLog->tabStopWidth()/2 );
     box->addWidget( kLog );
     kLog->setTextInteractionFlags( Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard );
@@ -59,14 +59,14 @@ LogViewer::LogViewer( Logger* _logger, QWidget *parent, Qt::WindowFlags f )
     refillLogs();
 
     setInitialSize( QSize(60*fontHeight,40*fontHeight) );
-    KSharedConfig::Ptr conf = KGlobal::config();
+    KSharedConfig::Ptr conf = QGlobal::config();
     KConfigGroup group = conf->group( "LogViewer" );
     restoreDialogSize( group );
 }
 
 LogViewer::~LogViewer()
 {
-    KSharedConfig::Ptr conf = KGlobal::config();
+    KSharedConfig::Ptr conf = QGlobal::config();
     KConfigGroup group = conf->group( "LogViewer" );
     saveDialogSize( group );
 }
@@ -87,7 +87,7 @@ void LogViewer::refillLogs()
             name = name.left(35) + "..." + name.right(35);
 
         if( id == 1000 )
-            cItem->addItem( i18n("soundKonverter application log"), QVariant(id) );
+            cItem->addItem( tr("soundKonverter application log"), QVariant(id) );
         else
             cItem->addItem( name, QVariant(id) );
     }
@@ -130,19 +130,19 @@ void LogViewer::itemChanged()
 
 void LogViewer::save()
 {
-    const QString fileName = KFileDialog::getSaveFileName( KUrl(), "*.txt\n*.log", this, i18n("Save log file") );
+    const QString fileName = QFileDialog::getSaveFileName( KUrl(), "*.txt\n*.log", this, tr("Save log file") );
     if( fileName.isEmpty() )
         return;
 
     QFile file( fileName );
     if( file.exists() )
     {
-        if( KMessageBox::questionYesNo(this,i18n("File already exists. Do you really want to overwrite it?")) == KMessageBox::No )
+        if( QMessageBox::questionYesNo(this,tr("File already exists. Do you really want to overwrite it?")) == QMessageBox::No )
             return;
     }
     if( !file.open(QIODevice::WriteOnly) )
     {
-        KMessageBox::error( this, i18n("Writing to file failed.\nMaybe you haven't got write permission.") );
+        QMessageBox::error( this, tr("Writing to file failed.\nMaybe you haven't got write permission.") );
         return;
     }
     QTextStream textStream;

@@ -6,8 +6,8 @@
 #include <QDialog>
 
 class Logger;
-class KComboBox;
-class KTextEdit;
+class QComboBox;
+class QTextEdit;
 
 
 /**
@@ -28,8 +28,8 @@ public:
 private:
     Logger* logger;
 
-    KComboBox *cItem;
-    KTextEdit *kLog;
+    QComboBox *cItem;
+    QTextEdit *kLog;
 
 private slots:
     void refillLogs();

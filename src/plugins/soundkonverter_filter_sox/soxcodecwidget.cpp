@@ -34,7 +34,7 @@ SoxCodecWidget::SoxCodecWidget()
 
     // flac
 
-    lCompressionLevel = new QLabel( i18n("Compression level:"), this );
+    lCompressionLevel = new QLabel( tr("Compression level:"), this );
     topBox->addWidget( lCompressionLevel );
 
     sCompressionLevel = new QSlider( Qt::Horizontal, this );
@@ -58,16 +58,16 @@ SoxCodecWidget::SoxCodecWidget()
 
     // mp2, mp3 and ogg vorbis
 
-    lMode = new QLabel( i18n("Mode:"), this );
+    lMode = new QLabel( tr("Mode:"), this );
     topBox->addWidget( lMode );
     cMode = new KComboBox( this );
-    cMode->addItem( i18n("Quality") );
-    cMode->addItem( i18n("Bitrate") );
+    cMode->addItem( tr("Quality") );
+    cMode->addItem( tr("Bitrate") );
     connect( cMode, SIGNAL(activated(int)), this, SLOT(modeChanged(int)) );
     connect( cMode, SIGNAL(activated(int)), SIGNAL(optionsChanged()) );
     topBox->addWidget( cMode );
 
-    lQuality = new QLabel( i18n("Quality:"), this );
+    lQuality = new QLabel( tr("Quality:"), this );
     topBox->addWidget( lQuality );
 
     sQuality = new QSlider( Qt::Horizontal, this );
@@ -86,7 +86,7 @@ SoxCodecWidget::SoxCodecWidget()
 
     // amr nb and amr wb
 
-    lBitratePreset = new QLabel( i18n("Bitrate:"), this );
+    lBitratePreset = new QLabel( tr("Bitrate:"), this );
     topBox->addWidget( lBitratePreset );
     cBitratePreset = new KComboBox( this );
     cBitratePreset->addItem( "00.00 kbps" );
@@ -100,7 +100,7 @@ SoxCodecWidget::SoxCodecWidget()
     QHBoxLayout *cmdArgumentsBox = new QHBoxLayout();
     grid->addLayout( cmdArgumentsBox, 1, 0 );
 
-    cCmdArguments = new QCheckBox( i18n("Additional encoder arguments:"), this );
+    cCmdArguments = new QCheckBox( tr("Additional encoder arguments:"), this );
     cmdArgumentsBox->addWidget( cCmdArguments );
     lCmdArguments = new KLineEdit( this );
     lCmdArguments->setEnabled( false );
@@ -134,7 +134,7 @@ ConversionOptions *SoxCodecWidget::currentConversionOptions()
     }
     else if( currentFormat == "mp3" )
     {
-        if( cMode->currentText() == i18n("Quality") )
+        if( cMode->currentText() == tr("Quality") )
         {
             options->qualityMode = ConversionOptions::Quality;
             options->quality = dQuality->value();
@@ -225,8 +225,8 @@ void SoxCodecWidget::setCurrentFormat( const QString& format )
         lCompressionLevel->show();
         sCompressionLevel->show();
         iCompressionLevel->show();
-        sCompressionLevel->setToolTip( i18n("Compression level from %1 to %2 where %2 is the best compression.\nThe better the compression, the slower the conversion but the smaller the file size and vice versa.", 0, 8) );
-        iCompressionLevel->setToolTip( i18n("Compression level from %1 to %2 where %2 is the best compression.\nThe better the compression, the slower the conversion but the smaller the file size and vice versa.", 0, 8) );
+        sCompressionLevel->setToolTip( tr("Compression level from %1 to %2 where %2 is the best compression.\nThe better the compression, the slower the conversion but the smaller the file size and vice versa.", 0, 8) );
+        iCompressionLevel->setToolTip( tr("Compression level from %1 to %2 where %2 is the best compression.\nThe better the compression, the slower the conversion but the smaller the file size and vice versa.", 0, 8) );
 
         lMode->hide();
         cMode->hide();
@@ -246,7 +246,7 @@ void SoxCodecWidget::setCurrentFormat( const QString& format )
         lMode->hide();
         cMode->hide();
         lQuality->show();
-        lQuality->setText( i18n("Bitrate:") );
+        lQuality->setText( tr("Bitrate:") );
         sQuality->show();
         dQuality->show();
         sQuality->setRange( 32, 384 );
@@ -288,7 +288,7 @@ void SoxCodecWidget::setCurrentFormat( const QString& format )
         lMode->hide();
         cMode->hide();
         lQuality->show();
-        lQuality->setText( i18n("Quality:") );
+        lQuality->setText( tr("Quality:") );
         sQuality->show();
         dQuality->show();
         sQuality->setRange( -100, 1000 );
@@ -299,8 +299,8 @@ void SoxCodecWidget::setCurrentFormat( const QString& format )
         dQuality->setSuffix( "" );
         sQuality->setValue( 400 );
         dQuality->setValue( 4.0 );
-        sQuality->setToolTip( i18n("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", -1, 10) );
-        dQuality->setToolTip( i18n("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", -1, 10) );
+        sQuality->setToolTip( tr("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", -1, 10) );
+        dQuality->setToolTip( tr("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", -1, 10) );
 
         lBitratePreset->hide();
         cBitratePreset->hide();
@@ -379,80 +379,80 @@ QString SoxCodecWidget::currentProfile()
         currentFormat == "aiff" ||
         currentFormat == "flac" )
     {
-        return i18n("Lossless");
+        return tr("Lossless");
     }
     else if( currentFormat == "mp2" )
     {
         if( dQuality->value() == 64 )
         {
-            return i18n("Very low");
+            return tr("Very low");
         }
         else if( dQuality->value() == 128 )
         {
-            return i18n("Low");
+            return tr("Low");
         }
         else if( dQuality->value() == 160 )
         {
-            return i18n("Medium");
+            return tr("Medium");
         }
         else if( dQuality->value() == 240 )
         {
-            return i18n("High");
+            return tr("High");
         }
         else if( dQuality->value() == 320 )
         {
-            return i18n("Very high");
+            return tr("Very high");
         }
     }
     else if( currentFormat == "mp3" )
     {
         if( cMode->currentIndex() == 0 && dQuality->value() == 6 )
         {
-            return i18n("Very low");
+            return tr("Very low");
         }
         else if( cMode->currentIndex() == 0 && dQuality->value() == 5 )
         {
-            return i18n("Low");
+            return tr("Low");
         }
         else if( cMode->currentIndex() == 0 && dQuality->value() == 4 )
         {
-            return i18n("Medium");
+            return tr("Medium");
         }
         else if( cMode->currentIndex() == 0 && dQuality->value() == 3 )
         {
-            return i18n("High");
+            return tr("High");
         }
         else if( cMode->currentIndex() == 0 && dQuality->value() == 2 )
         {
-            return i18n("Very high");
+            return tr("Very high");
         }
     }
     else if( currentFormat == "ogg vorbis" )
     {
         if( dQuality->value() == 2 )
         {
-            return i18n("Very low");
+            return tr("Very low");
         }
         else if( dQuality->value() == 3 )
         {
-            return i18n("Low");
+            return tr("Low");
         }
         else if( dQuality->value() == 4 )
         {
-            return i18n("Medium");
+            return tr("Medium");
         }
         else if( dQuality->value() == 5 )
         {
-            return i18n("High");
+            return tr("High");
         }
         else if( dQuality->value() == 6 )
         {
-            return i18n("Very high");
+            return tr("Very high");
         }
     }
 
     // amr nb, amr wb, 8svx
-    return i18n("User defined");
+    return tr("User defined");
 }
 
 bool SoxCodecWidget::setCurrentProfile( const QString& profile )
@@ -460,7 +460,7 @@ bool SoxCodecWidget::setCurrentProfile( const QString& profile )
     cCmdArguments->setChecked( false );
     lCmdArguments->clear();
 
-    if( profile == i18n("Very low") )
+    if( profile == tr("Very low") )
     {
         if( currentFormat == "mp2" )
         {
@@ -483,7 +483,7 @@ bool SoxCodecWidget::setCurrentProfile( const QString& profile )
             return true;
         }
     }
-    else if( profile == i18n("Low") )
+    else if( profile == tr("Low") )
     {
         if( currentFormat == "mp2" )
         {
@@ -506,7 +506,7 @@ bool SoxCodecWidget::setCurrentProfile( const QString& profile )
             return true;
         }
     }
-    else if( profile == i18n("Medium") )
+    else if( profile == tr("Medium") )
     {
         if( currentFormat == "mp2" )
         {
@@ -529,7 +529,7 @@ bool SoxCodecWidget::setCurrentProfile( const QString& profile )
             return true;
         }
     }
-    else if( profile == i18n("High") )
+    else if( profile == tr("High") )
     {
         if( currentFormat == "mp2" )
         {
@@ -552,7 +552,7 @@ bool SoxCodecWidget::setCurrentProfile( const QString& profile )
             return true;
         }
     }
-    else if( profile == i18n("Very high") )
+    else if( profile == tr("Very high") )
     {
         if( currentFormat == "mp2" )
         {
@@ -575,7 +575,7 @@ bool SoxCodecWidget::setCurrentProfile( const QString& profile )
             return true;
         }
     }
-    else if( profile == i18n("Lossless") )
+    else if( profile == tr("Lossless") )
     {
         if( currentFormat == "wav" ||
             currentFormat == "aiff" ||
@@ -628,8 +628,8 @@ void SoxCodecWidget::modeChanged( int mode )
         dQuality->setValue( 5 );
         //dQuality->setValue( qualityForBitrate(dQuality->value()) );
         //qualitySpinBoxChanged( dQuality->value() );
-        sQuality->setToolTip( i18n("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", 9, 0) );
-        dQuality->setToolTip( i18n("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", 9, 0) );
+        sQuality->setToolTip( tr("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", 9, 0) );
+        dQuality->setToolTip( tr("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", 9, 0) );
     }
     else
     {
