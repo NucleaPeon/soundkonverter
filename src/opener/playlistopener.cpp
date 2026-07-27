@@ -16,12 +16,12 @@
 
 #include <QApplication>
 #include <QLocale>
-#include <KPushButton>
+#include <QPushButton>
 #include <QLabel>
 #include <QLayout>
 #include <QHBoxLayout>
 #include <KMessageBox>
-#include <KFileDialog>
+#include <QFileDialog>
 #include <QDir>
 #include <QIcon>
 
@@ -31,7 +31,7 @@ PlaylistOpener::PlaylistOpener( Config *_config, QWidget *parent, Qt::WindowFlag
     dialogAborted( false ),
     config( _config )
 {
-    setCaption( i18n("Add playlist") );
+    setCaption( tr("Add playlist") );
     setWindowIcon( QIcon("view-media-playlist") );
     setButtons( 0 );
 
@@ -42,7 +42,7 @@ PlaylistOpener::PlaylistOpener( Config *_config, QWidget *parent, Qt::WindowFlag
 
     QGridLayout *mainGrid = new QGridLayout( widget );
 
-    options = new Options( config, i18n("Select your desired output options and click on \"Ok\"."), widget );
+    options = new Options( config, tr("Select your desired output options and click on \"Ok\"."), widget );
     mainGrid->addWidget( options, 1, 0 );
 
     // add a horizontal box layout for the control elements
@@ -50,15 +50,15 @@ PlaylistOpener::PlaylistOpener( Config *_config, QWidget *parent, Qt::WindowFlag
     mainGrid->addLayout( controlBox, 2, 0 );
     controlBox->addStretch();
 
-    pAdd = new KPushButton( QIcon("dialog-ok"), i18n("Ok"), widget );
+    pAdd = new QPushButton( QIcon("dialog-ok"), tr("Ok"), widget );
     controlBox->addWidget( pAdd );
     connect( pAdd, SIGNAL(clicked()), this, SLOT(okClickedSlot()) );
-    pCancel = new KPushButton( QIcon("dialog-cancel"), i18n("Cancel"), widget );
+    pCancel = new QPushButton( QIcon("dialog-cancel"), tr("Cancel"), widget );
     controlBox->addWidget( pCancel );
     connect( pCancel, SIGNAL(clicked()), this, SLOT(reject()) );
 
-    fileDialog = new KFileDialog( KUrl("kfiledialog:///soundkonverter-add-media"), "*.m3u", this );
-    fileDialog->setWindowTitle( i18n("Add Files") );
+    fileDialog = new QFileDialog( QUrl("QFileDialog:///soundkonverter-add-media"), "*.m3u", this );
+    fileDialog->setWindowTitle( tr("Add Files") );
     fileDialog->setMode( KFile::File | KFile::ExistingOnly );
     connect( fileDialog, SIGNAL(accepted()), this, SLOT(fileDialogAccepted()) );
     connect( fileDialog, SIGNAL(rejected()), this, SLOT(reject()) );
@@ -91,7 +91,7 @@ void PlaylistOpener::fileDialogAccepted()
     QStringList filesNotFound;
 
     urls.clear();
-    KUrl playlistUrl = fileDialog->selectedUrl();
+    QUrl playlistUrl = fileDialog->selectedUrl();
     QFile playlistFile( playlistUrl.toLocalFile() );
     if( playlistFile.open(QIODevice::ReadOnly) )
     {
@@ -143,7 +143,7 @@ void PlaylistOpener::fileDialogAccepted()
             }
             else
             {
-                problems[codecName][1] += i18n("This file type is unknown to soundKonverter.\nMaybe you need to install an additional soundKonverter plugin.\nYou should have a look at your distribution's package manager for this.");
+                problems[codecName][1] += tr("This file type is unknown to soundKonverter.\nMaybe you need to install an additional soundKonverter plugin.\nYou should have a look at your distribution's package manager for this.");
             }
             urls.removeAt(i);
             i--;
@@ -183,10 +183,10 @@ void PlaylistOpener::fileDialogAccepted()
             {
                 problem.affectedFiles += problems.value(problem.codecName).at(0).at(0);
                 problem.affectedFiles += problems.value(problem.codecName).at(0).at(1);
-                problem.affectedFiles += i18n("... and %1 more files",problems.value(problem.codecName).at(0).count()-2);
+                problem.affectedFiles += tr("... and %1 more files",problems.value(problem.codecName).at(0).count()-2);
             }
             problemList += problem;
-//             messageList += "<b>Possible solutions for " + codecName + "</b>:\n" + problems.value(codecName).at(1).join("\n<b>or</b>\n") + i18n("\n\nAffected files:\n") + affectedFiles.join("\n");
+//             messageList += "<b>Possible solutions for " + codecName + "</b>:\n" + problems.value(codecName).at(1).join("\n<b>or</b>\n") + tr("\n\nAffected files:\n") + affectedFiles.join("\n");
         }
     }
 
@@ -198,10 +198,10 @@ void PlaylistOpener::fileDialogAccepted()
 
 //     if( !messageList.isEmpty() )
 //     {
-//         messageList.prepend( i18n("Some files can't be decoded.\nPossible solutions are listed below.") );
+//         messageList.prepend( tr("Some files can't be decoded.\nPossible solutions are listed below.") );
 //         QMessageBox *messageBox = new QMessageBox( this );
 //         messageBox->setIcon( QMessageBox::Information );
-//         messageBox->setWindowTitle( i18n("Missing backends") );
+//         messageBox->setWindowTitle( tr("Missing backends") );
 //         messageBox->setText( messageList.join("\n\n").replace("\n","<br>") );
 //         messageBox->setTextFormat( Qt::RichText );
 //         messageBox->exec();
@@ -215,12 +215,12 @@ void PlaylistOpener::fileDialogAccepted()
             do {
                 filesNotFound.removeLast();
             } while( filesNotFound.count() >= 5 );
-            filesNotFound += i18n("... and %1 more files",filesNotFoundCount-4);
+            filesNotFound += tr("... and %1 more files",filesNotFoundCount-4);
         }
-        filesNotFound.prepend( i18n("The following files couldn't be found:\n") );
+        filesNotFound.prepend( tr("The following files couldn't be found:\n") );
         QMessageBox *messageBox = new QMessageBox( this );
         messageBox->setIcon( QMessageBox::Information );
-        messageBox->setWindowTitle( i18n("Files not found") );
+        messageBox->setWindowTitle( tr("Files not found") );
         messageBox->setText( filesNotFound.join("\n").replace("\n","<br>") );
         messageBox->setTextFormat( Qt::RichText );
         messageBox->exec();
@@ -240,6 +240,6 @@ void PlaylistOpener::okClickedSlot()
     }
     else
     {
-        KMessageBox::error( this, i18n("No conversion options selected.") );
+        KMessageBox::error( this, tr("No conversion options selected.") );
     }
 }

@@ -17,7 +17,7 @@
 #include <KMessageBox>
 #include <KComboBox>
 #include <QCheckBox>
-#include <KPushButton>
+#include <QPushButton>
 #include <QFile>
 #include <KStandardDirs>
 
@@ -35,7 +35,7 @@ OptionsSimple::OptionsSimple( Config *_config, /*OptionsDetailed* _optionsDetail
     grid->setMargin( fontHeight );
     grid->setSpacing( fontHeight );
 
-    QLabel *lQuality = new QLabel( i18n("Quality:"), this );
+    QLabel *lQuality = new QLabel( tr("Quality:"), this );
     grid->addWidget( lQuality, 0, 0 );
 
     QHBoxLayout *topBoxQuality = new QHBoxLayout();
@@ -44,21 +44,21 @@ OptionsSimple::OptionsSimple( Config *_config, /*OptionsDetailed* _optionsDetail
     topBoxQuality->addWidget( cProfile );
     connect( cProfile, SIGNAL(activated(int)), this, SLOT(profileChanged()) );
     topBoxQuality->addSpacing( 0.25*fontHeight );
-    pProfileRemove = new KPushButton( QIcon("edit-delete"), i18n("Remove"), this );
+    pProfileRemove = new QPushButton( QIcon("edit-delete"), tr("Remove"), this );
     topBoxQuality->addWidget( pProfileRemove );
-    pProfileRemove->setToolTip( i18n("Remove the selected profile") );
+    pProfileRemove->setToolTip( tr("Remove the selected profile") );
     pProfileRemove->hide();
     connect( pProfileRemove, SIGNAL(clicked()), this, SLOT(profileRemove()) );
-    pProfileInfo = new KPushButton( QIcon("dialog-information"), i18n("Info"), this );
+    pProfileInfo = new QPushButton( QIcon("dialog-information"), tr("Info"), this );
     topBoxQuality->addWidget( pProfileInfo );
-    pProfileInfo->setToolTip( i18n("Information about the selected profile") );
+    pProfileInfo->setToolTip( tr("Information about the selected profile") );
 //     cProfile->setFixedHeight( pProfileInfo->minimumSizeHint().height() );
     connect( pProfileInfo, SIGNAL(clicked()), this, SLOT(profileInfo()) );
     topBoxQuality->addStretch( );
 
     topBoxQuality->addSpacing( fontHeight );
 
-    QLabel *lFormat = new QLabel( i18n("Format:"), this );
+    QLabel *lFormat = new QLabel( tr("Format:"), this );
     grid->addWidget( lFormat, 0, 2 );
 
     QHBoxLayout *topBoxFormat = new QHBoxLayout();
@@ -68,18 +68,18 @@ OptionsSimple::OptionsSimple( Config *_config, /*OptionsDetailed* _optionsDetail
 //     connect( cFormat, SIGNAL(activated(int)), this, SLOT(formatChanged()) );
     connect( cFormat, SIGNAL(activated(int)), this, SLOT(somethingChanged()) );
     topBoxFormat->addSpacing( 0.25*fontHeight );
-    pFormatInfo = new KPushButton( QIcon("dialog-information"), i18n("Info"), this );
+    pFormatInfo = new QPushButton( QIcon("dialog-information"), tr("Info"), this );
     topBoxFormat->addWidget( pFormatInfo );
-    pFormatInfo->setToolTip( i18n("Information about the selected file format") );
+    pFormatInfo->setToolTip( tr("Information about the selected file format") );
 //     cFormat->setFixedHeight( pFormatInfo->minimumSizeHint().height() );
     connect( pFormatInfo, SIGNAL(clicked()), this, SLOT(formatInfo()) );
     topBoxFormat->addSpacing( 0.25*fontHeight );
-    QLabel *formatHelp = new QLabel( "<a href=\"format-help\">" + i18n("More formats...") + "</a>", this );
+    QLabel *formatHelp = new QLabel( "<a href=\"format-help\">" + tr("More formats...") + "</a>", this );
     topBoxFormat->addWidget( formatHelp );
     connect( formatHelp, SIGNAL(linkActivated(const QString&)), this, SLOT(showHelp()) );
     topBoxFormat->addStretch( );
 
-    QLabel *lOutput = new QLabel( i18n("Destination:"), this );
+    QLabel *lOutput = new QLabel( tr("Destination:"), this );
     grid->addWidget( lOutput, 1, 0 );
 
     QHBoxLayout *middleBox = new QHBoxLayout();
@@ -96,12 +96,12 @@ OptionsSimple::OptionsSimple( Config *_config, /*OptionsDetailed* _optionsDetail
     lEstimSize->hide(); // hide for now because most plugins report inaccurate data
     estimSizeBox->addWidget( lEstimSize );
 
-    QLabel *lOptional = new QLabel( i18n("Optional:") );
+    QLabel *lOptional = new QLabel( tr("Optional:") );
     grid->addWidget( lOptional, 3, 0 );
 
     QHBoxLayout *optionalBox = new QHBoxLayout();
     grid->addLayout( optionalBox, 3, 1 );
-    cReplayGain = new QCheckBox( i18n("Calculate Replay Gain tags"), this );
+    cReplayGain = new QCheckBox( tr("Calculate Replay Gain tags"), this );
     optionalBox->addWidget( cReplayGain );
     connect( cReplayGain, SIGNAL(toggled(bool)), this, SLOT(somethingChanged()) );
     optionalBox->addStretch();
@@ -160,15 +160,15 @@ void OptionsSimple::updateProfiles()
     QStringList sProfile;
     cProfile->clear();
 
-    sProfile += i18n("Very low");
-    sProfile += i18n("Low");
-    sProfile += i18n("Medium");
-    sProfile += i18n("High");
-    sProfile += i18n("Very high");
-    sProfile += i18n("Lossless");
-//     sProfile += i18n("Hybrid"); // currently unused
+    sProfile += tr("Very low");
+    sProfile += tr("Low");
+    sProfile += tr("Medium");
+    sProfile += tr("High");
+    sProfile += tr("Very high");
+    sProfile += tr("Lossless");
+//     sProfile += tr("Hybrid"); // currently unused
     sProfile += config->customProfiles();
-    sProfile += i18n("User defined");
+    sProfile += tr("User defined");
     cProfile->addItems( sProfile );
 
     if( cProfile->findText(lastProfile) != -1 )
@@ -187,51 +187,51 @@ void OptionsSimple::profileInfo()
 
     QString info;
 
-    if( sProfileString == i18n("Very low") )
+    if( sProfileString == tr("Very low") )
     {
-        info = i18n("Encoding files with a very low quality can be useful if you have a mobile device where your storage space is limited.\nIt is not recommended to save your music in this quality without a copy of higher quality.");
+        info = tr("Encoding files with a very low quality can be useful if you have a mobile device where your storage space is limited.\nIt is not recommended to save your music in this quality without a copy of higher quality.");
     }
-    else if( sProfileString == i18n("Low") )
+    else if( sProfileString == tr("Low") )
     {
-        info = i18n("Encoding files with a low quality can be useful if you have a mobile device where your storage space is limited.\nIt is not recommended to save your music in this quality without a copy of higher quality.");
+        info = tr("Encoding files with a low quality can be useful if you have a mobile device where your storage space is limited.\nIt is not recommended to save your music in this quality without a copy of higher quality.");
     }
-    else if( sProfileString == i18n("Medium") )
+    else if( sProfileString == tr("Medium") )
     {
-        info = i18n("Encoding files with a medium quality is a compromise between quality and file size.\nMost people might not hear much of a difference to the original files but you should only use it to save music if your storage space is limited.");
+        info = tr("Encoding files with a medium quality is a compromise between quality and file size.\nMost people might not hear much of a difference to the original files but you should only use it to save music if your storage space is limited.");
     }
-    else if( sProfileString == i18n("High") )
+    else if( sProfileString == tr("High") )
     {
-        info = i18n("Encoding files with a high quality is a good choice if you have enough storage space available. You can use this to save your music.");
+        info = tr("Encoding files with a high quality is a good choice if you have enough storage space available. You can use this to save your music.");
     }
-    else if( sProfileString == i18n("Very high") )
+    else if( sProfileString == tr("Very high") )
     {
-        info = i18n("Encoding files with a very high quality is fine if you have enough storage space.");
+        info = tr("Encoding files with a very high quality is fine if you have enough storage space.");
     }
-    else if( sProfileString == i18n("Lossless") )
+    else if( sProfileString == tr("Lossless") )
     {
-        info = i18n("Encoding files lossless will preserve the quality of the original file.\nIt is only then useful if the original file has a good quality (e.g. audio CD).\nThe file size will be big, so you should only use it if you have enough storage space.");
+        info = tr("Encoding files lossless will preserve the quality of the original file.\nIt is only then useful if the original file has a good quality (e.g. audio CD).\nThe file size will be big, so you should only use it if you have enough storage space.");
     }
-    else if( sProfileString == i18n("Hybrid") )
+    else if( sProfileString == tr("Hybrid") )
     {
-        // info = i18n("This produces two files. One lossy compressed playable file and one correction file.\nBoth files together result in a file that is equivalent to the input file.");
+        // info = tr("This produces two files. One lossy compressed playable file and one correction file.\nBoth files together result in a file that is equivalent to the input file.");
     }
-    else if( sProfileString == i18n("User defined") )
+    else if( sProfileString == tr("User defined") )
     {
-        info = i18n("You can define your own profile in the \"Detailed\" tab.");
+        info = tr("You can define your own profile in the \"Detailed\" tab.");
     }
     else // the info button is hidden when showing user defined profiles
     {
-        info = i18n("This is a user defined profile.");
+        info = tr("This is a user defined profile.");
     }
 
-    KMessageBox::information( this, info, i18n("Profile info for %1",sProfileString) );
+    KMessageBox::information( this, info, tr("Profile info for %1",sProfileString) );
 }
 
 void OptionsSimple::profileRemove()
 {
     const QString profileName = cProfile->currentText();
 
-    const int ret = KMessageBox::questionYesNo( this, i18n("Do you really want to remove the profile: %1",profileName), i18n("Remove profile?") );
+    const int ret = KMessageBox::questionYesNo( this, tr("Do you really want to remove the profile: %1",profileName), tr("Remove profile?") );
     if( ret == KMessageBox::Yes )
     {
         QDomDocument list("soundkonverter_profilelist");
@@ -280,11 +280,11 @@ void OptionsSimple::formatInfo()
 
     if( !info.isEmpty() )
     {
-        KMessageBox::information( this, info, i18n("Format info for %1",format), QString(), KMessageBox::Notify | KMessageBox::AllowLink );
+        KMessageBox::information( this, info, tr("Format info for %1",format), QString(), KMessageBox::Notify | KMessageBox::AllowLink );
     }
     else
     {
-        KMessageBox::information( this, i18n("Sorry, no format information available.") );
+        KMessageBox::information( this, tr("Sorry, no format information available.") );
     }
 }
 
@@ -297,19 +297,19 @@ void OptionsSimple::profileChanged()
     pProfileRemove->hide();
     pProfileInfo->show();
 
-    if( profile == i18n("Very low") || profile == i18n("Low") || profile == i18n("Medium") || profile == i18n("High") || profile == i18n("Very high") )
+    if( profile == tr("Very low") || profile == tr("Low") || profile == tr("Medium") || profile == tr("High") || profile == tr("Very high") )
     {
         cFormat->addItems( config->pluginLoader()->formatList(PluginLoader::Encode,PluginLoader::Lossy) );
     }
-    else if( profile == i18n("Lossless") )
+    else if( profile == tr("Lossless") )
     {
         cFormat->addItems( config->pluginLoader()->formatList(PluginLoader::Encode,PluginLoader::Lossless) );
     }
-    else if( profile == i18n("Hybrid") )
+    else if( profile == tr("Hybrid") )
     {
         cFormat->addItems( config->pluginLoader()->formatList(PluginLoader::Encode,PluginLoader::Hybrid) );
     }
-    else if( profile == i18n("User defined") )
+    else if( profile == tr("User defined") )
     {
         cFormat->addItems( config->pluginLoader()->formatList(PluginLoader::Encode,PluginLoader::CompressionType(PluginLoader::InferiorQuality|PluginLoader::Lossy|PluginLoader::Lossless|PluginLoader::Hybrid)) );
     }
@@ -350,11 +350,11 @@ void OptionsSimple::profileChanged()
 //     {
 //         if( !errorList.isEmpty() )
 //         {
-//             errorList.prepend( i18n("Replay Gain is not supported for the %1 file format.\nPossible solutions are listed below.",cFormat->currentText()) );
+//             errorList.prepend( tr("Replay Gain is not supported for the %1 file format.\nPossible solutions are listed below.",cFormat->currentText()) );
 //         }
 //         else
 //         {
-//             errorList += i18n("Replay Gain is not supported for the %1 file format.\nPlease check your distribution's package manager in order to install an additional Replay Gain plugin.",cFormat->currentText());
+//             errorList += tr("Replay Gain is not supported for the %1 file format.\nPlease check your distribution's package manager in order to install an additional Replay Gain plugin.",cFormat->currentText());
 //         }
 //         cReplayGain->setToolTip( errorList.join("\n\n") );
 //     }
@@ -372,7 +372,7 @@ void OptionsSimple::outputDirectoryChanged()
     {
         if( conversionOptions->outputDirectoryMode != outputDirectory->mode() || conversionOptions->outputDirectory != outputDirectory->directory() )
         {
-            cProfile->setCurrentIndex( cProfile->findText(i18n("User defined")) );
+            cProfile->setCurrentIndex( cProfile->findText(tr("User defined")) );
             profileChanged();
         }
     }
@@ -389,7 +389,7 @@ void OptionsSimple::currentDataRateChanged( int dataRate )
     {
         const QString dataRateString = Global::prettyNumber(dataRate,"B");
         lEstimSize->setText( QString(QChar(8776))+" "+dataRateString+" / min." );
-        lEstimSize->setToolTip( i18n("Using the current conversion options will create files with approximately %1 per minute.",dataRateString) );
+        lEstimSize->setToolTip( tr("Using the current conversion options will create files with approximately %1 per minute.",dataRateString) );
     }
     else
     {

@@ -80,7 +80,7 @@ CodecWidget *soundkonverter_codec_mac::newCodecWidget()
     return qobject_cast<CodecWidget*>(widget);
 }
 
-int soundkonverter_codec_mac::convert( const KUrl& inputFile, const KUrl& outputFile, const QString& inputCodec, const QString& outputCodec, const ConversionOptions *_conversionOptions, TagData *tags, bool replayGain )
+int soundkonverter_codec_mac::convert( const QUrl& inputFile, const QUrl& outputFile, const QString& inputCodec, const QString& outputCodec, const ConversionOptions *_conversionOptions, TagData *tags, bool replayGain )
 {
     Q_UNUSED(inputCodec)
     Q_UNUSED(tags)
@@ -130,7 +130,7 @@ int soundkonverter_codec_mac::convert( const KUrl& inputFile, const KUrl& output
     return newItem->id;
 }
 
-QStringList soundkonverter_codec_mac::convertCommand( const KUrl& inputFile, const KUrl& outputFile, const QString& inputCodec, const QString& outputCodec, const ConversionOptions *_conversionOptions, TagData *tags, bool replayGain )
+QStringList soundkonverter_codec_mac::convertCommand( const QUrl& inputFile, const QUrl& outputFile, const QString& inputCodec, const QString& outputCodec, const ConversionOptions *_conversionOptions, TagData *tags, bool replayGain )
 {
     Q_UNUSED(inputFile)
     Q_UNUSED(outputFile)
@@ -147,7 +147,7 @@ float soundkonverter_codec_mac::parseOutput( const QString& output )
 {
     // Progress: 55.2% (1.0 seconds remaining, 1.2 seconds total)
 
-    QRegExp regEnc("Progress:\\s+(\\d+.\\d)%");
+    QRegularExpression regEnc("Progress:\\s+(\\d+.\\d)%");
     if( output.contains(regEnc) )
     {
         return regEnc.cap(1).toFloat();

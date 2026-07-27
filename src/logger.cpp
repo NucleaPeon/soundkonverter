@@ -8,7 +8,7 @@
 #include <cstdlib>
 #include <ctime>
 
-#include <KGlobal>
+#include <QtGlobal>
 
 
 #define MAX_LOGS  20
@@ -74,8 +74,8 @@ int Logger::registerProcess( const QString& identifier )
 
     processes.insert( item->id, item );
 
-    log( item->id, i18n("Identifier") + ": " + item->identifier );
-    log( item->id, i18n("Log ID") + ": " + QString::number(item->id) );
+    log( item->id, tr("Identifier") + ": " + item->identifier );
+    log( item->id, tr("Log ID") + ": " + QString::number(item->id) );
 
     emit updateProcess( item->id );
 
@@ -144,10 +144,10 @@ void Logger::processCompleted( int id, bool succeeded, bool waitingForAlbumGain 
         process->succeeded = succeeded;
         process->completed = true;
         process->time = process->time.currentTime();
-        process->data.append( i18n("Finished logging") );
+        process->data.append( tr("Finished logging") );
         if( process->file.isOpen() )
         {
-            process->textStream << i18n("Finished logging");
+            process->textStream << tr("Finished logging");
             process->file.close();
         }
         emit updateProcess( id );

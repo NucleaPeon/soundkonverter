@@ -11,12 +11,12 @@
 #include <QDir>
 #include <QCheckBox>
 #include <QLocale>
-#include <KPushButton>
-#include <KFileDialog>
+#include <QPushButton>
+#include <QFileDialog>
 #include <QIcon>
-#include <KListWidget>
+#include <QListWidget>
 #include <KUrlRequester>
-#include <KMessageBox>
+#include <QMessageBox>
 
 
 DirOpener::DirOpener( Config *_config, Mode _mode, QWidget *parent, Qt::WindowFlags f )
@@ -87,7 +87,7 @@ DirOpener::DirOpener( Config *_config, Mode _mode, QWidget *parent, Qt::WindowFl
     QLabel *labelFilter = new QLabel( i18n("Directory:"), dirOpenerWidget );
     directoryBox->addWidget( labelFilter );
 
-    uDirectory = new KUrlRequester( KUrl("kfiledialog:///soundkonverter-add-media"), dirOpenerWidget );
+    uDirectory = new KUrlRequester( KUrl("QFileDialog:///soundkonverter-add-media"), dirOpenerWidget );
     uDirectory->setMode( KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly );
     directoryBox->addWidget( uDirectory );
 
@@ -98,7 +98,7 @@ DirOpener::DirOpener( Config *_config, Mode _mode, QWidget *parent, Qt::WindowFl
     box->addLayout( fileTypesBox );
 
     QStringList codecList;
-    fileTypes = new KListWidget( dirOpenerWidget );
+    fileTypes = new QListWidget( dirOpenerWidget );
     if( mode == Convert )
     {
         codecList = config->pluginLoader()->formatList( PluginLoader::Decode, PluginLoader::CompressionType(PluginLoader::InferiorQuality|PluginLoader::Lossy|PluginLoader::Lossless|PluginLoader::Hybrid) );
@@ -127,11 +127,11 @@ DirOpener::DirOpener( Config *_config, Mode _mode, QWidget *parent, Qt::WindowFl
     fileTypesBox->addLayout( fileTypesButtonsBox );
     fileTypesButtonsBox->addStretch();
 
-    pSelectAll = new KPushButton( QIcon("edit-select-all"), i18n("Select all"), dirOpenerWidget );
+    pSelectAll = new QPushButton( QIcon("edit-select-all"), i18n("Select all"), dirOpenerWidget );
     fileTypesButtonsBox->addWidget( pSelectAll );
     connect( pSelectAll, SIGNAL(clicked()), this, SLOT(selectAllClicked()) );
 
-    pSelectNone = new KPushButton( QIcon("application-x-zerosize"), i18n("Select none"), dirOpenerWidget );
+    pSelectNone = new QPushButton( QIcon("application-x-zerosize"), i18n("Select none"), dirOpenerWidget );
     fileTypesButtonsBox->addWidget( pSelectNone );
     connect( pSelectNone, SIGNAL(clicked()), this, SLOT(selectNoneClicked()) );
 
@@ -151,7 +151,7 @@ DirOpener::DirOpener( Config *_config, Mode _mode, QWidget *parent, Qt::WindowFl
     options->hide();
 
 
-    const KUrl url = KFileDialog::getExistingDirectoryUrl( uDirectory->url(), this );
+    const KUrl url = QFileDialog::getExistingDirectoryUrl( uDirectory->url(), this );
     if( !url.isEmpty() )
         uDirectory->setUrl( url );
     else
@@ -184,7 +184,7 @@ void DirOpener::proceedClicked()
         lSelector->setFont( font );
         font.setBold( true );
         lOptions->setFont( font );
-        setButtons( QDialog::Ok | QDialog::Cancel );
+        setButtons( QDialog::Accepted | QDialog::Rejected );
     }
 }
 
@@ -209,7 +209,7 @@ void DirOpener::addClicked()
         }
         else
         {
-            KMessageBox::error( this, i18n("No conversion options selected.") );
+            QMessageBox::error( this, i18n("No conversion options selected.") );
         }
     }
     else if( mode == ReplayGain )

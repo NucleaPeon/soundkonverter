@@ -7,7 +7,7 @@
 #include "../global.h"
 
 #include <QLocale>
-#include <KPushButton>
+#include <QPushButton>
 #include <KLineEdit>
 #include <KComboBox>
 #include <KNumInput>
@@ -47,11 +47,11 @@ PlayerWidget::PlayerWidget( Phonon::MediaObject *mediaObject, int _track, QTreeW
     QHBoxLayout *trackPlayerBox = new QHBoxLayout();
     setLayout( trackPlayerBox );
 
-    pStartPlayback = new KPushButton( QIcon("media-playback-start"), "", this );
+    pStartPlayback = new QPushButton( QIcon("media-playback-start"), "", this );
     pStartPlayback->setFixedSize( 1.5*fontHeight, 1.5*fontHeight );
     trackPlayerBox->addWidget( pStartPlayback );
     connect( pStartPlayback, SIGNAL(clicked()), this, SLOT(startPlaybackClicked()) );
-    pStopPlayback = new KPushButton( QIcon("media-playback-stop"), "", this );
+    pStopPlayback = new QPushButton( QIcon("media-playback-stop"), "", this );
     pStopPlayback->setFixedSize( 1.5*fontHeight, 1.5*fontHeight );
     pStopPlayback->hide();
     trackPlayerBox->addWidget( pStopPlayback );
@@ -246,13 +246,13 @@ CDOpener::CDOpener( Config *_config, const QString& _device, QWidget *parent, Qt
     QGridLayout *tagGridLayout = new QGridLayout( tagGroupBox );
 
     // add the up and down buttons
-    pTrackUp = new KPushButton( "", tagGroupBox );
+    pTrackUp = new QPushButton( "", tagGroupBox );
     pTrackUp->setIcon( QIcon("arrow-up") );
     pTrackUp->setFixedSize( pTrackUp->sizeHint().height(), pTrackUp->sizeHint().height() );
     pTrackUp->setAutoRepeat( true );
     connect( pTrackUp, SIGNAL(clicked()), this, SLOT(trackUpPressed()) );
     tagGridLayout->addWidget( pTrackUp, 0, 0 );
-    pTrackDown = new KPushButton( "", tagGroupBox );
+    pTrackDown = new QPushButton( "", tagGroupBox );
     pTrackDown->setIcon( QIcon("arrow-down") );
     pTrackDown->setFixedSize( pTrackDown->sizeHint().height(), pTrackDown->sizeHint().height() );
     pTrackDown->setAutoRepeat( true );
@@ -271,7 +271,7 @@ CDOpener::CDOpener( Config *_config, const QString& _device, QWidget *parent, Qt
     lTrackTitle = new KLineEdit( tagGroupBox );
     trackTitleBox->addWidget( lTrackTitle );
     connect( lTrackTitle, SIGNAL(textChanged(const QString&)), this, SLOT(trackTitleChanged(const QString&)) );
-    pTrackTitleEdit = new KPushButton( "", tagGroupBox );
+    pTrackTitleEdit = new QPushButton( "", tagGroupBox );
     pTrackTitleEdit->setIcon( QIcon("document-edit") );
     pTrackTitleEdit->setFixedSize( lTrackTitle->sizeHint().height(), lTrackTitle->sizeHint().height() );
     pTrackTitleEdit->hide();
@@ -286,7 +286,7 @@ CDOpener::CDOpener( Config *_config, const QString& _device, QWidget *parent, Qt
     lTrackArtist = new KLineEdit( tagGroupBox );
     trackArtistBox->addWidget( lTrackArtist );
     connect( lTrackArtist, SIGNAL(textChanged(const QString&)), this, SLOT(trackArtistChanged(const QString&)) );
-    pTrackArtistEdit = new KPushButton( "", tagGroupBox );
+    pTrackArtistEdit = new QPushButton( "", tagGroupBox );
     pTrackArtistEdit->setIcon( QIcon("document-edit") );
     pTrackArtistEdit->setFixedSize( lTrackArtist->sizeHint().height(), lTrackArtist->sizeHint().height() );
     pTrackArtistEdit->hide();
@@ -297,7 +297,7 @@ CDOpener::CDOpener( Config *_config, const QString& _device, QWidget *parent, Qt
     lTrackComposer = new KLineEdit( tagGroupBox );
     trackArtistBox->addWidget( lTrackComposer );
     connect( lTrackComposer, SIGNAL(textChanged(const QString&)), this, SLOT(trackComposerChanged(const QString&)) );
-    pTrackComposerEdit = new KPushButton( "", tagGroupBox );
+    pTrackComposerEdit = new QPushButton( "", tagGroupBox );
     pTrackComposerEdit->setIcon( QIcon("document-edit") );
     pTrackComposerEdit->setFixedSize( lTrackComposer->sizeHint().height(), lTrackComposer->sizeHint().height() );
     pTrackComposerEdit->hide();
@@ -313,7 +313,7 @@ CDOpener::CDOpener( Config *_config, const QString& _device, QWidget *parent, Qt
     trackCommentBox->addWidget( tTrackComment );
     tTrackComment->setFixedHeight( 4*fontHeight );
     connect( tTrackComment, SIGNAL(textChanged()), this, SLOT(trackCommentChanged()) );
-    pTrackCommentEdit = new KPushButton( "", tagGroupBox );
+    pTrackCommentEdit = new QPushButton( "", tagGroupBox );
     pTrackCommentEdit->setIcon( QIcon("document-edit") );
     pTrackCommentEdit->setFixedSize( lTrackTitle->sizeHint().height(), lTrackTitle->sizeHint().height() );
     pTrackCommentEdit->hide();
@@ -376,12 +376,12 @@ CDOpener::CDOpener( Config *_config, const QString& _device, QWidget *parent, Qt
     mainGrid->addLayout( controlBox, 5, 0 );
 
     // add the control elements
-    pSaveCue = new KPushButton( QIcon("document-save"), i18n("Save cue sheet..."), widget );
+    pSaveCue = new QPushButton( QIcon("document-save"), i18n("Save cue sheet..."), widget );
     controlBox->addWidget( pSaveCue );
     connect( pSaveCue, SIGNAL(clicked()), this, SLOT(saveCuesheetClicked()) );
     controlBox->addSpacing( fontHeight );
 
-    pCDDB = new KPushButton( QIcon("download"), i18n("Request CDDB"), widget );
+    pCDDB = new QPushButton( QIcon("download"), i18n("Request CDDB"), widget );
     controlBox->addWidget( pCDDB );
     connect( pCDDB, SIGNAL(clicked()), this, SLOT(requestCddb()) );
     controlBox->addStretch();
@@ -407,14 +407,14 @@ CDOpener::CDOpener( Config *_config, const QString& _device, QWidget *parent, Qt
     controlBox->addWidget( cEntireCd );
     controlBox->addSpacing( 2*fontHeight );
 
-    pProceed = new KPushButton( QIcon("go-next"), i18n("Proceed"), widget );
+    pProceed = new QPushButton( QIcon("go-next"), i18n("Proceed"), widget );
     controlBox->addWidget( pProceed );
     connect( pProceed, SIGNAL(clicked()), this, SLOT(proceedClicked()) );
-    pAdd = new KPushButton( QIcon("dialog-ok"), i18n("Ok"), widget );
+    pAdd = new QPushButton( QIcon("dialog-ok"), i18n("Ok"), widget );
     controlBox->addWidget( pAdd );
     pAdd->hide();
     connect( pAdd, SIGNAL(clicked()), this, SLOT(addClicked()) );
-    pCancel = new KPushButton( QIcon("dialog-cancel"), i18n("Cancel"), widget );
+    pCancel = new QPushButton( QIcon("dialog-cancel"), i18n("Cancel"), widget );
     controlBox->addWidget( pCancel );
     connect( pCancel, SIGNAL(clicked()), this, SLOT(reject()) );
 

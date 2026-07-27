@@ -36,7 +36,7 @@ class Config;
 class Options;
 class ConversionOptions;
 class QTreeWidget;
-class KPushButton;
+class QPushButton;
 class KLineEdit;
 class KComboBox;
 class KIntSpinBox;
@@ -64,8 +64,8 @@ private:
     bool playing;
     QTreeWidgetItem *m_treeWidgetItem;
 
-    KPushButton *pStartPlayback;
-    KPushButton *pStopPlayback;
+    QPushButton *pStartPlayback;
+    QPushButton *pStopPlayback;
     Phonon::SeekSlider *seekSlider;
 
 private slots:
@@ -162,22 +162,22 @@ private:
     QGroupBox *tagGroupBox;
 
     /** Set the focus of the tag editor to the track over it */
-    KPushButton *pTrackUp;
+    QPushButton *pTrackUp;
     /** Set the focus of the tag editor to the track under it */
-    KPushButton *pTrackDown;
+    QPushButton *pTrackDown;
 
     /** A lineedit for entering the title of track */
     KLineEdit *lTrackTitle;
-    KPushButton *pTrackTitleEdit;
+    QPushButton *pTrackTitleEdit;
     /** A lineedit for entering the artist of a track */
     KLineEdit *lTrackArtist;
-    KPushButton *pTrackArtistEdit;
+    QPushButton *pTrackArtistEdit;
     /** A lineedit for entering the composer of a track */
     KLineEdit *lTrackComposer;
-    KPushButton *pTrackComposerEdit;
+    QPushButton *pTrackComposerEdit;
     /** A textedit for entering a comment for a track */
     KTextEdit *tTrackComment;
-    KPushButton *pTrackCommentEdit;
+    QPushButton *pTrackCommentEdit;
 
     Phonon::AudioOutput *audioOutput;
     Phonon::MediaObject *mediaObject;
@@ -187,17 +187,17 @@ private:
     QList<PlayerWidget*> playerWidgets;
 
     /** Save the tag information to a cue file */
-    KPushButton *pSaveCue;
+    QPushButton *pSaveCue;
     /** Request CDDB information */
-    KPushButton *pCDDB;
+    QPushButton *pCDDB;
     /** Rip enitre CD as one track */
     QCheckBox *cEntireCd;
     /** Add selected tracks to the file list and quit the dialog */
-    KPushButton *pAdd;
+    QPushButton *pAdd;
     /** proceed to select conversion options */
-    KPushButton *pProceed;
+    QPushButton *pProceed;
     /** Quit the dialog */
-    KPushButton *pCancel;
+    QPushButton *pCancel;
 
     Config *config;
 

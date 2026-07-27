@@ -18,13 +18,13 @@
 
 #include <QApplication>
 #include <QBoxLayout>
-#include <KComboBox>
-#include <KIcon>
-#include <KLineEdit>
-#include <KLocale>
+#include <QComboBox>
+#include <QIcon>
+#include <QLineEdit>
+#include <QLocale>
 #include <KNumInput>
-#include <KPushButton>
-#include <KTextEdit>
+#include <QPushButton>
+#include <QTextEdit>
 #include <QDateTime>
 #include <QLabel>
 
@@ -38,10 +38,10 @@ OptionsEditor::OptionsEditor( Config *_config, QWidget *parent )
     tagEngine = config->tagEngine();
 
     setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel );
-    nextButton = new QPushButton(KIcon("go-next"), i18n("Next"));
+    nextButton = new QPushButton(QIcon("go-next"), tr("Next"));
     nextButton->setAutoRepeat(true);
     addActionButton(nextButton);
-    prevButton = new QPushButton(KIcon("go-previous"), i18n("Previous"));
+    prevButton = new QPushButton(QIcon("go-previous"), tr("Previous"));
     prevButton->setAutoRepeat(true);
     addActionButton(prevButton);
 
@@ -49,13 +49,13 @@ OptionsEditor::OptionsEditor( Config *_config, QWidget *parent )
     connect( this, SIGNAL(okClicked()), this, SLOT(applyChanges()) );
 
     QWidget *conversionOptionsWidget = new QWidget( this );
-    KPageWidgetItem *conversionOptionsPage = addPage( conversionOptionsWidget, i18n("Conversion") );
-    conversionOptionsPage->setIcon( KIcon( "view-list-text" ) );
+    KPageWidgetItem *conversionOptionsPage = addPage( conversionOptionsWidget, tr("Conversion") );
+    conversionOptionsPage->setIcon( QIcon( "view-list-text" ) );
 
     // the grid for all widgets in the main window
     QGridLayout* conversionOptionsGridLayout = new QGridLayout( conversionOptionsWidget );
     // generate the options input area
-    options = new Options( config, i18n("Select your desired output options and click on \"Ok\"."), conversionOptionsWidget );
+    options = new Options( config, tr("Select your desired output options and click on \"Ok\"."), conversionOptionsWidget );
     conversionOptionsGridLayout->addWidget( options, 0, 0 );
     conversionOptionsGridLayout->setRowStretch( 1, 1 );
 
@@ -63,7 +63,7 @@ OptionsEditor::OptionsEditor( Config *_config, QWidget *parent )
     conversionOptionsGridLayout->addWidget( lEditOptions, 2, 0 );
     lEditOptions->setAlignment( Qt::AlignHCenter );
     lEditOptions->hide();
-    pEditOptions = new KPushButton( i18n("Edit conversion options"), conversionOptionsWidget );
+    pEditOptions = new QPushButton( tr("Edit conversion options"), conversionOptionsWidget );
     pEditOptions->setFixedWidth( pEditOptions->sizeHint().width() );
     conversionOptionsGridLayout->addWidget( pEditOptions, 3, 0, Qt::AlignHCenter );
     pEditOptions->hide();
@@ -72,8 +72,8 @@ OptionsEditor::OptionsEditor( Config *_config, QWidget *parent )
 
 
     QWidget *tagsWidget = new QWidget( this );
-    KPageWidgetItem *tagsPage = addPage( tagsWidget, i18n("Tags") );
-    tagsPage->setIcon( KIcon( "feed-subscribe" ) );
+    KPageWidgetItem *tagsPage = addPage( tagsWidget, tr("Tags") );
+    tagsPage->setIcon( QIcon( "feed-subscribe" ) );
 
     // the grid for all widgets in the main window
     QGridLayout* tagsGridLayout = new QGridLayout( tagsWidget );
@@ -83,7 +83,7 @@ OptionsEditor::OptionsEditor( Config *_config, QWidget *parent )
     QHBoxLayout *coversBox = new QHBoxLayout();
     tagsGridLayout->addLayout( coversBox, 0, 1 );
     // and fill it up
-    lCoversLabel = new QLabel( i18n("Covers:"), tagsWidget );
+    lCoversLabel = new QLabel( tr("Covers:"), tagsWidget );
     tagsGridLayout->addWidget( lCoversLabel, 0, 0 );
     bCovers = new QHBoxLayout();
     coversBox->addLayout( bCovers );
@@ -93,36 +93,36 @@ OptionsEditor::OptionsEditor( Config *_config, QWidget *parent )
     QHBoxLayout *titleBox = new QHBoxLayout();
     tagsGridLayout->addLayout( titleBox, 1, 1 );
     // and fill it up
-    lTitleLabel = new QLabel( i18n("Title:"), tagsWidget );
+    lTitleLabel = new QLabel( tr("Title:"), tagsWidget );
     tagsGridLayout->addWidget( lTitleLabel, 1, 0 );
-    lTitle = new KLineEdit( tagsWidget );
+    lTitle = new QLineEdit( tagsWidget );
     titleBox->addWidget( lTitle );
-    pTitleEdit = new KPushButton( KIcon("edit-rename"), " ", tagsWidget );
+    pTitleEdit = new QPushButton( QIcon("edit-rename"), " ", tagsWidget );
     pTitleEdit->setFixedSize( pTitleEdit->sizeHint().height(), lTitle->sizeHint().height() );
     pTitleEdit->setFlat( true );
-    pTitleEdit->setToolTip( i18n("Edit") );
+    pTitleEdit->setToolTip( tr("Edit") );
     pTitleEdit->hide();
     titleBox->addWidget( pTitleEdit );
     connect( pTitleEdit, SIGNAL(clicked()), this, SLOT(editTitleClicked()) );
-    lTrackLabel = new QLabel( i18n("Track No.:"), tagsWidget );
+    lTrackLabel = new QLabel( tr("Track No.:"), tagsWidget );
     titleBox->addWidget( lTrackLabel );
-    iTrack = new KIntSpinBox( 0, 999, 1, 1, tagsWidget );
+    iTrack = new QSpinBox( 0, 999, 1, 1, tagsWidget );
     titleBox->addWidget( iTrack );
-    pTrackEdit = new KPushButton( KIcon("edit-rename"), " ", tagsWidget );
+    pTrackEdit = new QPushButton( QIcon("edit-rename"), " ", tagsWidget );
     pTrackEdit->setFixedSize( pTrackEdit->sizeHint().height(), iTrack->sizeHint().height() );
     pTrackEdit->setFlat( true );
-    pTrackEdit->setToolTip( i18n("Edit") );
+    pTrackEdit->setToolTip( tr("Edit") );
     pTrackEdit->hide();
     titleBox->addWidget( pTrackEdit );
     connect( pTrackEdit, SIGNAL(clicked()), this, SLOT(editTrackClicked()) );
-    lTrackTotalLabel = new QLabel( i18nc("Track/Disc No. x of y","of"), tagsWidget );
+    lTrackTotalLabel = new QLabel( trc("Track/Disc No. x of y","of"), tagsWidget );
     titleBox->addWidget( lTrackTotalLabel );
-    iTrackTotal = new KIntSpinBox( 0, 999, 1, 1, tagsWidget );
+    iTrackTotal = new QSpinBox( 0, 999, 1, 1, tagsWidget );
     titleBox->addWidget( iTrackTotal );
-    pTrackTotalEdit = new KPushButton( KIcon("edit-rename"), " ", tagsWidget );
+    pTrackTotalEdit = new QPushButton( QIcon("edit-rename"), " ", tagsWidget );
     pTrackTotalEdit->setFixedSize( pTrackTotalEdit->sizeHint().height(), iTrackTotal->sizeHint().height() );
     pTrackTotalEdit->setFlat( true );
-    pTrackTotalEdit->setToolTip( i18n("Edit") );
+    pTrackTotalEdit->setToolTip( tr("Edit") );
     pTrackTotalEdit->hide();
     titleBox->addWidget( pTrackTotalEdit );
     connect( pTrackTotalEdit, SIGNAL(clicked()), this, SLOT(editTrackTotalClicked()) );
@@ -131,25 +131,25 @@ OptionsEditor::OptionsEditor( Config *_config, QWidget *parent )
     QHBoxLayout *artistBox = new QHBoxLayout();
     tagsGridLayout->addLayout( artistBox, 2, 1 );
     // and fill it up
-    lArtistLabel = new QLabel( i18n("Artist:"), tagsWidget );
+    lArtistLabel = new QLabel( tr("Artist:"), tagsWidget );
     tagsGridLayout->addWidget( lArtistLabel, 2, 0 );
-    lArtist = new KLineEdit( tagsWidget );
+    lArtist = new QLineEdit( tagsWidget );
     artistBox->addWidget( lArtist );
-    pArtistEdit = new KPushButton( KIcon("edit-rename"), " ", tagsWidget );
+    pArtistEdit = new QPushButton( QIcon("edit-rename"), " ", tagsWidget );
     pArtistEdit->setFixedSize( pArtistEdit->sizeHint().height(), lArtist->sizeHint().height() );
     pArtistEdit->setFlat( true );
-    pArtistEdit->setToolTip( i18n("Edit") );
+    pArtistEdit->setToolTip( tr("Edit") );
     pArtistEdit->hide();
     artistBox->addWidget( pArtistEdit );
     connect( pArtistEdit, SIGNAL(clicked()), this, SLOT(editArtistClicked()) );
-    lComposerLabel = new QLabel( i18n("Composer:"), tagsWidget );
+    lComposerLabel = new QLabel( tr("Composer:"), tagsWidget );
     artistBox->addWidget( lComposerLabel );
-    lComposer = new KLineEdit( tagsWidget );
+    lComposer = new QLineEdit( tagsWidget );
     artistBox->addWidget( lComposer );
-    pComposerEdit = new KPushButton( KIcon("edit-rename"), " ", tagsWidget );
+    pComposerEdit = new QPushButton( QIcon("edit-rename"), " ", tagsWidget );
     pComposerEdit->setFixedSize( pComposerEdit->sizeHint().height(), lComposer->sizeHint().height() );
     pComposerEdit->setFlat( true );
-    pComposerEdit->setToolTip( i18n("Edit") );
+    pComposerEdit->setToolTip( tr("Edit") );
     pComposerEdit->hide();
     artistBox->addWidget( pComposerEdit );
     connect( pComposerEdit, SIGNAL(clicked()), this, SLOT(editComposerClicked()) );
@@ -158,14 +158,14 @@ OptionsEditor::OptionsEditor( Config *_config, QWidget *parent )
     QHBoxLayout *albumArtistBox = new QHBoxLayout();
     tagsGridLayout->addLayout( albumArtistBox, 3, 1 );
     // and fill it up
-    lAlbumArtistLabel = new QLabel( i18n("Album artist:"), tagsWidget );
+    lAlbumArtistLabel = new QLabel( tr("Album artist:"), tagsWidget );
     tagsGridLayout->addWidget( lAlbumArtistLabel, 3, 0 );
-    lAlbumArtist = new KLineEdit( tagsWidget );
+    lAlbumArtist = new QLineEdit( tagsWidget );
     albumArtistBox->addWidget( lAlbumArtist );
-    pAlbumArtistEdit = new KPushButton( KIcon("edit-rename"), " ", tagsWidget );
+    pAlbumArtistEdit = new QPushButton( QIcon("edit-rename"), " ", tagsWidget );
     pAlbumArtistEdit->setFixedSize( pAlbumArtistEdit->sizeHint().height(), lAlbumArtist->sizeHint().height() );
     pAlbumArtistEdit->setFlat( true );
-    pAlbumArtistEdit->setToolTip( i18n("Edit") );
+    pAlbumArtistEdit->setToolTip( tr("Edit") );
     pAlbumArtistEdit->hide();
     albumArtistBox->addWidget( pAlbumArtistEdit );
     connect( pAlbumArtistEdit, SIGNAL(clicked()), this, SLOT(editAlbumArtistClicked()) );
@@ -174,14 +174,14 @@ OptionsEditor::OptionsEditor( Config *_config, QWidget *parent )
     QHBoxLayout *albumBox = new QHBoxLayout();
     tagsGridLayout->addLayout( albumBox, 4, 1 );
     // and fill it up
-    lAlbumLabel = new QLabel( i18n("Album:"), tagsWidget );
+    lAlbumLabel = new QLabel( tr("Album:"), tagsWidget );
     tagsGridLayout->addWidget( lAlbumLabel, 4, 0 );
-    lAlbum = new KLineEdit( tagsWidget );
+    lAlbum = new QLineEdit( tagsWidget );
     albumBox->addWidget( lAlbum );
-    pAlbumEdit = new KPushButton( KIcon("edit-rename"), " ", tagsWidget );
+    pAlbumEdit = new QPushButton( QIcon("edit-rename"), " ", tagsWidget );
     pAlbumEdit->setFixedSize( pAlbumEdit->sizeHint().height(), lAlbum->sizeHint().height() );
     pAlbumEdit->setFlat( true );
-    pAlbumEdit->setToolTip( i18n("Edit") );
+    pAlbumEdit->setToolTip( tr("Edit") );
     pAlbumEdit->hide();
     albumBox->addWidget( pAlbumEdit );
     connect( pAlbumEdit, SIGNAL(clicked()), this, SLOT(editAlbumClicked()) );
@@ -190,54 +190,54 @@ OptionsEditor::OptionsEditor( Config *_config, QWidget *parent )
     QHBoxLayout *albumdataBox = new QHBoxLayout();
     tagsGridLayout->addLayout( albumdataBox, 5, 1 );
     // and fill it up
-    lDiscLabel = new QLabel( i18n("Disc No.:"), tagsWidget );
+    lDiscLabel = new QLabel( tr("Disc No.:"), tagsWidget );
     tagsGridLayout->addWidget( lDiscLabel, 5, 0 );
-    iDisc = new KIntSpinBox( 0, 99, 1, 1, tagsWidget );
+    iDisc = new QSpinBox( 0, 99, 1, 1, tagsWidget );
     albumdataBox->addWidget( iDisc );
-    pDiscEdit = new KPushButton( KIcon("edit-rename"), " ", tagsWidget );
+    pDiscEdit = new QPushButton( QIcon("edit-rename"), " ", tagsWidget );
     pDiscEdit->setFixedSize( pDiscEdit->sizeHint().height(), iDisc->sizeHint().height() );
     pDiscEdit->setFlat( true );
-    pDiscEdit->setToolTip( i18n("Edit") );
+    pDiscEdit->setToolTip( tr("Edit") );
     pDiscEdit->hide();
     albumdataBox->addWidget( pDiscEdit );
     connect( pDiscEdit, SIGNAL(clicked()), this, SLOT(editDiscClicked()) );
-    lDiscTotalLabel = new QLabel( i18nc("Track/Disc No. x of y","of"), tagsWidget );
+    lDiscTotalLabel = new QLabel( trc("Track/Disc No. x of y","of"), tagsWidget );
     albumdataBox->addWidget( lDiscTotalLabel );
-    iDiscTotal = new KIntSpinBox( 0, 99, 1, 1, tagsWidget );
+    iDiscTotal = new QSpinBox( 0, 99, 1, 1, tagsWidget );
     albumdataBox->addWidget( iDiscTotal );
-    pDiscTotalEdit = new KPushButton( KIcon("edit-rename"), " ", tagsWidget );
+    pDiscTotalEdit = new QPushButton( QIcon("edit-rename"), " ", tagsWidget );
     pDiscTotalEdit->setFixedSize( pDiscTotalEdit->sizeHint().height(), iDiscTotal->sizeHint().height() );
     pDiscTotalEdit->setFlat( true );
-    pDiscTotalEdit->setToolTip( i18n("Edit") );
+    pDiscTotalEdit->setToolTip( tr("Edit") );
     pDiscTotalEdit->hide();
     albumdataBox->addWidget( pDiscTotalEdit );
     connect( pDiscTotalEdit, SIGNAL(clicked()), this, SLOT(editDiscTotalClicked()) );
     albumdataBox->addStretch();
-    lYearLabel = new QLabel( i18n("Year:"), tagsWidget );
+    lYearLabel = new QLabel( tr("Year:"), tagsWidget );
     albumdataBox->addWidget( lYearLabel );
-    iYear = new KIntSpinBox( 0, 99999, 1, QDate::currentDate().year(), tagsWidget );
+    iYear = new QSpinBox( 0, 99999, 1, QDate::currentDate().year(), tagsWidget );
     albumdataBox->addWidget( iYear );
-    pYearEdit = new KPushButton( KIcon("edit-rename"), " ", tagsWidget );
+    pYearEdit = new QPushButton( QIcon("edit-rename"), " ", tagsWidget );
     pYearEdit->setFixedSize( pYearEdit->sizeHint().height(), iYear->sizeHint().height() );
     pYearEdit->setFlat( true );
-    pYearEdit->setToolTip( i18n("Edit") );
+    pYearEdit->setToolTip( tr("Edit") );
     pYearEdit->hide();
     albumdataBox->addWidget( pYearEdit );
     connect( pYearEdit, SIGNAL(clicked()), this, SLOT(editYearClicked()) );
     albumdataBox->addStretch();
-    lGenreLabel = new QLabel( i18n("Genre:"), tagsWidget );
+    lGenreLabel = new QLabel( tr("Genre:"), tagsWidget );
     albumdataBox->addWidget( lGenreLabel );
-    cGenre = new KComboBox( true, tagsWidget );
+    cGenre = new QComboBox( true, tagsWidget );
     cGenre->addItems( tagEngine->genreList );
     cGenre->clearEditText();
     KCompletion *cGenreCompletion = cGenre->completionObject();
     cGenreCompletion->insertItems( tagEngine->genreList );
     cGenreCompletion->setIgnoreCase( tagsWidget );
     albumdataBox->addWidget( cGenre );
-    pGenreEdit = new KPushButton( KIcon("edit-rename"), " ", tagsWidget );
+    pGenreEdit = new QPushButton( QIcon("edit-rename"), " ", tagsWidget );
     pGenreEdit->setFixedSize( pGenreEdit->sizeHint().height(), cGenre->sizeHint().height() );
     pGenreEdit->setFlat( true );
-    pGenreEdit->setToolTip( i18n("Edit") );
+    pGenreEdit->setToolTip( tr("Edit") );
     pGenreEdit->hide();
     albumdataBox->addWidget( pGenreEdit );
     connect( pGenreEdit, SIGNAL(clicked()), this, SLOT(editGenreClicked()) );
@@ -246,14 +246,14 @@ OptionsEditor::OptionsEditor( Config *_config, QWidget *parent )
     QHBoxLayout *commentBox = new QHBoxLayout();
     tagsGridLayout->addLayout( commentBox, 6, 1 );
     // and fill it up
-    lCommentLabel = new QLabel( i18n("Comment:"), tagsWidget );
+    lCommentLabel = new QLabel( tr("Comment:"), tagsWidget );
     tagsGridLayout->addWidget( lCommentLabel, 6, 0 );
-    tComment = new KTextEdit( tagsWidget );
+    tComment = new QTextEdit( tagsWidget );
     commentBox->addWidget( tComment );
-    pCommentEdit = new KPushButton( KIcon("edit-rename"), " ", tagsWidget );
+    pCommentEdit = new QPushButton( QIcon("edit-rename"), " ", tagsWidget );
     pCommentEdit->setFixedSize( pCommentEdit->sizeHint().height(), lTitle->sizeHint().height() );
     pCommentEdit->setFlat( true );
-    pCommentEdit->setToolTip( i18n("Edit") );
+    pCommentEdit->setToolTip( tr("Edit") );
     pCommentEdit->hide();
     commentBox->addWidget( pCommentEdit );
     connect( pCommentEdit, SIGNAL(clicked()), this, SLOT(editCommentClicked()) );
@@ -263,7 +263,7 @@ OptionsEditor::OptionsEditor( Config *_config, QWidget *parent )
     tagsGridLayout->addWidget( lEditTags, 7, 1 );
     lEditTags->setAlignment( Qt::AlignHCenter );
     lEditTags->hide();
-    pEditTags = new KPushButton( i18n("Edit tags"), tagsWidget );
+    pEditTags = new QPushButton( tr("Edit tags"), tagsWidget );
     pEditTags->setFixedWidth( pEditTags->sizeHint().width() );
     tagsGridLayout->addWidget( pEditTags, 8, 1, Qt::AlignHCenter );
     pEditTags->hide();
@@ -371,7 +371,7 @@ void OptionsEditor::itemsSelected( QList<FileListItem*> items )
 
     if( selectedItems.count() == 0 )
     {
-        setWindowTitle( i18n("No file selected") );
+        setWindowTitle( tr("No file selected") );
         options->setEnabled( false );
         lEditOptions->hide();
         pEditOptions->hide();
@@ -402,7 +402,7 @@ void OptionsEditor::itemsSelected( QList<FileListItem*> items )
         if( item->tags == 0 && !item->local )
         {
             setTagInputEnabled( false );
-            lEditTags->setText( i18n("The tags could not be read, because this is not a local file.\n"
+            lEditTags->setText( tr("The tags could not be read, because this is not a local file.\n"
                     "soundKonverter will try to read the tags, when it is about to convert the file.\n"
                     "If you want to edit the tags, you can hit the button below but then soundKonverter will not try\n"
                     "to read the tags after downloading.") );
@@ -412,7 +412,7 @@ void OptionsEditor::itemsSelected( QList<FileListItem*> items )
         else if( item->tags == 0 )
         {
             setTagInputEnabled( false );
-            lEditTags->setText( i18n("Reading the tags of this file failed.\n"
+            lEditTags->setText( tr("Reading the tags of this file failed.\n"
                     "soundKonverter will try to read the tags a second time, when it is about to convert the file.\n"
                     "If you want to edit the tags, you can hit the button below but then soundKonverter will not try\n"
                     "to read the tags a second time.") );
@@ -438,12 +438,12 @@ void OptionsEditor::itemsSelected( QList<FileListItem*> items )
                 label->setFrameShadow( QFrame::Raised );
                 QString toolTip;
                 toolTip += "<span style='white-space:pre'><table>";
-                toolTip += "<tr><td>" + i18nc("cover tooltip","Cover type:") + "</td><td>" + CoverData::roleName(cover->role) + "</td></tr>";
+                toolTip += "<tr><td>" + trc("cover tooltip","Cover type:") + "</td><td>" + CoverData::roleName(cover->role) + "</td></tr>";
                 if( !cover->description.isEmpty() )
-                    toolTip += "<tr><td>" + i18nc("cover tooltip","Description:") + "</td><td>" + cover->description + "</td></tr>";
-                toolTip += "<tr><td>" + i18nc("cover tooltip","Size:") + "</td><td>" + i18nc("cover tooltip","%1 x %2 pixels (%3)",pixmap.width(),pixmap.height(),Global::prettyNumber(cover->data.size(),"B")) + "</td></tr>";
+                    toolTip += "<tr><td>" + trc("cover tooltip","Description:") + "</td><td>" + cover->description + "</td></tr>";
+                toolTip += "<tr><td>" + trc("cover tooltip","Size:") + "</td><td>" + trc("cover tooltip","%1 x %2 pixels (%3)",pixmap.width(),pixmap.height(),Global::prettyNumber(cover->data.size(),"B")) + "</td></tr>";
                 if( !cover->mimeType.isEmpty() )
-                    toolTip += "<tr><td>" + i18nc("cover tooltip","Mime type:") + "</td><td>" + cover->mimeType + "</td></tr>";
+                    toolTip += "<tr><td>" + trc("cover tooltip","Mime type:") + "</td><td>" + cover->mimeType + "</td></tr>";
                 toolTip += "</table></span>";
                 label->setToolTip( toolTip );
                 bCovers->addWidget( label );
@@ -468,7 +468,7 @@ void OptionsEditor::itemsSelected( QList<FileListItem*> items )
     }
     else // selectedItems.count() > 1
     {
-        setWindowTitle(i18n("%1 Files",selectedItems.count()));
+        setWindowTitle(tr("%1 Files",selectedItems.count()));
 
         FileListItem *firstItem = selectedItems.first();
         const int     conversionOptionsId = firstItem->conversionOptionsId;
@@ -490,7 +490,7 @@ void OptionsEditor::itemsSelected( QList<FileListItem*> items )
             if( item->conversionOptionsId != conversionOptionsId )
             {
                 options->setEnabled( false );
-                lEditOptions->setText( i18n("You have selected multiple files with different conversion options.\nYou can change the options of all files by hitting the button below.") );
+                lEditOptions->setText( tr("You have selected multiple files with different conversion options.\nYou can change the options of all files by hitting the button below.") );
                 lEditOptions->show();
                 pEditOptions->show();
             }
@@ -498,7 +498,7 @@ void OptionsEditor::itemsSelected( QList<FileListItem*> items )
             if( item->tags == 0 )
             {
                 setTagInputEnabled( false );
-                lEditTags->setText( i18n("Reading the tags of one or more files failed.\n"
+                lEditTags->setText( tr("Reading the tags of one or more files failed.\n"
                         "soundKonverter will try to read the tags a second time, when it is about to convert the files.\n"
                         "If you want to edit the tags, you can hit the button below but then soundKonverter will not try\n"
                         "to read the tags a second time.") );

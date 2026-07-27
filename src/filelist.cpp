@@ -9,10 +9,10 @@
 #include "outputdirectory.h"
 #include "codecproblems.h"
 
-#include <KApplication>
-#include <KIcon>
-#include <KAction>
-// #include <kactioncollection.h>
+#include <QApplication>
+#include <QIcon>
+#include <QAction>
+// #include <QActioncollection.h>
 #include <KMessageBox>
 #include <KStandardDirs>
 // #include <KDiskFreeSpaceInfo>
@@ -48,10 +48,10 @@ FileList::FileList( Logger *_logger, Config *_config, QWidget *parent )
 
     setColumnCount( 4 );
     QStringList labels;
-    labels.append( i18n("State") );
-    labels.append( i18n("Input") );
-    labels.append( i18n("Output") );
-    labels.append( i18n("Quality") );
+    labels.append( tr("State") );
+    labels.append( tr("Input") );
+    labels.append( tr("Output") );
+    labels.append( tr("Quality") );
     setHeaderLabels( labels );
 //     header()->setClickEnabled( false );
 
@@ -75,23 +75,23 @@ FileList::FileList( Logger *_logger, Config *_config, QWidget *parent )
     grid->setColumnStretch( 1, 2 );
 
     // we haven't got access to the action collection of soundKonverter, so let's create a new one
-//     actionCollection = new KActionCollection( this );
+//     actionCollection = new QActionCollection( this );
 
-    editAction = new KAction( KIcon("view-list-text"), i18n("Edit options..."), this );
+    editAction = new QAction( QIcon("view-list-text"), tr("Edit options..."), this );
     connect( editAction, SIGNAL(triggered()), this, SLOT(showOptionsEditorDialog()) );
-    startAction = new KAction( KIcon("system-run"), i18n("Start conversion"), this );
+    startAction = new QAction( QIcon("system-run"), tr("Start conversion"), this );
     connect( startAction, SIGNAL(triggered()), this, SLOT(convertSelectedItems()) );
-    stopAction = new KAction( KIcon("process-stop"), i18n("Stop conversion"), this );
+    stopAction = new QAction( QIcon("process-stop"), tr("Stop conversion"), this );
     connect( stopAction, SIGNAL(triggered()), this, SLOT(killSelectedItems()) );
-    removeAction = new KAction( KIcon("edit-delete"), i18n("Remove"), this );
+    removeAction = new QAction( QIcon("edit-delete"), tr("Remove"), this );
     removeAction->setShortcut( QKeySequence::Delete );
     connect( removeAction, SIGNAL(triggered()), this, SLOT(removeSelectedItems()) );
     addAction( removeAction );
-//     KAction *removeActionGlobal = new KAction( KIcon("edit-delete"), i18n("Remove"), this );
+//     QAction *removeActionGlobal = new QAction( QIcon("edit-delete"), tr("Remove"), this );
 //     removeActionGlobal->setShortcut( QKeySequence::Delete );
 //     connect( removeActionGlobal, SIGNAL(triggered()), this, SLOT(removeSelectedItems()) );
 //     addAction( removeActionGlobal );
-//     paste = new KAction( i18n("Paste"), "editpaste", 0, this, 0, actionCollection, "paste" );  // TODO paste
+//     paste = new QAction( tr("Paste"), "editpaste", 0, this, 0, actionCollection, "paste" );  // TODO paste
 
     contextMenu = new QMenu( this );
 
@@ -105,7 +105,7 @@ FileList::~FileList()
 {
     // NOTE no cleanup needed since it all gets cleaned up in other classes
 
-    if( !KApplication::kApplication()->sessionSaving() )
+    if( !QApplication::QApplication()->sessionSaving() )
     {
         QFile listFile( KStandardDirs::locateLocal("data","soundkonverter/filelist_autosave.xml") );
         listFile.remove();
@@ -176,7 +176,7 @@ void FileList::dropEvent( QDropEvent *event )
             }
             else
             {
-                problems[codecName][1] += i18n("This file type is unknown to soundKonverter.\nMaybe you need to install an additional soundKonverter plugin.\nYou should have a look at your distribution's package manager for this.");
+                problems[codecName][1] += tr("This file type is unknown to soundKonverter.\nMaybe you need to install an additional soundKonverter plugin.\nYou should have a look at your distribution's package manager for this.");
             }
         }
     }
@@ -198,7 +198,7 @@ void FileList::dropEvent( QDropEvent *event )
             {
                 problem.affectedFiles += problems.value(problem.codecName).at(0).at(0);
                 problem.affectedFiles += problems.value(problem.codecName).at(0).at(1);
-                problem.affectedFiles += i18n("... and %1 more files",problems.value(problem.codecName).at(0).count()-3);
+                problem.affectedFiles += tr("... and %1 more files",problems.value(problem.codecName).at(0).count()-3);
             }
             problemList += problem;
         }
@@ -531,41 +531,41 @@ void FileList::updateItem( FileListItem *item )
         {
             if( QFile::exists(outputUrl.toLocalFile()) )
             {
-                item->setText( Column_State, i18n("Will be skipped") );
+                item->setText( Column_State, tr("Will be skipped") );
             }
             else if( config->data.general.copyIfSameCodec && options && item->codecName == options->codecName )
             {
-                item->setText( Column_State, i18n("Will be copied") );
+                item->setText( Column_State, tr("Will be copied") );
             }
             else
             {
-                item->setText( Column_State, i18n("Waiting") );
+                item->setText( Column_State, tr("Waiting") );
             }
             break;
         }
         case FileListItem::ApplyingReplayGain:
         {
-            item->setText( Column_State, i18n("Replay Gain") );
+            item->setText( Column_State, tr("Replay Gain") );
             break;
         }
         case FileListItem::WaitingForAlbumGain:
         {
-            item->setText( Column_State, i18n("Waiting for Replay Gain") );
+            item->setText( Column_State, tr("Waiting for Replay Gain") );
             break;
         }
         case FileListItem::ApplyingAlbumGain:
         {
-            item->setText( Column_State, i18n("Replay Gain") );
+            item->setText( Column_State, tr("Replay Gain") );
             break;
         }
         case FileListItem::Ripping:
         {
-            item->setText( Column_State, i18n("Ripping") );
+            item->setText( Column_State, tr("Ripping") );
             break;
         }
         case FileListItem::Converting:
         {
-            item->setText( Column_State, i18n("Converting") );
+            item->setText( Column_State, tr("Converting") );
             break;
         }
         case FileListItem::Stopped:
@@ -579,25 +579,25 @@ void FileList::updateItem( FileListItem *item )
                 }
                 case FileListItem::StoppedByUser:
                 {
-                    item->setText( Column_State, i18nc("Short conversion status", "Stopped") );
+                    item->setText( Column_State, trc("Short conversion status", "Stopped") );
                     break;
                 }
                 case FileListItem::BackendNeedsConfiguration:
                 {
-                    item->setText( Column_State, i18nc("Short conversion status", "Backend not configured") );
+                    item->setText( Column_State, trc("Short conversion status", "Backend not configured") );
                     break;
                 }
                 case FileListItem::DiscFull:
                 {
-                    item->setText( Column_State, i18nc("Short conversion status", "Disc full") );
+                    item->setText( Column_State, trc("Short conversion status", "Disc full") );
                     break;
                 }
                 case FileListItem::CantWriteOutput:
                 {
-                    item->lInfo = new QLabel( "<a href=\"" + QString::number(item->logId) + "\">" + i18nc("Short conversion status", "Can't write output") + "</a>" );
+                    item->lInfo = new QLabel( "<a href=\"" + QString::number(item->logId) + "\">" + trc("Short conversion status", "Can't write output") + "</a>" );
                     connect( item->lInfo.data(), SIGNAL(linkActivated(const QString&)), this, SLOT(showLogClicked(const QString&)) );
                     setItemWidget( item, Column_State, item->lInfo.data() );
-                    const QString toolTip = i18n("The conversion has failed.\nSee the log for more information.");
+                    const QString toolTip = tr("The conversion has failed.\nSee the log for more information.");
                     item->setToolTip( Column_State, toolTip );
                     item->setToolTip( Column_Input, toolTip );
                     item->setToolTip( Column_Output, toolTip );
@@ -606,15 +606,15 @@ void FileList::updateItem( FileListItem *item )
                 }
                 case FileListItem::Skipped:
                 {
-                    item->setText( Column_State, i18n("Skipped") );
+                    item->setText( Column_State, tr("Skipped") );
                     break;
                 }
                 case FileListItem::Encrypted:
                 {
-                    item->lInfo = new QLabel( "<a href=\"" + QString::number(item->logId) + "\">" + i18nc("Short conversion status", "File is encrypted") + "</a>" );
+                    item->lInfo = new QLabel( "<a href=\"" + QString::number(item->logId) + "\">" + trc("Short conversion status", "File is encrypted") + "</a>" );
                     connect( item->lInfo.data(), SIGNAL(linkActivated(const QString&)), this, SLOT(showLogClicked(const QString&)) );
                     setItemWidget( item, Column_State, item->lInfo.data() );
-                    const QString toolTip = i18n("The conversion has failed.\nSee the log for more information.");
+                    const QString toolTip = tr("The conversion has failed.\nSee the log for more information.");
                     item->setToolTip( Column_State, toolTip );
                     item->setToolTip( Column_Input, toolTip );
                     item->setToolTip( Column_Output, toolTip );
@@ -623,10 +623,10 @@ void FileList::updateItem( FileListItem *item )
                 }
                 case FileListItem::Failed:
                 {
-                    item->lInfo = new QLabel( "<a href=\"" + QString::number(item->logId) + "\">" + i18nc("Short conversion status", "Failed") + "</a>" );
+                    item->lInfo = new QLabel( "<a href=\"" + QString::number(item->logId) + "\">" + trc("Short conversion status", "Failed") + "</a>" );
                     connect( item->lInfo.data(), SIGNAL(linkActivated(const QString&)), this, SLOT(showLogClicked(const QString&)) );
                     setItemWidget( item, Column_State, item->lInfo.data() );
-                    const QString toolTip = i18n("The conversion has failed.\nSee the log for more information.");
+                    const QString toolTip = tr("The conversion has failed.\nSee the log for more information.");
                     item->setToolTip( Column_State, toolTip );
                     item->setToolTip( Column_Input, toolTip );
                     item->setToolTip( Column_Output, toolTip );
@@ -649,7 +649,7 @@ void FileList::updateItem( FileListItem *item )
         }
         else // shouldn't be possible
         {
-            item->setText( Column_Input, i18n("CD track %1",item->track) );
+            item->setText( Column_Input, tr("CD track %1",item->track) );
         }
     }
     else
@@ -1338,7 +1338,7 @@ void FileList::load( const QString& fileListPath )
 {
     if( topLevelItemCount() > 0 )
     {
-        const int ret = KMessageBox::questionYesNo( this, i18n("Do you want to overwrite the current file list?\n\nIf not, the saved file list will be appended.") );
+        const int ret = KMessageBox::questionYesNo( this, tr("Do you want to overwrite the current file list?\n\nIf not, the saved file list will be appended.") );
         if( ret == KMessageBox::Yes )
         {
             for( int i=0; i<topLevelItemCount(); i++ )

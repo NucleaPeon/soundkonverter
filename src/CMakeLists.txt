@@ -113,6 +113,14 @@ set(${PROJECT_NAME}core_SRCS
    core/filterplugin.cpp
    core/replaygainplugin.cpp
    core/ripperplugin.cpp
+
+   core/backendplugin.h
+   core/conversionoptions.h
+   core/codecwidget.h
+   core/codecplugin.h
+   core/filterplugin.h
+   core/replaygainplugin.h
+   core/ripperplugin.h
 )
 
 add_library(${PROJECT_NAME}core SHARED ${soundkonvertercore_SRCS})

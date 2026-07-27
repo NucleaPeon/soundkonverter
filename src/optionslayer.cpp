@@ -9,7 +9,7 @@
 
 #include <QLocale>
 
-#include <KPushButton>
+#include <QPushButton>
 #include <QIcon>
 #include <KMessageBox>
 #include <KApplication>
@@ -39,17 +39,17 @@ OptionsLayer::OptionsLayer( Config *config, QWidget *parent )
 
     QVBoxLayout *frameLayout = new QVBoxLayout( frame );
 
-    options = new Options( config, i18n("Select your desired output options and click on \"Ok\"."), this );
+    options = new Options( config, tr("Select your desired output options and click on \"Ok\"."), this );
     frameLayout->addWidget( options );
 
 
     QHBoxLayout *buttonBox = new QHBoxLayout();
     frameLayout->addLayout( buttonBox );
     buttonBox->addStretch();
-    pOk = new KPushButton( QIcon("dialog-ok"), i18n("Ok"), this );
+    pOk = new QPushButton( QIcon("dialog-ok"), tr("Ok"), this );
     buttonBox->addWidget( pOk );
     connect( pOk, SIGNAL(clicked()), this, SLOT(ok()) );
-    pCancel = new KPushButton( QIcon("dialog-cancel"), i18n("Cancel"), this );
+    pCancel = new QPushButton( QIcon("dialog-cancel"), tr("Cancel"), this );
     buttonBox->addWidget( pCancel );
     connect( pCancel, SIGNAL(clicked()), this, SLOT(abort()) );
 
@@ -136,7 +136,7 @@ void OptionsLayer::ok()
     }
     else
     {
-        KMessageBox::error( this, i18n("No conversion options selected.") ); // possibly unneeded i18n string
+        KMessageBox::error( this, tr("No conversion options selected.") ); // possibly unneeded tr string
     }
 }
 

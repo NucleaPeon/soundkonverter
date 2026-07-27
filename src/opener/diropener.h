@@ -10,9 +10,9 @@ class ConversionOptions;
 
 class QLabel;
 class QCheckBox;
-class KPushButton;
+class QPushButton;
 class KUrlRequester;
-class KListWidget;
+class QListWidget;
 
 
 /**
@@ -67,9 +67,9 @@ private:
     QLabel *lOptions;
 
     KUrlRequester *uDirectory;
-    KListWidget *fileTypes;
-    KPushButton *pSelectAll;
-    KPushButton *pSelectNone;
+    QListWidget *fileTypes;
+    QPushButton *pSelectAll;
+    QPushButton *pSelectNone;
     QCheckBox *cRecursive;
 
 signals:

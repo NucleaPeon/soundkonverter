@@ -93,7 +93,7 @@ CodecWidget *soundkonverter_codec_neroaac::newCodecWidget()
     return qobject_cast<CodecWidget*>(widget);
 }
 
-int soundkonverter_codec_neroaac::convert( const KUrl& inputFile, const KUrl& outputFile, const QString& inputCodec, const QString& outputCodec, const ConversionOptions *_conversionOptions, TagData *tags, bool replayGain )
+int soundkonverter_codec_neroaac::convert( const QUrl& inputFile, const QUrl& outputFile, const QString& inputCodec, const QString& outputCodec, const ConversionOptions *_conversionOptions, TagData *tags, bool replayGain )
 {
     QStringList command = convertCommand( inputFile, outputFile, inputCodec, outputCodec, _conversionOptions, tags, replayGain );
     if( command.isEmpty() )
@@ -117,7 +117,7 @@ int soundkonverter_codec_neroaac::convert( const KUrl& inputFile, const KUrl& ou
     return newItem->id;
 }
 
-QStringList soundkonverter_codec_neroaac::convertCommand( const KUrl& inputFile, const KUrl& outputFile, const QString& inputCodec, const QString& outputCodec, const ConversionOptions *_conversionOptions, TagData *tags, bool replayGain )
+QStringList soundkonverter_codec_neroaac::convertCommand( const QUrl& inputFile, const QUrl& outputFile, const QString& inputCodec, const QString& outputCodec, const ConversionOptions *_conversionOptions, TagData *tags, bool replayGain )
 {
     Q_UNUSED(inputCodec)
     Q_UNUSED(tags)
@@ -174,7 +174,7 @@ float soundkonverter_codec_neroaac::parseOutput( const QString& output, int leng
 
     // Processed 218 seconds...
 
-    QRegExp regEnc("Processed (\\d+) seconds");
+    QRegularExpression regEnc("Processed (\\d+) seconds");
     if( output.contains(regEnc) )
     {
         return (float)regEnc.cap(1).toInt() * 100 / (float)length;
