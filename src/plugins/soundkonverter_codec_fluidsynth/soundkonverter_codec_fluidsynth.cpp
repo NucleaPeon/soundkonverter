@@ -82,13 +82,13 @@ void soundkonverter_codec_fluidsynth::showConfigDialog( ActionType action, const
         const int fontHeight = QFontMetrics(QApplication::font()).boundingRect("M").size().height();
 
         configDialog = new QDialog( parent );
-        configDialog.data()->setCaption( i18n("Configure %1",*global_plugin_name) );
+        configDialog.data()->setCaption( tr("Configure %1",*global_plugin_name) );
         configDialog.data()->setButtons( QDialog::Ok | QDialog::Cancel );
 
         QWidget *configDialogWidget = new QWidget( configDialog.data() );
         QHBoxLayout *configDialogBox = new QHBoxLayout( configDialogWidget );
-        QLabel *configDialogSoundFontLabel = new QLabel( i18n("Use SoundFont file:"), configDialogWidget );
-        configDialogSoundFontLabel->setToolTip( i18n("In order to convert the midi data to a wave form you need a SoundFont which maps the midi data to sound effects.\nHave a look at %1 in order to get SoundFont files.",QString("http://sourceforge.net/apps/trac/fluidsynth/wiki/SoundFont")) );
+        QLabel *configDialogSoundFontLabel = new QLabel( tr("Use SoundFont file:"), configDialogWidget );
+        configDialogSoundFontLabel->setToolTip( tr("In order to convert the midi data to a wave form you need a SoundFont which maps the midi data to sound effects.\nHave a look at %1 in order to get SoundFont files.",QString("http://sourceforge.net/apps/trac/fluidsynth/wiki/SoundFont")) );
         configDialogBox->addWidget( configDialogSoundFontLabel );
         configDialogSoundFontUrlRequester = new KUrlRequester( configDialogWidget );
         configDialogSoundFontUrlRequester->setMinimumWidth( 30*fontHeight );
@@ -137,7 +137,7 @@ int soundkonverter_codec_fluidsynth::convert( const KUrl& inputFile, const KUrl&
 {
     if( soundFontFile.isEmpty() )
     {
-        emit log( 1000, i18n("FluidSynth is not configured, yet. You need to set a SoundFont file.") );
+        emit log( 1000, tr("FluidSynth is not configured, yet. You need to set a SoundFont file.") );
         return BackendPlugin::BackendNeedsConfiguration;
     }
 

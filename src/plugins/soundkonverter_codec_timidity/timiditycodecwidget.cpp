@@ -40,12 +40,12 @@ void TimidityCodecWidget::setCurrentFormat( const QString& format )
 
 QString TimidityCodecWidget::currentProfile()
 {
-    return i18n("Lossless");
+    return tr("Lossless");
 }
 
 bool TimidityCodecWidget::setCurrentProfile( const QString& profile )
 {
-    return profile == i18n("Lossless");
+    return profile == tr("Lossless");
 }
 
 int TimidityCodecWidget::currentDataRate()

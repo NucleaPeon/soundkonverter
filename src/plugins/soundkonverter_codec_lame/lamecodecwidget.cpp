@@ -30,19 +30,19 @@ LameCodecWidget::LameCodecWidget()
     QHBoxLayout *presetBox = new QHBoxLayout();
     grid->addLayout( presetBox, 0, 0 );
 
-    QLabel *lPreset = new QLabel( i18n("Preset:"), this );
+    QLabel *lPreset = new QLabel( tr("Preset:"), this );
     presetBox->addWidget( lPreset );
     cPreset = new KComboBox( this );
-    cPreset->addItem( i18nc("Backend profile","Medium") );
-    cPreset->addItem( i18nc("Backend profile","Standard") );
-    cPreset->addItem( i18nc("Backend profile","Extreme") );
-    cPreset->addItem( i18nc("Backend profile","Insane") );
-    cPreset->addItem( i18n("Specify bitrate") );
-    cPreset->addItem( i18n("User defined") );
+    cPreset->addItem( tr("Backend profile","Medium") );
+    cPreset->addItem( tr("Backend profile","Standard") );
+    cPreset->addItem( tr("Backend profile","Extreme") );
+    cPreset->addItem( tr("Backend profile","Insane") );
+    cPreset->addItem( tr("Specify bitrate") );
+    cPreset->addItem( tr("User defined") );
     connect( cPreset, SIGNAL(activated(const QString&)), this, SLOT(presetChanged(const QString&)) );
     connect( cPreset, SIGNAL(activated(int)), SIGNAL(optionsChanged()) );
     presetBox->addWidget( cPreset );
-//     cPreset->setToolTip( i18n("Either use one of lames's presets or your own settings.") );
+//     cPreset->setToolTip( tr("Either use one of lames's presets or your own settings.") );
 
     iPresetBitrate = new QSpinBox( this );
     iPresetBitrate->setRange( 8, 320 );
@@ -52,23 +52,23 @@ LameCodecWidget::LameCodecWidget()
     connect( iPresetBitrate, SIGNAL(valueChanged(int)), SIGNAL(optionsChanged()) );
     presetBox->addWidget( iPresetBitrate );
 
-    cPresetBitrateCbr = new QCheckBox( i18n("cbr"), this );
+    cPresetBitrateCbr = new QCheckBox( tr("cbr"), this );
     connect( cPresetBitrateCbr, SIGNAL(toggled(bool)), SIGNAL(optionsChanged()) );
     presetBox->addWidget( cPresetBitrateCbr );
-    cPresetBitrateCbr->setToolTip( i18n("Encode using a constant bitrate.\nOnly works with 80, 96, 112, 128, 160, 192, 224, 256 and 320 kbps") );
+    cPresetBitrateCbr->setToolTip( tr("Encode using a constant bitrate.\nOnly works with 80, 96, 112, 128, 160, 192, 224, 256 and 320 kbps") );
 
     presetBox->addSpacing( fontHeight );
 
-    cPresetFast = new QCheckBox( i18n("Fast encoding"), this );
+    cPresetFast = new QCheckBox( tr("Fast encoding"), this );
     connect( cPresetFast, SIGNAL(toggled(bool)), SIGNAL(optionsChanged()) );
     presetBox->addWidget( cPresetFast );
-    cPresetFast->setToolTip( i18n("Use a faster encoding algorithm (results in a slightly lower output quality).") );
+    cPresetFast->setToolTip( tr("Use a faster encoding algorithm (results in a slightly lower output quality).") );
 
     presetBox->addStretch();
 
     // set up user defined options
 
-    userdefinedBox = new QGroupBox( /*i18n("User defined"),*/ this );
+    userdefinedBox = new QGroupBox( /*tr("User defined"),*/ this );
     grid->addWidget( userdefinedBox, 1, 0 );
 
     QVBoxLayout *userdefinedBoxLayout = new QVBoxLayout();
@@ -79,12 +79,12 @@ LameCodecWidget::LameCodecWidget()
     QHBoxLayout *userdefinedTopBox = new QHBoxLayout();
     userdefinedBoxLayout->addLayout( userdefinedTopBox );
 
-    QLabel *lMode = new QLabel( i18n("Mode:"), userdefinedBox );
+    QLabel *lMode = new QLabel( tr("Mode:"), userdefinedBox );
     userdefinedTopBox->addWidget( lMode );
 
     cMode = new KComboBox( userdefinedBox );
-    cMode->addItem( i18n("Quality") );
-    cMode->addItem( i18n("Bitrate") );
+    cMode->addItem( tr("Quality") );
+    cMode->addItem( tr("Bitrate") );
     connect( cMode, SIGNAL(activated(int)), this, SLOT(modeChanged(int)) );
     connect( cMode, SIGNAL(activated(int)), SIGNAL(optionsChanged()) );
     userdefinedTopBox->addWidget( cMode );
@@ -105,12 +105,12 @@ LameCodecWidget::LameCodecWidget()
 
     userdefinedTopBox->addSpacing( fontHeight );
 
-    QLabel *lBitrateMode = new QLabel( i18n("Bitrate mode:"), this );
+    QLabel *lBitrateMode = new QLabel( tr("Bitrate mode:"), this );
     userdefinedTopBox->addWidget( lBitrateMode );
     cBitrateMode = new KComboBox( this );
-    cBitrateMode->addItem( i18n("Variable") );
-    cBitrateMode->addItem( i18n("Average") );
-    cBitrateMode->addItem( i18n("Constant") );
+    cBitrateMode->addItem( tr("Variable") );
+    cBitrateMode->addItem( tr("Average") );
+    cBitrateMode->addItem( tr("Constant") );
     cBitrateMode->setFixedWidth( cBitrateMode->sizeHint().width() );
     connect( cBitrateMode, SIGNAL(activated(int)), SIGNAL(optionsChanged()) );
     userdefinedTopBox->addWidget( cBitrateMode );
@@ -122,7 +122,7 @@ LameCodecWidget::LameCodecWidget()
     QHBoxLayout *bottomBox = new QHBoxLayout();
     grid->addLayout( bottomBox, 2, 0 );
 
-    QLabel *lCompressionLevel = new QLabel( i18n("Compression level:"), this );
+    QLabel *lCompressionLevel = new QLabel( tr("Compression level:"), this );
     bottomBox->addWidget( lCompressionLevel );
 
     sCompressionLevel = new QSlider( Qt::Horizontal, this );
@@ -132,7 +132,7 @@ LameCodecWidget::LameCodecWidget()
     connect( sCompressionLevel, SIGNAL(valueChanged(int)), this, SLOT(compressionLevelSliderChanged(int)) );
     connect( sCompressionLevel, SIGNAL(valueChanged(int)), SIGNAL(optionsChanged()) );
     bottomBox->addWidget( sCompressionLevel );
-    sCompressionLevel->setToolTip( i18n("Compression level from %1 to %2 where %2 is the best compression.\nThe better the compression, the slower the conversion but the smaller the file size and vice versa.\nA value of %3 is recommended.", 9, 0, 2) );
+    sCompressionLevel->setToolTip( tr("Compression level from %1 to %2 where %2 is the best compression.\nThe better the compression, the slower the conversion but the smaller the file size and vice versa.\nA value of %3 is recommended.", 9, 0, 2) );
 
     iCompressionLevel = new QSpinBox( this );
     iCompressionLevel->setRange( 0, 9 );
@@ -141,11 +141,11 @@ LameCodecWidget::LameCodecWidget()
     connect( iCompressionLevel, SIGNAL(valueChanged(int)), this, SLOT(compressionLevelSpinBoxChanged(int)) );
     connect( iCompressionLevel, SIGNAL(valueChanged(int)), SIGNAL(optionsChanged()) );
     bottomBox->addWidget( iCompressionLevel );
-    iCompressionLevel->setToolTip( i18n("Compression level from %1 to %2 where %2 is the best compression.\nThe better the compression, the slower the conversion but the smaller the file size and vice versa.\nA value of %3 is recommended.", 9, 0, 2) );
+    iCompressionLevel->setToolTip( tr("Compression level from %1 to %2 where %2 is the best compression.\nThe better the compression, the slower the conversion but the smaller the file size and vice versa.\nA value of %3 is recommended.", 9, 0, 2) );
 
     bottomBox->addSpacing( fontHeight );
 
-    cCmdArguments = new QCheckBox( i18n("Additional encoder arguments:"), this );
+    cCmdArguments = new QCheckBox( tr("Additional encoder arguments:"), this );
     bottomBox->addWidget( cCmdArguments );
     lCmdArguments = new KLineEdit( this );
     lCmdArguments->setEnabled( false );
@@ -181,7 +181,7 @@ ConversionOptions *LameCodecWidget::currentConversionOptions()
     options->data.presetBitrate = iPresetBitrate->value();
     options->data.presetBitrateCbr = cPresetBitrateCbr->isEnabled() && cPresetBitrateCbr->isChecked();
     options->data.presetFast = cPresetFast->isEnabled() && cPresetFast->isChecked();
-    if( cMode->currentText() == i18n("Quality") )
+    if( cMode->currentText() == tr("Quality") )
     {
         options->qualityMode = ConversionOptions::Quality;
         options->quality = iQuality->value();
@@ -192,7 +192,7 @@ ConversionOptions *LameCodecWidget::currentConversionOptions()
         options->qualityMode = ConversionOptions::Bitrate;
         options->bitrate = iQuality->value();
         options->quality = qualityForBitrate( options->bitrate );
-        options->bitrateMode = ( cBitrateMode->currentText()==i18n("Average") ) ? ConversionOptions::Abr : ConversionOptions::Cbr;
+        options->bitrateMode = ( cBitrateMode->currentText()==tr("Average") ) ? ConversionOptions::Abr : ConversionOptions::Cbr;
     }
     options->compressionLevel = iCompressionLevel->value();
     options->cmdArguments = cCmdArguments->isChecked() ? lCmdArguments->text() : "";
@@ -213,20 +213,20 @@ bool LameCodecWidget::setCurrentConversionOptions( const ConversionOptions *_opt
     cPresetFast->setChecked( options->data.presetFast );
     if( options->qualityMode == ConversionOptions::Quality )
     {
-        cMode->setCurrentIndex( cMode->findText(i18n("Quality")) );
+        cMode->setCurrentIndex( cMode->findText(tr("Quality")) );
         modeChanged( cMode->currentIndex() );
         iQuality->setValue( options->quality );
-        cBitrateMode->setCurrentIndex( cBitrateMode->findText(i18n("Variable")) );
+        cBitrateMode->setCurrentIndex( cBitrateMode->findText(tr("Variable")) );
     }
     else
     {
-        cMode->setCurrentIndex( cMode->findText(i18n("Bitrate")) );
+        cMode->setCurrentIndex( cMode->findText(tr("Bitrate")) );
         modeChanged( cMode->currentIndex() );
         iQuality->setValue( options->bitrate );
         if( options->bitrateMode == ConversionOptions::Abr )
-            cBitrateMode->setCurrentIndex( cBitrateMode->findText(i18n("Average")) );
+            cBitrateMode->setCurrentIndex( cBitrateMode->findText(tr("Average")) );
         else
-            cBitrateMode->setCurrentIndex( cBitrateMode->findText(i18n("Constant")) );
+            cBitrateMode->setCurrentIndex( cBitrateMode->findText(tr("Constant")) );
     }
     iCompressionLevel->setValue( options->compressionLevel );
     cCmdArguments->setChecked( !options->cmdArguments.isEmpty() );
@@ -251,30 +251,30 @@ QString LameCodecWidget::currentProfile()
 {
     if( currentFormat == "wav" )
     {
-        return i18n("Lossless");
+        return tr("Lossless");
     }
     else if( cPreset->currentIndex() == 5 && cMode->currentIndex() == 0 && iQuality->value() == 6 )
     {
-        return i18n("Very low");
+        return tr("Very low");
     }
     else if( cPreset->currentIndex() == 5 && cMode->currentIndex() == 0 && iQuality->value() == 5 )
     {
-        return i18n("Low");
+        return tr("Low");
     }
     else if( cPreset->currentIndex() == 5 && cMode->currentIndex() == 0 && iQuality->value() == 4 )
     {
-        return i18n("Medium");
+        return tr("Medium");
     }
     else if( cPreset->currentIndex() == 5 && cMode->currentIndex() == 0 && iQuality->value() == 3 )
     {
-        return i18n("High");
+        return tr("High");
     }
     else if( cPreset->currentIndex() == 5 && cMode->currentIndex() == 0 && iQuality->value() == 2 )
     {
-        return i18n("Very high");
+        return tr("Very high");
     }
 
-    return i18n("User defined");
+    return tr("User defined");
 }
 
 bool LameCodecWidget::setCurrentProfile( const QString& profile )
@@ -282,7 +282,7 @@ bool LameCodecWidget::setCurrentProfile( const QString& profile )
     cCmdArguments->setChecked( false );
     lCmdArguments->clear();
 
-    if( profile == i18n("Very low") )
+    if( profile == tr("Very low") )
     {
         cPreset->setCurrentIndex( 5 );
         presetChanged( cPreset->currentText() );
@@ -293,7 +293,7 @@ bool LameCodecWidget::setCurrentProfile( const QString& profile )
         cBitrateMode->setCurrentIndex( 0 );
         return true;
     }
-    else if( profile == i18n("Low") )
+    else if( profile == tr("Low") )
     {
         cPreset->setCurrentIndex( 5 );
         presetChanged( cPreset->currentText() );
@@ -304,7 +304,7 @@ bool LameCodecWidget::setCurrentProfile( const QString& profile )
         cBitrateMode->setCurrentIndex( 0 );
         return true;
     }
-    else if( profile == i18n("Medium") )
+    else if( profile == tr("Medium") )
     {
         cPreset->setCurrentIndex( 5 );
         presetChanged( cPreset->currentText() );
@@ -315,7 +315,7 @@ bool LameCodecWidget::setCurrentProfile( const QString& profile )
         cBitrateMode->setCurrentIndex( 0 );
         return true;
     }
-    else if( profile == i18n("High") )
+    else if( profile == tr("High") )
     {
         cPreset->setCurrentIndex( 5 );
         presetChanged( cPreset->currentText() );
@@ -326,7 +326,7 @@ bool LameCodecWidget::setCurrentProfile( const QString& profile )
         cBitrateMode->setCurrentIndex( 0 );
         return true;
     }
-    else if( profile == i18n("Very high") )
+    else if( profile == tr("Very high") )
     {
         cPreset->setCurrentIndex( 5 );
         presetChanged( cPreset->currentText() );
@@ -395,35 +395,35 @@ void LameCodecWidget::presetChanged( const QString& preset )
 {
     cPreset->setToolTip( "" );
 
-    if( preset == i18nc("Backend profile","Medium") )
+    if( preset == tr("Backend profile","Medium") )
     {
         iPresetBitrate->setEnabled( false );
         cPresetFast->setEnabled( true );
         userdefinedBox->setEnabled( false );
-        cPreset->setToolTip( i18n("This preset should provide near transparency to most people on most music (~150 kbps abr).") );
+        cPreset->setToolTip( tr("This preset should provide near transparency to most people on most music (~150 kbps abr).") );
     }
-    else if( preset == i18nc("Backend profile","Standard") )
+    else if( preset == tr("Backend profile","Standard") )
     {
         iPresetBitrate->setEnabled( false );
         cPresetFast->setEnabled( true );
         userdefinedBox->setEnabled( false );
-        cPreset->setToolTip( i18n("This preset should generally be transparent to most people on most music\nand is already quite high in quality (~230 kbps abr).") );
+        cPreset->setToolTip( tr("This preset should generally be transparent to most people on most music\nand is already quite high in quality (~230 kbps abr).") );
     }
-    else if( preset == i18nc("Backend profile","Extreme") )
+    else if( preset == tr("Backend profile","Extreme") )
     {
         iPresetBitrate->setEnabled( false );
         cPresetFast->setEnabled( true );
         userdefinedBox->setEnabled( false );
-        cPreset->setToolTip( i18n("If you have extremely good hearing and similar equipment, this preset will generally provide\nslightly higher quality than the standard mode (~280 kbps abr).") );
+        cPreset->setToolTip( tr("If you have extremely good hearing and similar equipment, this preset will generally provide\nslightly higher quality than the standard mode (~280 kbps abr).") );
     }
-    else if( preset == i18nc("Backend profile","Insane") )
+    else if( preset == tr("Backend profile","Insane") )
     {
         iPresetBitrate->setEnabled( false );
         cPresetFast->setEnabled( false );
         userdefinedBox->setEnabled( false );
-        cPreset->setToolTip( i18n("This preset will usually be overkill for most people and most situations, but if you must have\nthe absolute highest quality with no regard to filesize, this is the way to go (320 kbps cbr).") );
+        cPreset->setToolTip( tr("This preset will usually be overkill for most people and most situations, but if you must have\nthe absolute highest quality with no regard to filesize, this is the way to go (320 kbps cbr).") );
     }
-    else if( preset == i18n("Specify bitrate") )
+    else if( preset == tr("Specify bitrate") )
     {
         iPresetBitrate->setEnabled( true );
         cPresetFast->setEnabled( false );
@@ -467,11 +467,11 @@ void LameCodecWidget::modeChanged( int mode )
         iQuality->setValue( 5 );
 //         dQuality->setValue( qualityForBitrate(dQuality->value()) );
 //         qualitySpinBoxChanged( dQuality->value() );
-        sQuality->setToolTip( i18n("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", 9, 0) );
-        iQuality->setToolTip( i18n("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", 9, 0) );
+        sQuality->setToolTip( tr("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", 9, 0) );
+        iQuality->setToolTip( tr("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", 9, 0) );
 
         cBitrateMode->clear();
-        cBitrateMode->addItem( i18n("Variable") );
+        cBitrateMode->addItem( tr("Variable") );
         cBitrateMode->setEnabled( false );
     }
     else
@@ -490,15 +490,15 @@ void LameCodecWidget::modeChanged( int mode )
         iQuality->setToolTip( "" );
 
         cBitrateMode->clear();
-        cBitrateMode->addItem( i18n("Average") );
-        cBitrateMode->addItem( i18n("Constant") );
+        cBitrateMode->addItem( tr("Average") );
+        cBitrateMode->addItem( tr("Constant") );
         cBitrateMode->setEnabled( true );
     }
 }
 
 void LameCodecWidget::qualitySliderChanged( int quality )
 {
-    if( cMode->currentText() == i18n("Quality") )
+    if( cMode->currentText() == tr("Quality") )
     {
         iQuality->setValue( 9 - quality );
     }
@@ -510,7 +510,7 @@ void LameCodecWidget::qualitySliderChanged( int quality )
 
 void LameCodecWidget::qualitySpinBoxChanged( int quality )
 {
-    if( cMode->currentText() == i18n("Quality") )
+    if( cMode->currentText() == tr("Quality") )
     {
         sQuality->setValue( 9 - quality );
     }

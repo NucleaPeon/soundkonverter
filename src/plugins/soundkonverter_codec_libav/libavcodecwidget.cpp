@@ -27,7 +27,7 @@ LibavCodecWidget::LibavCodecWidget()
     QHBoxLayout *topBox = new QHBoxLayout();
     grid->addLayout( topBox, 0, 0 );
 
-    lBitrate = new QLabel( i18n("Bitrate:"), this );
+    lBitrate = new QLabel( tr("Bitrate:"), this );
     topBox->addWidget( lBitrate );
 
     sBitrate = new QSlider( Qt::Horizontal, this );
@@ -78,7 +78,7 @@ LibavCodecWidget::LibavCodecWidget()
     QHBoxLayout *cmdArgumentsBox = new QHBoxLayout();
     grid->addLayout( cmdArgumentsBox, 1, 0 );
 
-    cCmdArguments = new QCheckBox( i18n("Additional encoder arguments:"), this );
+    cCmdArguments = new QCheckBox( tr("Additional encoder arguments:"), this );
     cmdArgumentsBox->addWidget( cCmdArguments );
     lCmdArguments = new KLineEdit( this );
     lCmdArguments->setEnabled( false );
@@ -185,65 +185,65 @@ QString LibavCodecWidget::currentProfile()
 {
     if( currentFormat == "wav" || currentFormat == "flac" || currentFormat == "m4a/alac" )
     {
-        return i18n("Lossless");
+        return tr("Lossless");
     }
     else if( currentFormat == "amr nb" || currentFormat == "speex" )
     {
-        return i18n("User defined");
+        return tr("User defined");
     }
     else if( currentFormat == "ac3" )
     {
         if( cBitrate->currentText() == "64 kbps" )
         {
-            return i18n("Very low");
+            return tr("Very low");
         }
         else if( cBitrate->currentText() == "128 kbps" )
         {
-            return i18n("Low");
+            return tr("Low");
         }
         else if( cBitrate->currentText() == "192 kbps" )
         {
-            return i18n("Medium");
+            return tr("Medium");
         }
         else if( cBitrate->currentText() == "320 kbps" )
         {
-            return i18n("High");
+            return tr("High");
         }
         else if( cBitrate->currentText() == "640 kbps" )
         {
-            return i18n("Very high");
+            return tr("Very high");
         }
     }
     else
     {
         if( iBitrate->value() == 64 )
         {
-            return i18n("Very low");
+            return tr("Very low");
         }
         else if( iBitrate->value() == 128 )
         {
-            return i18n("Low");
+            return tr("Low");
         }
         else if( iBitrate->value() == 160 )
         {
-            return i18n("Medium");
+            return tr("Medium");
         }
         else if( iBitrate->value() == 240 )
         {
-            return i18n("High");
+            return tr("High");
         }
         else if( iBitrate->value() == 320 )
         {
-            return i18n("Very high");
+            return tr("Very high");
         }
     }
 
-    return i18n("User defined");
+    return tr("User defined");
 }
 
 bool LibavCodecWidget::setCurrentProfile( const QString& profile )
 {
-    if( profile == i18n("Very low") )
+    if( profile == tr("Very low") )
     {
         if( currentFormat == "ac3" )
         {
@@ -257,7 +257,7 @@ bool LibavCodecWidget::setCurrentProfile( const QString& profile )
         cCmdArguments->setChecked( false );
         return true;
     }
-    else if( profile == i18n("Low") )
+    else if( profile == tr("Low") )
     {
         if( currentFormat == "ac3" )
         {
@@ -271,7 +271,7 @@ bool LibavCodecWidget::setCurrentProfile( const QString& profile )
         cCmdArguments->setChecked( false );
         return true;
     }
-    else if( profile == i18n("Medium") )
+    else if( profile == tr("Medium") )
     {
         if( currentFormat == "ac3" )
         {
@@ -285,7 +285,7 @@ bool LibavCodecWidget::setCurrentProfile( const QString& profile )
         cCmdArguments->setChecked( false );
         return true;
     }
-    else if( profile == i18n("High") )
+    else if( profile == tr("High") )
     {
         if( currentFormat == "ac3" )
         {
@@ -299,7 +299,7 @@ bool LibavCodecWidget::setCurrentProfile( const QString& profile )
         cCmdArguments->setChecked( false );
         return true;
     }
-    else if( profile == i18n("Very high") )
+    else if( profile == tr("Very high") )
     {
         if( currentFormat == "ac3" )
         {

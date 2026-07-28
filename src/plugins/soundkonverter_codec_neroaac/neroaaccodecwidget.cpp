@@ -31,11 +31,11 @@ NeroaacCodecWidget::NeroaacCodecWidget()
     QHBoxLayout *topBox = new QHBoxLayout();
     grid->addLayout( topBox, 0, 0 );
 
-    QLabel *lMode = new QLabel( i18n("Mode:"), this );
+    QLabel *lMode = new QLabel( tr("Mode:"), this );
     topBox->addWidget( lMode );
     cMode = new KComboBox( this );
-    cMode->addItem( i18n("Quality") );
-    cMode->addItem( i18n("Bitrate") );
+    cMode->addItem( tr("Quality") );
+    cMode->addItem( tr("Bitrate") );
     connect( cMode, SIGNAL(activated(int)), this, SLOT(modeChanged(int)) );
     connect( cMode, SIGNAL(activated(int)), SIGNAL(optionsChanged()) );
     topBox->addWidget( cMode );
@@ -58,12 +58,12 @@ NeroaacCodecWidget::NeroaacCodecWidget()
 
     topBox->addSpacing( fontHeight );
 
-    QLabel *lBitrateMode = new QLabel( i18n("Bitrate mode:"), this );
+    QLabel *lBitrateMode = new QLabel( tr("Bitrate mode:"), this );
     topBox->addWidget( lBitrateMode );
     cBitrateMode = new KComboBox( this );
-    cBitrateMode->addItem( i18n("Variable") );
-    cBitrateMode->addItem( i18n("Average") );
-    cBitrateMode->addItem( i18n("Constant") );
+    cBitrateMode->addItem( tr("Variable") );
+    cBitrateMode->addItem( tr("Average") );
+    cBitrateMode->addItem( tr("Constant") );
     cBitrateMode->setFixedWidth( cBitrateMode->sizeHint().width() );
     connect( cBitrateMode, SIGNAL(activated(int)), SIGNAL(optionsChanged()) );
     topBox->addWidget( cBitrateMode );
@@ -94,7 +94,7 @@ ConversionOptions *NeroaacCodecWidget::currentConversionOptions()
 {
     ConversionOptions *options = new ConversionOptions();
 
-    if( cMode->currentText()==i18n("Quality") )
+    if( cMode->currentText()==tr("Quality") )
     {
         options->qualityMode = ConversionOptions::Quality;
         options->quality = (int)round(dQuality->value());
@@ -106,7 +106,7 @@ ConversionOptions *NeroaacCodecWidget::currentConversionOptions()
         options->qualityMode = ConversionOptions::Bitrate;
         options->bitrate = (int)round(dQuality->value());
         options->quality = qualityForBitrate( options->bitrate );
-        options->bitrateMode = ( cBitrateMode->currentText()==i18n("Average") ) ? ConversionOptions::Abr : ConversionOptions::Cbr;
+        options->bitrateMode = ( cBitrateMode->currentText()==tr("Average") ) ? ConversionOptions::Abr : ConversionOptions::Cbr;
     }
 
     return options;
@@ -120,18 +120,18 @@ bool NeroaacCodecWidget::setCurrentConversionOptions( const ConversionOptions *_
 
     if( options->qualityMode == ConversionOptions::Quality )
     {
-        cMode->setCurrentIndex( cMode->findText(i18n("Quality")) );
+        cMode->setCurrentIndex( cMode->findText(tr("Quality")) );
         modeChanged( cMode->currentIndex() );
         dQuality->setValue( options->quality );
-        cBitrateMode->setCurrentIndex( cBitrateMode->findText(i18n("Variable")) );
+        cBitrateMode->setCurrentIndex( cBitrateMode->findText(tr("Variable")) );
     }
     else
     {
-        cMode->setCurrentIndex( cMode->findText(i18n("Bitrate")) );
+        cMode->setCurrentIndex( cMode->findText(tr("Bitrate")) );
         modeChanged( cMode->currentIndex() );
         dQuality->setValue( options->bitrate );
-        if( options->bitrateMode == ConversionOptions::Abr ) cBitrateMode->setCurrentIndex( cBitrateMode->findText(i18n("Average")) );
-        else cBitrateMode->setCurrentIndex( cBitrateMode->findText(i18n("Constant")) );
+        if( options->bitrateMode == ConversionOptions::Abr ) cBitrateMode->setCurrentIndex( cBitrateMode->findText(tr("Average")) );
+        else cBitrateMode->setCurrentIndex( cBitrateMode->findText(tr("Constant")) );
     }
 
     return true;
@@ -148,35 +148,35 @@ QString NeroaacCodecWidget::currentProfile()
 {
     if( currentFormat == "wav" )
     {
-        return i18n("Lossless");
+        return tr("Lossless");
     }
     else if( cMode->currentIndex() == 0 && dQuality->value() == 0.3 )
     {
-        return i18n("Very low");
+        return tr("Very low");
     }
     else if( cMode->currentIndex() == 0 && dQuality->value() == 0.4 )
     {
-        return i18n("Low");
+        return tr("Low");
     }
     else if( cMode->currentIndex() == 0 && dQuality->value() == 0.5 )
     {
-        return i18n("Medium");
+        return tr("Medium");
     }
     else if( cMode->currentIndex() == 0 && dQuality->value() == 0.6  )
     {
-        return i18n("High");
+        return tr("High");
     }
     else if( cMode->currentIndex() == 0 && dQuality->value() == 0.7 )
     {
-        return i18n("Very high");
+        return tr("Very high");
     }
 
-    return i18n("User defined");
+    return tr("User defined");
 }
 
 bool NeroaacCodecWidget::setCurrentProfile( const QString& profile )
 {
-    if( profile == i18n("Very low") )
+    if( profile == tr("Very low") )
     {
         cMode->setCurrentIndex( 0 );
         modeChanged( 0 );
@@ -188,7 +188,7 @@ bool NeroaacCodecWidget::setCurrentProfile( const QString& profile )
 //         cSamplerate->setCurrentIndex( 4 );
         return true;
     }
-    else if( profile == i18n("Low") )
+    else if( profile == tr("Low") )
     {
         cMode->setCurrentIndex( 0 );
         modeChanged( 0 );
@@ -200,7 +200,7 @@ bool NeroaacCodecWidget::setCurrentProfile( const QString& profile )
 //         cSamplerate->setCurrentIndex( 4 );
         return true;
     }
-    else if( profile == i18n("Medium") )
+    else if( profile == tr("Medium") )
     {
         cMode->setCurrentIndex( 0 );
         modeChanged( 0 );
@@ -211,7 +211,7 @@ bool NeroaacCodecWidget::setCurrentProfile( const QString& profile )
 //         chSamplerate->setChecked( false );
         return true;
     }
-    else if( profile == i18n("High") )
+    else if( profile == tr("High") )
     {
         cMode->setCurrentIndex( 0 );
         modeChanged( 0 );
@@ -222,7 +222,7 @@ bool NeroaacCodecWidget::setCurrentProfile( const QString& profile )
 //         chSamplerate->setChecked( false );
         return true;
     }
-    else if( profile == i18n("Very high") )
+    else if( profile == tr("Very high") )
     {
         cMode->setCurrentIndex( 0 );
         modeChanged( 0 );
@@ -285,11 +285,11 @@ void NeroaacCodecWidget::modeChanged( int mode )
         dQuality->setValue( 0.5 );
 //         dQuality->setValue( qualityForBitrate(dQuality->value()) );
 //         qualitySpinBoxChanged( dQuality->value() );
-        sQuality->setToolTip( i18n("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", 0, 1) );
-        dQuality->setToolTip( i18n("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", 0, 1) );
+        sQuality->setToolTip( tr("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", 0, 1) );
+        dQuality->setToolTip( tr("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", 0, 1) );
 
         cBitrateMode->clear();
-        cBitrateMode->addItem( i18n("Variable") );
+        cBitrateMode->addItem( tr("Variable") );
         cBitrateMode->setEnabled( false );
     }
     else
@@ -308,8 +308,8 @@ void NeroaacCodecWidget::modeChanged( int mode )
         dQuality->setToolTip( "" );
 
         cBitrateMode->clear();
-        cBitrateMode->addItem( i18n("Average") );
-        cBitrateMode->addItem( i18n("Constant") );
+        cBitrateMode->addItem( tr("Average") );
+        cBitrateMode->addItem( tr("Constant") );
         cBitrateMode->setEnabled( true );
     }
 }

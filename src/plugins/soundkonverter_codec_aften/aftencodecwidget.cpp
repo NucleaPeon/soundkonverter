@@ -24,11 +24,11 @@ AftenCodecWidget::AftenCodecWidget()
     QHBoxLayout *topBox = new QHBoxLayout();
     grid->addLayout( topBox, 0, 0 );
 
-    QLabel *lMode = new QLabel( i18n("Mode:"), this );
+    QLabel *lMode = new QLabel( tr("Mode:"), this );
     topBox->addWidget( lMode );
     cMode = new KComboBox( this );
-    cMode->addItem( i18n("Quality") );
-    cMode->addItem( i18n("Bitrate") );
+    cMode->addItem( tr("Quality") );
+    cMode->addItem( tr("Bitrate") );
     connect( cMode, SIGNAL(activated(int)), this, SLOT(modeChanged(int)) );
     connect( cMode, SIGNAL(activated(int)), SIGNAL(optionsChanged()) );
     topBox->addWidget( cMode );
@@ -39,7 +39,7 @@ AftenCodecWidget::AftenCodecWidget()
     connect( sQuality, SIGNAL(valueChanged(int)), this, SLOT(qualitySliderChanged(int)) );
     connect( sQuality, SIGNAL(valueChanged(int)), SIGNAL(optionsChanged()) );
     topBox->addWidget( sQuality );
-    sQuality->setToolTip( i18n("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", 0, 1023) );
+    sQuality->setToolTip( tr("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", 0, 1023) );
 
     dQuality = new QSpinBox( this );
     dQuality->setRange( 0, 1023 );
@@ -49,7 +49,7 @@ AftenCodecWidget::AftenCodecWidget()
     connect( dQuality, SIGNAL(valueChanged(int)), this, SLOT(qualitySpinBoxChanged(int)) );
     connect( dQuality, SIGNAL(valueChanged(int)), SIGNAL(optionsChanged()) );
     topBox->addWidget( dQuality );
-    dQuality->setToolTip( i18n("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", 0, 1023) );
+    dQuality->setToolTip( tr("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", 0, 1023) );
 
     cBitrate = new KComboBox( this );
     cBitrate->addItem( "32 kbps" );
@@ -101,7 +101,7 @@ ConversionOptions *AftenCodecWidget::currentConversionOptions()
 {
     ConversionOptions *options = new ConversionOptions();
 
-    if( cMode->currentText()==i18n("Quality") )
+    if( cMode->currentText()==tr("Quality") )
     {
         options->qualityMode = ConversionOptions::Quality;
         options->quality = dQuality->value();
@@ -126,13 +126,13 @@ bool AftenCodecWidget::setCurrentConversionOptions( const ConversionOptions *_op
 
     if( options->qualityMode == ConversionOptions::Quality )
     {
-        cMode->setCurrentIndex( cMode->findText(i18n("Quality")) );
+        cMode->setCurrentIndex( cMode->findText(tr("Quality")) );
         modeChanged( cMode->currentIndex() );
         dQuality->setValue( options->quality );
     }
     else
     {
-        cMode->setCurrentIndex( cMode->findText(i18n("Bitrate")) );
+        cMode->setCurrentIndex( cMode->findText(tr("Bitrate")) );
         modeChanged( cMode->currentIndex() );
         cBitrate->setCurrentIndex( cBitrate->findText(QString::number(options->bitrate)+" kbps") );
     }
@@ -154,36 +154,36 @@ QString AftenCodecWidget::currentProfile()
 {
     if( currentFormat == "wav" )
     {
-        return i18n("Lossless");
+        return tr("Lossless");
     }
     else if( cMode->currentIndex() == 0 && dQuality->value() == 60 )
     {
-        return i18n("Very low");
+        return tr("Very low");
     }
     else if( cMode->currentIndex() == 0 && dQuality->value() == 80 )
     {
-        return i18n("Low");
+        return tr("Low");
     }
     else if( cMode->currentIndex() == 0 && dQuality->value() == 100 )
     {
-        return i18n("Medium");
+        return tr("Medium");
     }
     else if( cMode->currentIndex() == 0 && dQuality->value() == 140 )
     {
-        return i18n("High");
+        return tr("High");
     }
     else if( cMode->currentIndex() == 0 && dQuality->value() == 180 )
     {
-        return i18n("Very high");
+        return tr("Very high");
     }
 
-    return i18n("User defined");
+    return tr("User defined");
 }
 
 // TODO optimize !!!
 bool AftenCodecWidget::setCurrentProfile( const QString& profile )
 {
-    if( profile == i18n("Very low") )
+    if( profile == tr("Very low") )
     {
         cMode->setCurrentIndex( 0 );
         modeChanged( 0 );
@@ -191,7 +191,7 @@ bool AftenCodecWidget::setCurrentProfile( const QString& profile )
         dQuality->setValue( 60 );
         return true;
     }
-    else if( profile == i18n("Low") )
+    else if( profile == tr("Low") )
     {
         cMode->setCurrentIndex( 0 );
         modeChanged( 0 );
@@ -199,7 +199,7 @@ bool AftenCodecWidget::setCurrentProfile( const QString& profile )
         dQuality->setValue( 80 );
         return true;
     }
-    else if( profile == i18n("Medium") )
+    else if( profile == tr("Medium") )
     {
         cMode->setCurrentIndex( 0 );
         modeChanged( 0 );
@@ -207,7 +207,7 @@ bool AftenCodecWidget::setCurrentProfile( const QString& profile )
         dQuality->setValue( 100 );
         return true;
     }
-    else if( profile == i18n("High") )
+    else if( profile == tr("High") )
     {
         cMode->setCurrentIndex( 0 );
         modeChanged( 0 );
@@ -215,7 +215,7 @@ bool AftenCodecWidget::setCurrentProfile( const QString& profile )
         dQuality->setValue( 140 );
         return true;
     }
-    else if( profile == i18n("Very high") )
+    else if( profile == tr("Very high") )
     {
         cMode->setCurrentIndex( 0 );
         modeChanged( 0 );

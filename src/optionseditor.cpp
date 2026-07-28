@@ -21,12 +21,14 @@
 #include <QComboBox>
 #include <QIcon>
 #include <QLineEdit>
+#include <QSpinBox>
 #include <QLocale>
-#include <KNumInput>
+#include <QLineEdit>
 #include <QPushButton>
 #include <QTextEdit>
 #include <QDateTime>
 #include <QLabel>
+#include <KCompletion>
 
 
 // TODO use QPointer or QSharedPointer
@@ -115,7 +117,7 @@ OptionsEditor::OptionsEditor( Config *_config, QWidget *parent )
     pTrackEdit->hide();
     titleBox->addWidget( pTrackEdit );
     connect( pTrackEdit, SIGNAL(clicked()), this, SLOT(editTrackClicked()) );
-    lTrackTotalLabel = new QLabel( trc("Track/Disc No. x of y","of"), tagsWidget );
+    lTrackTotalLabel = new QLabel( tr("Track/Disc No. x of y","of"), tagsWidget );
     titleBox->addWidget( lTrackTotalLabel );
     iTrackTotal = new QSpinBox( 0, 999, 1, 1, tagsWidget );
     titleBox->addWidget( iTrackTotal );
@@ -201,7 +203,7 @@ OptionsEditor::OptionsEditor( Config *_config, QWidget *parent )
     pDiscEdit->hide();
     albumdataBox->addWidget( pDiscEdit );
     connect( pDiscEdit, SIGNAL(clicked()), this, SLOT(editDiscClicked()) );
-    lDiscTotalLabel = new QLabel( trc("Track/Disc No. x of y","of"), tagsWidget );
+    lDiscTotalLabel = new QLabel( tr("Track/Disc No. x of y","of"), tagsWidget );
     albumdataBox->addWidget( lDiscTotalLabel );
     iDiscTotal = new QSpinBox( 0, 99, 1, 1, tagsWidget );
     albumdataBox->addWidget( iDiscTotal );
@@ -438,12 +440,12 @@ void OptionsEditor::itemsSelected( QList<FileListItem*> items )
                 label->setFrameShadow( QFrame::Raised );
                 QString toolTip;
                 toolTip += "<span style='white-space:pre'><table>";
-                toolTip += "<tr><td>" + trc("cover tooltip","Cover type:") + "</td><td>" + CoverData::roleName(cover->role) + "</td></tr>";
+                toolTip += "<tr><td>" + tr("cover tooltip","Cover type:") + "</td><td>" + CoverData::roleName(cover->role) + "</td></tr>";
                 if( !cover->description.isEmpty() )
-                    toolTip += "<tr><td>" + trc("cover tooltip","Description:") + "</td><td>" + cover->description + "</td></tr>";
-                toolTip += "<tr><td>" + trc("cover tooltip","Size:") + "</td><td>" + trc("cover tooltip","%1 x %2 pixels (%3)",pixmap.width(),pixmap.height(),Global::prettyNumber(cover->data.size(),"B")) + "</td></tr>";
+                    toolTip += "<tr><td>" + tr("cover tooltip","Description:") + "</td><td>" + cover->description + "</td></tr>";
+                toolTip += "<tr><td>" + tr("cover tooltip","Size:") + "</td><td>" + tr("cover tooltip","%1 x %2 pixels (%3)",pixmap.width(),pixmap.height(),Global::prettyNumber(cover->data.size(),"B")) + "</td></tr>";
                 if( !cover->mimeType.isEmpty() )
-                    toolTip += "<tr><td>" + trc("cover tooltip","Mime type:") + "</td><td>" + cover->mimeType + "</td></tr>";
+                    toolTip += "<tr><td>" + tr("cover tooltip","Mime type:") + "</td><td>" + cover->mimeType + "</td></tr>";
                 toolTip += "</table></span>";
                 label->setToolTip( toolTip );
                 bCovers->addWidget( label );

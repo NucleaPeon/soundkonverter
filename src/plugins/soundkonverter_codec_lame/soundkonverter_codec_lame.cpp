@@ -110,19 +110,19 @@ void soundkonverter_codec_lame::showConfigDialog( ActionType action, const QStri
     if( !configDialog.data() )
     {
         configDialog = new QDialog( parent );
-        configDialog.data()->setCaption( i18n("Configure %1",*global_plugin_name) );
+        configDialog.data()->setCaption( tr("Configure %1",*global_plugin_name) );
         configDialog.data()->setButtons( QDialog::Ok | QDialog::Cancel | QDialog::Default );
 
         QWidget *configDialogWidget = new QWidget( configDialog.data() );
         QHBoxLayout *configDialogBox = new QHBoxLayout( configDialogWidget );
-        QLabel *configDialogStereoModeLabel = new QLabel( i18n("Stereo mode:"), configDialogWidget );
+        QLabel *configDialogStereoModeLabel = new QLabel( tr("Stereo mode:"), configDialogWidget );
         configDialogBox->addWidget( configDialogStereoModeLabel );
         configDialogStereoModeComboBox = new KComboBox( configDialogWidget );
-        configDialogStereoModeComboBox->addItem( i18n("Automatic"), "automatic" );
-        configDialogStereoModeComboBox->addItem( i18n("Joint Stereo"), "joint stereo" );
-        configDialogStereoModeComboBox->addItem( i18n("Simple Stereo"), "simple stereo" );
-        configDialogStereoModeComboBox->addItem( i18n("Forced Joint Stereo"), "forced joint stereo" );
-        configDialogStereoModeComboBox->addItem( i18n("Dual Mono"), "dual mono" );
+        configDialogStereoModeComboBox->addItem( tr("Automatic"), "automatic" );
+        configDialogStereoModeComboBox->addItem( tr("Joint Stereo"), "joint stereo" );
+        configDialogStereoModeComboBox->addItem( tr("Simple Stereo"), "simple stereo" );
+        configDialogStereoModeComboBox->addItem( tr("Forced Joint Stereo"), "forced joint stereo" );
+        configDialogStereoModeComboBox->addItem( tr("Dual Mono"), "dual mono" );
         configDialogBox->addWidget( configDialogStereoModeComboBox );
 
         configDialog.data()->setMainWidget( configDialogWidget );
@@ -165,12 +165,12 @@ bool soundkonverter_codec_lame::hasInfo()
 void soundkonverter_codec_lame::showInfo( QWidget *parent )
 {
     QDialog *dialog = new QDialog( parent );
-    dialog->setCaption( i18n("About %1",*global_plugin_name) );
+    dialog->setCaption( tr("About %1",*global_plugin_name) );
     dialog->setButtons( QDialog::Ok );
 
     QLabel *widget = new QLabel( dialog );
 
-    widget->setText( i18n("LAME is a free high quality MP3 encoder.\nYou can get it at: http://lame.sourceforge.net") );
+    widget->setText( tr("LAME is a free high quality MP3 encoder.\nYou can get it at: http://lame.sourceforge.net") );
 
     dialog->setMainWidget( widget );
 

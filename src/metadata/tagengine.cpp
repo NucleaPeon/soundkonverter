@@ -50,47 +50,47 @@ QString CoverData::roleName( Role role )
     switch( role )
     {
         case Other:
-            return i18nc("cover type","Unclassified");
+            return trc("cover type","Unclassified");
         case FileIcon:
-            return i18nc("cover type","32x32 PNG file icon");
+            return trc("cover type","32x32 PNG file icon");
         case OtherFileIcon:
-            return i18nc("cover type","File icon");
+            return trc("cover type","File icon");
         case FrontCover:
-            return i18nc("cover type","Front cover");
+            return trc("cover type","Front cover");
         case BackCover:
-            return i18nc("cover type","Back cover");
+            return trc("cover type","Back cover");
         case LeafletPage:
-            return i18nc("cover type","Leaflet page");
+            return trc("cover type","Leaflet page");
         case Media:
-            return i18nc("cover type","CD photo");
+            return trc("cover type","CD photo");
         case LeadArtist:
-            return i18nc("cover type","Lead artist picture");
+            return trc("cover type","Lead artist picture");
         case Artist:
-            return i18nc("cover type","Artist picture");
+            return trc("cover type","Artist picture");
         case Conductor:
-            return i18nc("cover type","Conductor picture");
+            return trc("cover type","Conductor picture");
         case Band:
-            return i18nc("cover type","Band picture");
+            return trc("cover type","Band picture");
         case Composer:
-            return i18nc("cover type","Composer picture");
+            return trc("cover type","Composer picture");
         case Lyricist:
-            return i18nc("cover type","Lyricist picture");
+            return trc("cover type","Lyricist picture");
         case RecordingLocation:
-            return i18nc("cover type","Picture of the recording location");
+            return trc("cover type","Picture of the recording location");
         case DuringRecording:
-            return i18nc("cover type","Picture of the artists during recording");
+            return trc("cover type","Picture of the artists during recording");
         case DuringPerformance:
-            return i18nc("cover type","Picture of the artists during performance");
+            return trc("cover type","Picture of the artists during performance");
         case MovieScreenCapture:
-            return i18nc("cover type","Picture from a video");
+            return trc("cover type","Picture from a video");
         case ColouredFish:
-            return i18nc("cover type","Picture of a large, coloured fish");
+            return trc("cover type","Picture of a large, coloured fish");
         case Illustration:
-            return i18nc("cover type","Illustration related to the track");
+            return trc("cover type","Illustration related to the track");
         case BandLogo:
-            return i18nc("cover type","Band logo");
+            return trc("cover type","Band logo");
         case PublisherLogo:
-            return i18nc("cover type","Publisher logo");
+            return trc("cover type","Publisher logo");
     }
 
     return QString();

@@ -66,7 +66,7 @@ void soundkonverter_codec_twolame::showConfigDialog( ActionType action, const QS
     Q_UNUSED(parent)
 
 //     QDialog *dialog = new QDialog( parent );
-//     dialog->setCaption( i18n("Configure %1",*global_plugin_name) );
+//     dialog->setCaption( tr("Configure %1",*global_plugin_name) );
 //     dialog->setButtons( QDialog::Ok | QDialog::Cancel | QDialog::Apply );
 
 //     QWidget *widget = new QWidget( dialog );
@@ -89,12 +89,12 @@ bool soundkonverter_codec_twolame::hasInfo()
 void soundkonverter_codec_twolame::showInfo( QWidget *parent )
 {
     QDialog *dialog = new QDialog( parent );
-    dialog->setCaption( i18n("About %1",*global_plugin_name) );
+    dialog->setCaption( tr("About %1",*global_plugin_name) );
     dialog->setButtons( QDialog::Ok );
 
     QLabel *widget = new QLabel( dialog );
 
-    widget->setText( i18n("TwoLame is a free MP2 encoder.\nYou can get it at: http://www.twolame.org") );
+    widget->setText( tr("TwoLame is a free MP2 encoder.\nYou can get it at: http://www.twolame.org") );
 
     dialog->setMainWidget( widget );
 

@@ -52,11 +52,11 @@ OpusToolsCodecWidget::OpusToolsCodecWidget()
 
     topBox->addSpacing( fontHeight );
 
-    QLabel *lBitrateMode = new QLabel( i18n("Bitrate mode:"), this );
+    QLabel *lBitrateMode = new QLabel( tr("Bitrate mode:"), this );
     topBox->addWidget( lBitrateMode );
     cBitrateMode = new KComboBox( this );
-    cBitrateMode->addItem( i18n("Average") );
-    cBitrateMode->addItem( i18n("Constant") );
+    cBitrateMode->addItem( tr("Average") );
+    cBitrateMode->addItem( tr("Constant") );
     cBitrateMode->setCurrentIndex( 0 );
     cBitrateMode->setFixedWidth( cBitrateMode->sizeHint().width() );
     connect( cBitrateMode, SIGNAL(activated(int)), SIGNAL(optionsChanged()) );
@@ -90,7 +90,7 @@ ConversionOptions *OpusToolsCodecWidget::currentConversionOptions()
     options->bitrate = (int)dQuality->value();
     options->data.floatBitrate = dQuality->value();
     options->quality = qualityForBitrate( options->bitrate );
-    options->bitrateMode = ( cBitrateMode->currentText()==i18n("Average") ) ? ConversionOptions::Abr : ConversionOptions::Cbr;
+    options->bitrateMode = ( cBitrateMode->currentText()==tr("Average") ) ? ConversionOptions::Abr : ConversionOptions::Cbr;
 
     return options;
 }
@@ -113,9 +113,9 @@ bool OpusToolsCodecWidget::setCurrentConversionOptions( const ConversionOptions 
         dQuality->setValue( options->bitrate );
 
     if( options->bitrateMode == ConversionOptions::Abr )
-        cBitrateMode->setCurrentIndex( cBitrateMode->findText(i18n("Average")) );
+        cBitrateMode->setCurrentIndex( cBitrateMode->findText(tr("Average")) );
     else
-        cBitrateMode->setCurrentIndex( cBitrateMode->findText(i18n("Constant")) );
+        cBitrateMode->setCurrentIndex( cBitrateMode->findText(tr("Constant")) );
 
     return true;
 }
@@ -133,63 +133,63 @@ QString OpusToolsCodecWidget::currentProfile()
 {
     if( currentFormat == "wav" )
     {
-        return i18n("Lossless");
+        return tr("Lossless");
     }
     else if( dQuality->value() == 64 )
     {
-        return i18n("Very low");
+        return tr("Very low");
     }
     else if( dQuality->value() == 96 )
     {
-        return i18n("Low");
+        return tr("Low");
     }
     else if( dQuality->value() == 128 )
     {
-        return i18n("Medium");
+        return tr("Medium");
     }
     else if( dQuality->value() == 160 )
     {
-        return i18n("High");
+        return tr("High");
     }
     else if( dQuality->value() == 192 )
     {
-        return i18n("Very high");
+        return tr("Very high");
     }
 
-    return i18n("User defined");
+    return tr("User defined");
 }
 
 bool OpusToolsCodecWidget::setCurrentProfile( const QString& profile )
 {
-    if( profile == i18n("Very low") )
+    if( profile == tr("Very low") )
     {
         sQuality->setValue( 6400 );
         dQuality->setValue( 64 );
         cBitrateMode->setCurrentIndex( 0 );
         return true;
     }
-    else if( profile == i18n("Low") )
+    else if( profile == tr("Low") )
     {
         sQuality->setValue( 9600 );
         dQuality->setValue( 96 );
         cBitrateMode->setCurrentIndex( 0 );
         return true;
     }
-    else if( profile == i18n("Medium") )
+    else if( profile == tr("Medium") )
     {
         sQuality->setValue( 12800 );
         dQuality->setValue( 128 );
         cBitrateMode->setCurrentIndex( 0 );
         return true;
     }
-    else if( profile == i18n("High") )
+    else if( profile == tr("High") )
     {
         sQuality->setValue( 16000 );
         dQuality->setValue( 160 );
         cBitrateMode->setCurrentIndex( 0 );
         return true;
     }
-    else if( profile == i18n("Very high") )
+    else if( profile == tr("Very high") )
     {
         sQuality->setValue( 19200 );
         dQuality->setValue( 192 );

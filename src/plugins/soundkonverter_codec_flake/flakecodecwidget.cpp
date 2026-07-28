@@ -27,7 +27,7 @@ FlakeCodecWidget::FlakeCodecWidget()
     QHBoxLayout *topBox = new QHBoxLayout();
     grid->addLayout( topBox, 0, 0 );
 
-    QLabel *lCompressionLevel = new QLabel( i18n("Compression level:"), this );
+    QLabel *lCompressionLevel = new QLabel( tr("Compression level:"), this );
     topBox->addWidget( lCompressionLevel );
 
     sCompressionLevel = new QSlider( Qt::Horizontal, this );
@@ -56,7 +56,7 @@ FlakeCodecWidget::FlakeCodecWidget()
     QHBoxLayout *cmdArgumentsBox = new QHBoxLayout();
     grid->addLayout( cmdArgumentsBox, 1, 0 );
 
-    cCmdArguments = new QCheckBox( i18n("Additional encoder arguments:"), this );
+    cCmdArguments = new QCheckBox( tr("Additional encoder arguments:"), this );
     cmdArgumentsBox->addWidget( cCmdArguments );
     lCmdArguments = new KLineEdit( this );
     lCmdArguments->setEnabled( false );
@@ -140,12 +140,12 @@ void FlakeCodecWidget::setCurrentFormat( const QString& format )
 
 QString FlakeCodecWidget::currentProfile()
 {
-    return i18n("Lossless");
+    return tr("Lossless");
 }
 
 bool FlakeCodecWidget::setCurrentProfile( const QString& profile )
 {
-    return profile == i18n("Lossless");
+    return profile == tr("Lossless");
 }
 
 int FlakeCodecWidget::currentDataRate()

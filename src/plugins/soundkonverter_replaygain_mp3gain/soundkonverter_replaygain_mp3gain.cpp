@@ -79,14 +79,14 @@ void soundkonverter_replaygain_mp3gain::showConfigDialog( ActionType action, con
     if( !configDialog.data() )
     {
         configDialog = new QDialog( parent );
-        configDialog.data()->setCaption( i18n("Configure %1",*global_plugin_name) );
+        configDialog.data()->setCaption( tr("Configure %1",*global_plugin_name) );
         configDialog.data()->setButtons( QDialog::Ok | QDialog::Cancel | QDialog::Default );
 
         QWidget *configDialogWidget = new QWidget( configDialog.data() );
         QVBoxLayout *configDialogBox = new QVBoxLayout( configDialogWidget );
 
         QHBoxLayout *configDialogBox1 = new QHBoxLayout();
-        QLabel *configDialogTagModeLabel = new QLabel( i18n("Use tag format:"), configDialogWidget );
+        QLabel *configDialogTagModeLabel = new QLabel( tr("Use tag format:"), configDialogWidget );
         configDialogBox1->addWidget( configDialogTagModeLabel );
         configDialogTagModeComboBox = new QComboBox( configDialogWidget );
         configDialogTagModeComboBox->addItem( "APE" );
@@ -95,18 +95,18 @@ void soundkonverter_replaygain_mp3gain::showConfigDialog( ActionType action, con
         configDialogBox->addLayout( configDialogBox1 );
 
         QHBoxLayout *configDialogBox3 = new QHBoxLayout();
-        QLabel *configDialogGainAdjustmentLabel = new QLabel( i18n("Adjust gain:"), configDialogWidget );
+        QLabel *configDialogGainAdjustmentLabel = new QLabel( tr("Adjust gain:"), configDialogWidget );
         configDialogBox3->addWidget( configDialogGainAdjustmentLabel );
         configDialogGainAdjustmentSpinBox = new QDoubleSpinBox( configDialogWidget );
         configDialogGainAdjustmentSpinBox->setRange( -99, 99 );
-        configDialogGainAdjustmentSpinBox->setSuffix( " " + i18nc("decibel","dB") );
-        configDialogGainAdjustmentSpinBox->setToolTip( i18n("Lower or raise the suggested gain") );
+        configDialogGainAdjustmentSpinBox->setSuffix( " " + trc("decibel","dB") );
+        configDialogGainAdjustmentSpinBox->setToolTip( tr("Lower or raise the suggested gain") );
         configDialogBox3->addWidget( configDialogGainAdjustmentSpinBox );
         configDialogBox->addLayout( configDialogBox3 );
 
         QHBoxLayout *configDialogBox2 = new QHBoxLayout();
-        configDialogModifyAudioStreamCheckBox = new QCheckBox( i18n("Modify audio stream"), configDialogWidget );
-        configDialogModifyAudioStreamCheckBox->setToolTip( i18n("Write gain adjustments directly into the encoded data. That way the adjustment works with all mp3 players.\nUndoing the changes is still possible since correction data will be written as well.") );
+        configDialogModifyAudioStreamCheckBox = new QCheckBox( tr("Modify audio stream"), configDialogWidget );
+        configDialogModifyAudioStreamCheckBox->setToolTip( tr("Write gain adjustments directly into the encoded data. That way the adjustment works with all mp3 players.\nUndoing the changes is still possible since correction data will be written as well.") );
         configDialogBox2->addWidget( configDialogModifyAudioStreamCheckBox );
         configDialogBox->addLayout( configDialogBox2 );
 

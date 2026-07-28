@@ -11,7 +11,7 @@
 CodecProblems::CodecProblems( Mode mode, const QList<Problem>& problemList, QWidget* parent, Qt::WindowFlags f )
     : QDialog( parent, f )
 {
-    setCaption( i18n("Solutions for backend problems") );
+    setCaption( tr("Solutions for backend problems") );
     setWindowIcon( KIcon("help-about") );
     setButtons( QDialog::Close );
     setButtonFocus( QDialog::Close );
@@ -25,30 +25,30 @@ CodecProblems::CodecProblems( Mode mode, const QList<Problem>& problemList, QWid
     {
         if( problemList.isEmpty() )
         {
-            message = i18n("soundKonverter couldn't find any missing packages.\nIf you are missing some file formats you might need to install an additional plugin via the package manager of your distribution.");
+            message = tr("soundKonverter couldn't find any missing packages.\nIf you are missing some file formats you might need to install an additional plugin via the package manager of your distribution.");
         }
         else
         {
-            message = i18n("Some of the installed plugins aren't working.\nPossible solutions are listed below.");
+            message = tr("Some of the installed plugins aren't working.\nPossible solutions are listed below.");
         }
     }
     else if( mode == Decode )
     {
-        message = i18n("Some files can't be decoded.\nPossible solutions are listed below.");
+        message = tr("Some files can't be decoded.\nPossible solutions are listed below.");
     }
     else if( mode == ReplayGain )
     {
-        message = i18n("Replay Gain isn't supported for some files.\nPossible solutions are listed below.");
+        message = tr("Replay Gain isn't supported for some files.\nPossible solutions are listed below.");
     }
     else if( mode == AudioCd )
     {
         if( problemList.isEmpty() )
         {
-            message = i18n("Ripping audio CDs is not supported by any installed plugin.\nPlease have a look at your distributions package manager in order to get a cd ripper plugin for soundKonverter.");
+            message = tr("Ripping audio CDs is not supported by any installed plugin.\nPlease have a look at your distributions package manager in order to get a cd ripper plugin for soundKonverter.");
         }
         else
         {
-            message = i18n("Ripping audio CDs is currently not supported because of missing backends.\nPossible solutions are listed below.");
+            message = tr("Ripping audio CDs is currently not supported because of missing backends.\nPossible solutions are listed below.");
         }
     }
     QLabel *messageLabel = new QLabel( message, this );
@@ -64,11 +64,11 @@ CodecProblems::CodecProblems( Mode mode, const QList<Problem>& problemList, QWid
             {
                 if( problemList.at(i).affectedFiles.isEmpty() )
                 {
-                    messageList += "<b>" + i18n("Possible solutions for %1", codecName) + "</b>:\n" + problemList.at(i).solutions.join("\n<b>"+i18nc("like in either or","or")+"</b>\n");
+                    messageList += "<b>" + tr("Possible solutions for %1", codecName) + "</b>:\n" + problemList.at(i).solutions.join("\n<b>"+trc("like in either or","or")+"</b>\n");
                 }
                 else
                 {
-                    messageList += "<b>" + i18n("Possible solutions for %1", codecName) + "</b>:\n" + problemList.at(i).solutions.join("\n<b>"+i18nc("like in either or","or")+"</b>\n") + "\n\n" + i18n("Affected files:") + "\n" + problemList.at(i).affectedFiles.join("\n");
+                    messageList += "<b>" + tr("Possible solutions for %1", codecName) + "</b>:\n" + problemList.at(i).solutions.join("\n<b>"+trc("like in either or","or")+"</b>\n") + "\n\n" + tr("Affected files:") + "\n" + problemList.at(i).affectedFiles.join("\n");
                 }
             }
         }

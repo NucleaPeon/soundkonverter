@@ -49,7 +49,7 @@ QList<ConversionPipeTrunk> soundkonverter_codec_opustools::codecTable()
     newTrunk.codecTo = "opus";
     newTrunk.rating = 100;
     newTrunk.enabled = ( binaries["opusenc"] != "" );
-    newTrunk.problemInfo = standardMessage( "encode_codec,backend", "opus", "opusenc" ) + "\n" + i18n( "'%1' is usually in the package '%2' which should be shipped with your distribution.", QString("opusenc"), QString("opus-tools") );
+    newTrunk.problemInfo = standardMessage( "encode_codec,backend", "opus", "opusenc" ) + "\n" + tr( "'%1' is usually in the package '%2' which should be shipped with your distribution.", QString("opusenc"), QString("opus-tools") );
     newTrunk.data.hasInternalReplayGain = false;
     table.append( newTrunk );
 
@@ -57,7 +57,7 @@ QList<ConversionPipeTrunk> soundkonverter_codec_opustools::codecTable()
     newTrunk.codecTo = "wav";
     newTrunk.rating = 100;
     newTrunk.enabled = ( binaries["opusdec"] != "" );
-    newTrunk.problemInfo = standardMessage( "decode_codec,backend", "opus", "opusdec" ) + "\n" + i18n( "'%1' is usually in the package '%2' which should be shipped with your distribution.", QString("opusdec"), QString("opus-tools") );
+    newTrunk.problemInfo = standardMessage( "decode_codec,backend", "opus", "opusdec" ) + "\n" + tr( "'%1' is usually in the package '%2' which should be shipped with your distribution.", QString("opusdec"), QString("opus-tools") );
     newTrunk.data.hasInternalReplayGain = false;
     table.append( newTrunk );
 
@@ -80,13 +80,13 @@ void soundkonverter_codec_opustools::showConfigDialog( ActionType action, const 
     if( !configDialog.data() )
     {
         configDialog = new QDialog( parent );
-        configDialog.data()->setCaption( i18n("Configure %1",*global_plugin_name) );
+        configDialog.data()->setCaption( tr("Configure %1",*global_plugin_name) );
         configDialog.data()->setButtons( QDialog::Ok | QDialog::Cancel | QDialog::Default );
 
         QWidget *configDialogWidget = new QWidget( configDialog.data() );
         QVBoxLayout *configDialogBox = new QVBoxLayout( configDialogWidget );
-        configDialogUncoupledChannelsCheckBox = new QCheckBox( i18n("Uncoupled channels"), configDialogWidget );
-        configDialogUncoupledChannelsCheckBox->setToolTip( i18n("Use one mono stream per channel") );
+        configDialogUncoupledChannelsCheckBox = new QCheckBox( tr("Uncoupled channels"), configDialogWidget );
+        configDialogUncoupledChannelsCheckBox->setToolTip( tr("Use one mono stream per channel") );
         configDialogBox->addWidget( configDialogUncoupledChannelsCheckBox );
 
         configDialog.data()->setMainWidget( configDialogWidget );

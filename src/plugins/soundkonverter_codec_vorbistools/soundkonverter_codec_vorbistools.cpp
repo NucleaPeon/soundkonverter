@@ -35,7 +35,7 @@ QList<ConversionPipeTrunk> soundkonverter_codec_vorbistools::codecTable()
     newTrunk.codecTo = "ogg vorbis";
     newTrunk.rating = 100;
     newTrunk.enabled = ( binaries["oggenc"] != "" );
-    newTrunk.problemInfo = standardMessage( "encode_codec,backend", "ogg vorbis", "oggenc" ) + "\n" + i18n( "'%1' is usually in the package '%2' which should be shipped with your distribution.", QString("oggenc"), QString("vorbis-tools") );
+    newTrunk.problemInfo = standardMessage( "encode_codec,backend", "ogg vorbis", "oggenc" ) + "\n" + tr( "'%1' is usually in the package '%2' which should be shipped with your distribution.", QString("oggenc"), QString("vorbis-tools") );
     newTrunk.data.hasInternalReplayGain = false;
     table.append( newTrunk );
 
@@ -43,7 +43,7 @@ QList<ConversionPipeTrunk> soundkonverter_codec_vorbistools::codecTable()
     newTrunk.codecTo = "wav";
     newTrunk.rating = 100;
     newTrunk.enabled = ( binaries["oggdec"] != "" );
-    newTrunk.problemInfo = standardMessage( "decode_codec,backend", "ogg vorbis", "oggdec" ) + "\n" + i18n( "'%1' is usually in the package '%2' which should be shipped with your distribution.", QString("oggdec"), QString("vorbis-tools") );
+    newTrunk.problemInfo = standardMessage( "decode_codec,backend", "ogg vorbis", "oggdec" ) + "\n" + tr( "'%1' is usually in the package '%2' which should be shipped with your distribution.", QString("oggdec"), QString("vorbis-tools") );
     newTrunk.data.hasInternalReplayGain = false;
     table.append( newTrunk );
 

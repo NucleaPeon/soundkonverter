@@ -21,7 +21,7 @@ ConfigCoverArtPage::ConfigCoverArtPage( Config *_config, QWidget *parent )
     QFont groupFont;
     groupFont.setBold( true );
 
-    QLabel *lCoverSaving = new QLabel( i18n("Saving covers to output directory"), this );
+    QLabel *lCoverSaving = new QLabel( tr("Saving covers to output directory"), this );
     lCoverSaving->setFont( groupFont );
     box->addWidget( lCoverSaving );
 
@@ -33,13 +33,13 @@ ConfigCoverArtPage::ConfigCoverArtPage( Config *_config, QWidget *parent )
     QVBoxLayout *writeCoversBox = new QVBoxLayout();
     coverSavingBox->addLayout( writeCoversBox );
 
-    QLabel *lWriteCovers = new QLabel( i18n("Save embedded covers to output directory"), this );
+    QLabel *lWriteCovers = new QLabel( tr("Save embedded covers to output directory"), this );
     writeCoversBox->addWidget( lWriteCovers );
-    rWriteCoversAlways = new QRadioButton( i18n("Always"), this );
+    rWriteCoversAlways = new QRadioButton( tr("Always"), this );
     writeCoversBox->addWidget( rWriteCoversAlways );
-    rWriteCoversAuto = new QRadioButton( i18n("Only if embedding the covers into the output files is not possible"), this );
+    rWriteCoversAuto = new QRadioButton( tr("Only if embedding the covers into the output files is not possible"), this );
     writeCoversBox->addWidget( rWriteCoversAuto );
-    rWriteCoversNever = new QRadioButton( i18n("Never"), this );
+    rWriteCoversNever = new QRadioButton( tr("Never"), this );
     writeCoversBox->addWidget( rWriteCoversNever );
 
     QButtonGroup *writeCoversGroup = new QButtonGroup( this );
@@ -59,18 +59,18 @@ ConfigCoverArtPage::ConfigCoverArtPage( Config *_config, QWidget *parent )
 
     writeCoversBox->addSpacing( spacingMedium );
 
-    lWriteCoverName = new QLabel( i18n("File name for the cover (when saving to output directory)"), this );
+    lWriteCoverName = new QLabel( tr("File name for the cover (when saving to output directory)"), this );
     writeCoversBox->addWidget( lWriteCoverName );
-    rWriteCoverNameTitle = new QRadioButton( i18n("The embedded cover description"), this );
+    rWriteCoverNameTitle = new QRadioButton( tr("The embedded cover description"), this );
     writeCoversBox->addWidget( rWriteCoverNameTitle );
-    rWriteCoverNameDefault = new QRadioButton( i18n("The default cover file name"), this );
+    rWriteCoverNameDefault = new QRadioButton( tr("The default cover file name"), this );
     writeCoversBox->addWidget( rWriteCoverNameDefault );
 
     QHBoxLayout *writeCoverNameTextBox = new QHBoxLayout( this );
-    lWriteCoverNameDefaultLabel = new QLabel( i18n("Default cover file name:"), this );
+    lWriteCoverNameDefaultLabel = new QLabel( tr("Default cover file name:"), this );
     writeCoverNameTextBox->addWidget( lWriteCoverNameDefaultLabel );
     lWriteCoverNameDefaultEdit = new KLineEdit( this );
-    lWriteCoverNameDefaultEdit->setToolTip( i18n("The following strings are wildcards that will be replaced\nby the information in the meta data:\n\n%a - Artist\n%b - Album\n%d - Cover description\n%r - Cover role") );
+    lWriteCoverNameDefaultEdit->setToolTip( tr("The following strings are wildcards that will be replaced\nby the information in the meta data:\n\n%a - Artist\n%b - Album\n%d - Cover description\n%r - Cover role") );
     writeCoverNameTextBox->addWidget( lWriteCoverNameDefaultEdit );
     writeCoverNameTextBox->addStretch();
     writeCoversBox->addLayout( writeCoverNameTextBox );
@@ -88,15 +88,15 @@ ConfigCoverArtPage::ConfigCoverArtPage( Config *_config, QWidget *parent )
         rWriteCoverNameDefault->setChecked( true );
     lWriteCoverNameDefaultEdit->setText( config->data.coverArt.writeCoverDefaultName );
 
-//     QGroupBox *coverGroup = new QGroupBox( i18n("CD covers"), this );
+//     QGroupBox *coverGroup = new QGroupBox( tr("CD covers"), this );
 //     writeCoversBox->addWidget( coverGroup );
 //     QVBoxLayout *coverBox = new QVBoxLayout();
 //
-//     cCopyCover = new QCheckBox( i18n("Copy covers from the source directoy to output directoy"), this );
+//     cCopyCover = new QCheckBox( tr("Copy covers from the source directoy to output directoy"), this );
 //     coverBox->addWidget( cCopyCover );
 //     connect( cCopyCover, SIGNAL(toggled(bool)), this, SIGNAL(configChanged()) );
 //
-//     cEmbedCover = new QCheckBox( i18n("Embed covers from the source directoy into meta tags if possible"), this );
+//     cEmbedCover = new QCheckBox( tr("Embed covers from the source directoy into meta tags if possible"), this );
 //     coverBox->addWidget( cEmbedCover );
 //     connect( cEmbedCover, SIGNAL(toggled(bool)), this, SIGNAL(configChanged()) );
 //
@@ -110,11 +110,11 @@ ConfigCoverArtPage::ConfigCoverArtPage( Config *_config, QWidget *parent )
 //
 //     writeCoversBox->addSpacing( 5 );
 //
-//     QGroupBox *userScriptGroup = new QGroupBox( i18n("User scripts"), this );
+//     QGroupBox *userScriptGroup = new QGroupBox( tr("User scripts"), this );
 //     writeCoversBox->addWidget( userScriptGroup );
 //     QVBoxLayout *userScriptBox = new QVBoxLayout();
 //
-//     QLabel *lUserScript = new QLabel( i18n("Check all scripts that should be executed after a conversion has finished"), this );
+//     QLabel *lUserScript = new QLabel( tr("Check all scripts that should be executed after a conversion has finished"), this );
 //     userScriptBox->addWidget( lUserScript );
 //
 //     QListView *lUserScriptList = new QListView( this );
@@ -132,7 +132,7 @@ void ConfigCoverArtPage::resetDefaults()
 {
     rWriteCoversAuto->setChecked( true );
     rWriteCoverNameTitle->setChecked( true );
-    lWriteCoverNameDefaultEdit->setText( i18nc("cover file name","cover") );
+    lWriteCoverNameDefaultEdit->setText( trc("cover file name","cover") );
 
     emit configChanged( true );
 }

@@ -29,12 +29,12 @@ TwoLameCodecWidget::TwoLameCodecWidget()
     QHBoxLayout *topBox = new QHBoxLayout();
     grid->addLayout( topBox, 0, 0 );
 
-    QLabel *lMode = new QLabel( i18n("Mode:"), this );
+    QLabel *lMode = new QLabel( tr("Mode:"), this );
     topBox->addWidget( lMode );
 
     cMode = new KComboBox( this );
-    cMode->addItem( i18n("Quality") );
-    cMode->addItem( i18n("Bitrate") );
+    cMode->addItem( tr("Quality") );
+    cMode->addItem( tr("Bitrate") );
     connect( cMode, SIGNAL(activated(int)), this, SLOT(modeChanged(int)) );
     connect( cMode, SIGNAL(activated(int)), SIGNAL(optionsChanged()) );
     topBox->addWidget( cMode );
@@ -60,7 +60,7 @@ TwoLameCodecWidget::TwoLameCodecWidget()
     QHBoxLayout *cmdArgumentsBox = new QHBoxLayout();
     grid->addLayout( cmdArgumentsBox, 1, 0 );
 
-    cCmdArguments = new QCheckBox( i18n("Additional encoder arguments:"), this );
+    cCmdArguments = new QCheckBox( tr("Additional encoder arguments:"), this );
     cmdArgumentsBox->addWidget( cCmdArguments );
     lCmdArguments = new KLineEdit( this );
     lCmdArguments->setEnabled( false );
@@ -90,7 +90,7 @@ int TwoLameCodecWidget::qualityForBitrate( int bitrate )
 ConversionOptions *TwoLameCodecWidget::currentConversionOptions()
 {
     ConversionOptions *options = new ConversionOptions();
-    if( cMode->currentText() == i18n("Quality") )
+    if( cMode->currentText() == tr("Quality") )
     {
         options->qualityMode = ConversionOptions::Quality;
         options->quality = iQuality->value();
@@ -116,13 +116,13 @@ bool TwoLameCodecWidget::setCurrentConversionOptions( const ConversionOptions *o
 
     if( options->qualityMode == ConversionOptions::Quality )
     {
-        cMode->setCurrentIndex( cMode->findText(i18n("Quality")) );
+        cMode->setCurrentIndex( cMode->findText(tr("Quality")) );
         modeChanged( cMode->currentIndex() );
         iQuality->setValue( options->quality );
     }
     else
     {
-        cMode->setCurrentIndex( cMode->findText(i18n("Bitrate")) );
+        cMode->setCurrentIndex( cMode->findText(tr("Bitrate")) );
         modeChanged( cMode->currentIndex() );
         iQuality->setValue( options->bitrate );
     }
@@ -143,35 +143,35 @@ QString TwoLameCodecWidget::currentProfile()
 {
     if( currentFormat == "wav" )
     {
-        return i18n("Lossless");
+        return tr("Lossless");
     }
     else if( cMode->currentIndex() == 0 && iQuality->value() == -25 )
     {
-        return i18n("Very low");
+        return tr("Very low");
     }
     else if( cMode->currentIndex() == 0 && iQuality->value() == -10 )
     {
-        return i18n("Low");
+        return tr("Low");
     }
     else if( cMode->currentIndex() == 0 && iQuality->value() == 5 )
     {
-        return i18n("Medium");
+        return tr("Medium");
     }
     else if( cMode->currentIndex() == 0 && iQuality->value() == 20 )
     {
-        return i18n("High");
+        return tr("High");
     }
     else if( cMode->currentIndex() == 0 && iQuality->value() == 35 )
     {
-        return i18n("Very high");
+        return tr("Very high");
     }
 
-    return i18n("User defined");
+    return tr("User defined");
 }
 
 bool TwoLameCodecWidget::setCurrentProfile( const QString& profile )
 {
-    if( profile == i18n("Very low") )
+    if( profile == tr("Very low") )
     {
         cMode->setCurrentIndex( 0 );
         modeChanged( 0 );
@@ -180,7 +180,7 @@ bool TwoLameCodecWidget::setCurrentProfile( const QString& profile )
         cCmdArguments->setChecked( false );
         return true;
     }
-    else if( profile == i18n("Low") )
+    else if( profile == tr("Low") )
     {
         cMode->setCurrentIndex( 0 );
         modeChanged( 0 );
@@ -189,7 +189,7 @@ bool TwoLameCodecWidget::setCurrentProfile( const QString& profile )
         cCmdArguments->setChecked( false );
         return true;
     }
-    else if( profile == i18n("Medium") )
+    else if( profile == tr("Medium") )
     {
         cMode->setCurrentIndex( 0 );
         modeChanged( 0 );
@@ -198,7 +198,7 @@ bool TwoLameCodecWidget::setCurrentProfile( const QString& profile )
         cCmdArguments->setChecked( false );
         return true;
     }
-    else if( profile == i18n("High") )
+    else if( profile == tr("High") )
     {
         cMode->setCurrentIndex( 0 );
         modeChanged( 0 );
@@ -207,7 +207,7 @@ bool TwoLameCodecWidget::setCurrentProfile( const QString& profile )
         cCmdArguments->setChecked( false );
         return true;
     }
-    else if( profile == i18n("Very high") )
+    else if( profile == tr("Very high") )
     {
         cMode->setCurrentIndex( 0 );
         modeChanged( 0 );
@@ -254,8 +254,8 @@ void TwoLameCodecWidget::modeChanged( int mode )
         iQuality->setSuffix( "" );
         sQuality->setValue( 5 );
         iQuality->setValue( 5 );
-        sQuality->setToolTip( i18n("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", -50, 50) );
-        iQuality->setToolTip( i18n("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", -50, 50) );
+        sQuality->setToolTip( tr("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", -50, 50) );
+        iQuality->setToolTip( tr("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", -50, 50) );
     }
     else
     {
@@ -266,7 +266,7 @@ void TwoLameCodecWidget::modeChanged( int mode )
         iQuality->setSuffix( " kbps" );
         sQuality->setValue( 160 );
         iQuality->setValue( 160 );
-        iQuality->setToolTip( i18n("Bitrate") );
+        iQuality->setToolTip( tr("Bitrate") );
         sQuality->setToolTip( "" );
         iQuality->setToolTip( "" );
     }

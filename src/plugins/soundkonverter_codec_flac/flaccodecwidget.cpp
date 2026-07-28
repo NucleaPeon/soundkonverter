@@ -25,7 +25,7 @@ FlacCodecWidget::FlacCodecWidget()
     QHBoxLayout *topBox = new QHBoxLayout();
     grid->addLayout( topBox, 0, 0 );
 
-    QLabel *lCompressionLevel = new QLabel( i18n("Compression level:"), this );
+    QLabel *lCompressionLevel = new QLabel( tr("Compression level:"), this );
     topBox->addWidget( lCompressionLevel );
 
     sCompressionLevel = new QSlider( Qt::Horizontal, this );
@@ -37,7 +37,7 @@ FlacCodecWidget::FlacCodecWidget()
     connect( sCompressionLevel, SIGNAL(valueChanged(int)), this, SLOT(compressionLevelSliderChanged(int)) );
     connect( sCompressionLevel, SIGNAL(valueChanged(int)), SIGNAL(optionsChanged()) );
     topBox->addWidget( sCompressionLevel );
-    sCompressionLevel->setToolTip( i18n("Compression level from %1 to %2 where %2 is the best compression.\nThe better the compression, the slower the conversion but the smaller the file size and vice versa.", 0, 8) );
+    sCompressionLevel->setToolTip( tr("Compression level from %1 to %2 where %2 is the best compression.\nThe better the compression, the slower the conversion but the smaller the file size and vice versa.", 0, 8) );
 
     iCompressionLevel = new QSpinBox( this );
     iCompressionLevel->setRange( 0, 8 );
@@ -47,7 +47,7 @@ FlacCodecWidget::FlacCodecWidget()
     connect( iCompressionLevel, SIGNAL(valueChanged(int)), this, SLOT(compressionLevelSpinBoxChanged(int)) );
     connect( iCompressionLevel, SIGNAL(valueChanged(int)), SIGNAL(optionsChanged()) );
     topBox->addWidget( iCompressionLevel );
-    iCompressionLevel->setToolTip( i18n("Compression level from %1 to %2 where %2 is the best compression.\nThe better the compression, the slower the conversion but the smaller the file size and vice versa.", 0, 8) );
+    iCompressionLevel->setToolTip( tr("Compression level from %1 to %2 where %2 is the best compression.\nThe better the compression, the slower the conversion but the smaller the file size and vice versa.", 0, 8) );
 
     topBox->addStretch();
 
@@ -85,12 +85,12 @@ void FlacCodecWidget::setCurrentFormat( const QString& format )
 
 QString FlacCodecWidget::currentProfile()
 {
-    return i18n("Lossless");
+    return tr("Lossless");
 }
 
 bool FlacCodecWidget::setCurrentProfile( const QString& profile )
 {
-    return profile == i18n("Lossless");
+    return profile == tr("Lossless");
 }
 
 int FlacCodecWidget::currentDataRate()

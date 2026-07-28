@@ -22,7 +22,7 @@ ShortenCodecWidget::ShortenCodecWidget()
     QHBoxLayout *cmdArgumentsBox = new QHBoxLayout();
     grid->addLayout( cmdArgumentsBox, 1, 0 );
 
-    cCmdArguments = new QCheckBox( i18n("Additional encoder arguments:"), this );
+    cCmdArguments = new QCheckBox( tr("Additional encoder arguments:"), this );
     cmdArgumentsBox->addWidget( cCmdArguments );
     lCmdArguments = new KLineEdit( this );
     lCmdArguments->setEnabled( false );
@@ -71,12 +71,12 @@ void ShortenCodecWidget::setCurrentFormat( const QString& format )
 
 QString ShortenCodecWidget::currentProfile()
 {
-    return i18n("Lossless");
+    return tr("Lossless");
 }
 
 bool ShortenCodecWidget::setCurrentProfile( const QString& profile )
 {
-    return profile == i18n("Lossless");
+    return profile == tr("Lossless");
 }
 
 int ShortenCodecWidget::currentDataRate()

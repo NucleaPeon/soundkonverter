@@ -22,17 +22,17 @@ using namespace SoundKonverter;
 
 int main(int argc, char **argv)
 {
-    KLocalizedString::setApplicationDomain("soundkonverter");
-    
+    KLocalizedString::setApplicationDomain(SOUNDKONVERTER_DOMAIN.toLatin1());
     QString version = QString("%1.%2.%3").arg(Version::RELEASE, Version::MAJOR, Version::MINOR);
 
+    soundKonverterApp app = soundKonverterApp(argc, argv);
     QCommandLineParser parser = QCommandLineParser();
     parser.addHelpOption();
     parser.addVersionOption();
 
     KAboutData about(
         SOUNDKONVERTER_NAME,
-        i18n("soundKonverter"),
+        i18n(SOUNDKONVERTER_NAME.toLatin1()),
         version.toLatin1(),
         i18n(description),
         KAboutLicense::GPL,
@@ -47,6 +47,7 @@ int main(int argc, char **argv)
     about.addCredit( QObject::tr("Patrick Auernig"), QObject::tr("Inital Port to KDE Frameworks 5"), "patrick.auernig@gmail.com" );
     about.addCredit( QObject::tr("Daniel Kettle"), QObject::tr("Inital Port to Qt6"), "initial.dann@gmail.com", "https://github.com/NucleaPeon");
 
+    parser.addOption(QCommandLineOption("start", QObject::tr("Open the Replay Gain tool and add all given files"), "", "true"));
     parser.addOption(QCommandLineOption("replaygain", QObject::tr("Open the Replay Gain tool and add all given files")));
     parser.addOption(QCommandLineOption("rip <device>", QObject::tr("List all tracks on the cd drive <device>, 'auto' will search for a cd")));
     parser.addOption(QCommandLineOption("profile <profile>", QObject::tr("Add all files using the given profile")));
@@ -58,15 +59,10 @@ int main(int argc, char **argv)
     parser.addOption(QCommandLineOption("command <command>", QObject::tr("Execute <command> after each file has been converted (%i=input file, %o=output file)")));
     parser.addOption(QCommandLineOption("file-list <path>", QObject::tr("Load the file list at <path> after starting soundKonverter")));
     parser.addOption(QCommandLineOption("+[files]", QObject::tr("Audio file(s) to append to the file list")));
-
-
-    // soundKonverterApp::addCmdLineOptions();
-    // if( !soundKonverterApp::start() )
-    // {
-    //     return 0;
-    // }
-
-    soundKonverterApp app;
+    parser.process(app);
+    if (parser.value("start").isEmpty() || parser.value("start") == "false") {
+        return 0;
+    }
 
     // mainWin has WDestructiveClose flag by default, so it will delete itself.
     return app.exec();

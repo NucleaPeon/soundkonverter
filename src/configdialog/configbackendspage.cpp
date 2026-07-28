@@ -133,11 +133,11 @@ void BackendsListWidget::itemSelected( int row )
 
     if( plugin )
     {
-        if( name == i18n("Decoder") )
+        if( name == tr("Decoder") )
             pConfigure->setEnabled( plugin->isConfigSupported(CodecPlugin::Decoder,format) );
-        else if( name == i18n("Encoder") )
+        else if( name == tr("Encoder") )
             pConfigure->setEnabled( plugin->isConfigSupported(CodecPlugin::Encoder,format) );
-        else if( name == i18n("Replay Gain") )
+        else if( name == tr("Replay Gain") )
             pConfigure->setEnabled( plugin->isConfigSupported(CodecPlugin::ReplayGain,format) );
 
         pInfo->setEnabled( plugin->hasInfo() );
@@ -145,22 +145,22 @@ void BackendsListWidget::itemSelected( int row )
         const QString pluginName = plugin->name();
 
         if( pUp->isEnabled() )
-            pUp->setToolTip( i18n("Move %1 one position up",pluginName) );
+            pUp->setToolTip( tr("Move %1 one position up",pluginName) );
         else
             pUp->setToolTip( "" );
 
         if( pDown->isEnabled() )
-            pDown->setToolTip( i18n("Move %1 one position down",pluginName) );
+            pDown->setToolTip( tr("Move %1 one position down",pluginName) );
         else
             pDown->setToolTip( "" );
 
         if( pInfo->isEnabled() )
-            pInfo->setToolTip( i18n("About %1 ...",pluginName) );
+            pInfo->setToolTip( tr("About %1 ...",pluginName) );
         else
             pInfo->setToolTip( "" );
 
         if( pConfigure->isEnabled() )
-            pConfigure->setToolTip( i18n("Configure %1 ...",pluginName) );
+            pConfigure->setToolTip( tr("Configure %1 ...",pluginName) );
         else
             pConfigure->setToolTip( "" );
     }
@@ -194,11 +194,11 @@ void BackendsListWidget::configure()
 
     if( plugin )
     {
-        if( name == i18n("Decoder") )
+        if( name == tr("Decoder") )
             plugin->showConfigDialog( CodecPlugin::Decoder, format, this );
-        else if( name == i18n("Encoder") )
+        else if( name == tr("Encoder") )
             plugin->showConfigDialog( CodecPlugin::Encoder, format, this );
-        else if( name == i18n("Replay Gain") )
+        else if( name == tr("Replay Gain") )
             plugin->showConfigDialog( CodecPlugin::ReplayGain, format, this );
     }
 }
@@ -229,7 +229,7 @@ ConfigBackendsPage::ConfigBackendsPage( Config *_config, QWidget *parent )
     QFont groupFont;
     groupFont.setBold( true );
 
-    QLabel *lCdRipper = new QLabel( i18n("CD ripper"), this );
+    QLabel *lCdRipper = new QLabel( tr("CD ripper"), this );
     lCdRipper->setFont( groupFont );
     box->addWidget( lCdRipper );
 
@@ -238,7 +238,7 @@ ConfigBackendsPage::ConfigBackendsPage( Config *_config, QWidget *parent )
     QHBoxLayout *ripperBox = new QHBoxLayout();
     ripperBox->addSpacing( spacingOffset );
     box->addLayout( ripperBox );
-    QLabel *lSelectorRipper = new QLabel( i18n("Use plugin:"), this );
+    QLabel *lSelectorRipper = new QLabel( tr("Use plugin:"), this );
     ripperBox->addWidget( lSelectorRipper );
     ripperBox->setStretchFactor( lSelectorRipper, 2 );
     cSelectorRipper = new KComboBox( this );
@@ -262,7 +262,7 @@ ConfigBackendsPage::ConfigBackendsPage( Config *_config, QWidget *parent )
 
     box->addSpacing( spacingBig );
 
-    QLabel *lFilters = new QLabel( i18n("Filters"), this );
+    QLabel *lFilters = new QLabel( tr("Filters"), this );
     lFilters->setFont( groupFont );
     box->addWidget( lFilters );
 
@@ -278,7 +278,7 @@ ConfigBackendsPage::ConfigBackendsPage( Config *_config, QWidget *parent )
     {
         if( row == 0 )
         {
-            QLabel *lSelectorFilter = new QLabel( i18n("Enable plugins:"), this );
+            QLabel *lSelectorFilter = new QLabel( tr("Enable plugins:"), this );
             filterGrid->addWidget( lSelectorFilter, row, 0 );
         }
 
@@ -306,7 +306,7 @@ ConfigBackendsPage::ConfigBackendsPage( Config *_config, QWidget *parent )
         }
 
         if( newConfigButton->isEnabled() )
-            newConfigButton->setToolTip( i18n("Configure %1 ...",filterPluginName) );
+            newConfigButton->setToolTip( tr("Configure %1 ...",filterPluginName) );
 
         row++;
     }
@@ -317,7 +317,7 @@ ConfigBackendsPage::ConfigBackendsPage( Config *_config, QWidget *parent )
 
     box->addSpacing( spacingBig );
 
-    QLabel *lPriorities = new QLabel( i18n("Priorities"), this );
+    QLabel *lPriorities = new QLabel( tr("Priorities"), this );
     lPriorities->setFont( groupFont );
     box->addWidget( lPriorities );
 
@@ -329,7 +329,7 @@ ConfigBackendsPage::ConfigBackendsPage( Config *_config, QWidget *parent )
     QHBoxLayout *formatSelectorBox = new QHBoxLayout();
     formatSelectorBox->addSpacing( spacingOffset );
     formatBox->addLayout( formatSelectorBox );
-    QLabel *lSelectorFormat = new QLabel( i18n("Configure plugin priorities for format:"), this );
+    QLabel *lSelectorFormat = new QLabel( tr("Configure plugin priorities for format:"), this );
     formatSelectorBox->addWidget( lSelectorFormat );
     cSelectorFormat = new KComboBox( this );
     cSelectorFormat->addItems( config->pluginLoader()->formatList(PluginLoader::Possibilities(PluginLoader::Encode|PluginLoader::Decode|PluginLoader::ReplayGain),PluginLoader::CompressionType(PluginLoader::InferiorQuality|PluginLoader::Lossy|PluginLoader::Lossless|PluginLoader::Hybrid)) );
@@ -342,13 +342,13 @@ ConfigBackendsPage::ConfigBackendsPage( Config *_config, QWidget *parent )
     QHBoxLayout *formatBackendsBox = new QHBoxLayout();
     formatBackendsBox->addSpacing( spacingOffset );
     formatBox->addLayout( formatBackendsBox );
-    decoderList = new BackendsListWidget( i18n("Decoder"), config, this );
+    decoderList = new BackendsListWidget( tr("Decoder"), config, this );
     formatBackendsBox->addWidget( decoderList );
     connect( decoderList, SIGNAL(orderChanged()), this, SLOT(somethingChanged()) );
-    encoderList = new BackendsListWidget( i18n("Encoder"), config, this );
+    encoderList = new BackendsListWidget( tr("Encoder"), config, this );
     formatBackendsBox->addWidget( encoderList );
     connect( encoderList, SIGNAL(orderChanged()), this, SLOT(somethingChanged()) );
-    replaygainList = new BackendsListWidget( i18n("Replay Gain"), config, this );
+    replaygainList = new BackendsListWidget( tr("Replay Gain"), config, this );
     formatBackendsBox->addWidget( replaygainList );
     connect( replaygainList, SIGNAL(orderChanged()), this, SLOT(somethingChanged()) );
 
@@ -356,7 +356,7 @@ ConfigBackendsPage::ConfigBackendsPage( Config *_config, QWidget *parent )
     optimizationsBox->addSpacing( spacingOffset );
     formatBox->addLayout( optimizationsBox );
     optimizationsBox->addStretch();
-    pShowOptimizations = new QPushButton( QIcon("games-solve"), i18n("Show possible optimizations"), this );
+    pShowOptimizations = new QPushButton( QIcon("games-solve"), tr("Show possible optimizations"), this );
     optimizationsBox->addWidget( pShowOptimizations );
     connect( pShowOptimizations, SIGNAL(clicked()), this, SLOT(showOptimizations()) );
     optimizationsBox->addStretch();
@@ -385,7 +385,7 @@ void ConfigBackendsPage::ripperChanged( const QString& pluginName )
     }
 
     if( pConfigureRipper->isEnabled() )
-        pConfigureRipper->setToolTip( i18n("Configure %1 ...",pluginName) );
+        pConfigureRipper->setToolTip( tr("Configure %1 ...",pluginName) );
     else
         pConfigureRipper->setToolTip( "" );
 }
@@ -396,7 +396,7 @@ void ConfigBackendsPage::formatChanged( const QString& format, bool ignoreChange
 
     if( !ignoreChanges && ( decoderList->changed() || encoderList->changed() || replaygainList->changed() ) )
     {
-        const int ret = KMessageBox::questionYesNo( this, i18n("You have changed the current settings.\nDo you want to save them?"), i18n("Settings changed") );
+        const int ret = KMessageBox::questionYesNo( this, tr("You have changed the current settings.\nDo you want to save them?"), tr("Settings changed") );
         if( ret == KMessageBox::Yes )
         {
             saveSettings();
@@ -472,7 +472,7 @@ void ConfigBackendsPage::resetDefaults()
         i++;
     }
 
-    const int answer = KMessageBox::questionYesNo( this, i18n("This will choose the best backends for all formats and save the new preferences immediately.\n\nDo you want to continue?") );
+    const int answer = KMessageBox::questionYesNo( this, tr("This will choose the best backends for all formats and save the new preferences immediately.\n\nDo you want to continue?") );
 
     if( answer == KMessageBox::Yes )
     {
@@ -604,7 +604,7 @@ void ConfigBackendsPage::showOptimizations()
     }
     else
     {
-        KMessageBox::information( this, i18n("All backend settings seem to be optimal, there is nothing to do.") );
+        KMessageBox::information( this, tr("All backend settings seem to be optimal, there is nothing to do.") );
     }
 
     formatChanged( cSelectorFormat->currentText(), true );

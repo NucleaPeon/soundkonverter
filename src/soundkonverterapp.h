@@ -11,7 +11,7 @@
 class soundKonverter;
 
 /**
- * @short The soundKonverter application. It controlles ensures that there can only run one instance of soundKonverter.
+ * @short The soundKonverter application. It ensures that there can only be one instance of soundKonverter.
  * @author Daniel Faust <hessijames@gmail.com>
  * @version 0.3
  */
@@ -20,7 +20,7 @@ class soundKonverterApp : public QApplication
     Q_OBJECT
 public:
     /** Constructor */
-    soundKonverterApp();
+    soundKonverterApp(int argc, char **argv);
 
     /** Destructor */
     ~soundKonverterApp();

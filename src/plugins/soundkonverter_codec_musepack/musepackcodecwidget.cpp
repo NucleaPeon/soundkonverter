@@ -32,19 +32,19 @@ MusePackCodecWidget::MusePackCodecWidget()
     QHBoxLayout *presetBox = new QHBoxLayout();
     grid->addLayout( presetBox, 0, 0 );
 
-    QLabel *lPreset = new QLabel( i18n("Preset:"), this );
+    QLabel *lPreset = new QLabel( tr("Preset:"), this );
     presetBox->addWidget( lPreset );
     cPreset = new KComboBox( this );
-    cPreset->addItem( i18nc("Backend profile","Telephone") );
-    cPreset->addItem( i18nc("Backend profile","Thumb") );
-    cPreset->addItem( i18nc("Backend profile","Radio") );
-    cPreset->addItem( i18nc("Backend profile","Standard") );
-    cPreset->addItem( i18nc("Backend profile","Extreme") );
-    cPreset->addItem( i18nc("Backend profile","Insane") );
-    cPreset->addItem( i18nc("Backend profile","Braindead") );
-    cPreset->addItem( i18n("User defined") );
+    cPreset->addItem( trc("Backend profile","Telephone") );
+    cPreset->addItem( trc("Backend profile","Thumb") );
+    cPreset->addItem( trc("Backend profile","Radio") );
+    cPreset->addItem( trc("Backend profile","Standard") );
+    cPreset->addItem( trc("Backend profile","Extreme") );
+    cPreset->addItem( trc("Backend profile","Insane") );
+    cPreset->addItem( trc("Backend profile","Braindead") );
+    cPreset->addItem( tr("User defined") );
     cPreset->setCurrentIndex( 3 );
-    cPreset->setToolTip( i18n("Either use one of MusePacks's presets or your own settings.") );
+    cPreset->setToolTip( tr("Either use one of MusePacks's presets or your own settings.") );
     connect( cPreset, SIGNAL(activated(const QString&)), this, SLOT(presetChanged(const QString&)) );
     connect( cPreset, SIGNAL(activated(int)), SIGNAL(optionsChanged()) );
     presetBox->addWidget( cPreset );
@@ -53,7 +53,7 @@ MusePackCodecWidget::MusePackCodecWidget()
 
     // set up user defined options
 
-    userdefinedBox = new QGroupBox( /*i18n("User defined"),*/ this );
+    userdefinedBox = new QGroupBox( /*tr("User defined"),*/ this );
     grid->addWidget( userdefinedBox, 1, 0 );
 
     QVBoxLayout *userdefinedBoxLayout = new QVBoxLayout();
@@ -64,7 +64,7 @@ MusePackCodecWidget::MusePackCodecWidget()
     QHBoxLayout *userdefinedTopBox = new QHBoxLayout();
     userdefinedBoxLayout->addLayout( userdefinedTopBox );
 
-    QLabel *lQuality = new QLabel( i18n("Quality"), userdefinedBox );
+    QLabel *lQuality = new QLabel( tr("Quality"), userdefinedBox );
     userdefinedTopBox->addWidget( lQuality );
 
     userdefinedTopBox->addSpacing( 0.5*fontHeight );
@@ -76,7 +76,7 @@ MusePackCodecWidget::MusePackCodecWidget()
     connect( sQuality, SIGNAL(valueChanged(int)), this, SLOT(qualitySliderChanged(int)) );
     connect( sQuality, SIGNAL(valueChanged(int)), SIGNAL(optionsChanged()) );
     userdefinedTopBox->addWidget( sQuality );
-    sQuality->setToolTip( i18n("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", 0, 10) );
+    sQuality->setToolTip( tr("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", 0, 10) );
 
     dQuality = new QDoubleSpinBox( userdefinedBox );
     dQuality->setRange( 0, 10 );
@@ -86,7 +86,7 @@ MusePackCodecWidget::MusePackCodecWidget()
     connect( dQuality, SIGNAL(valueChanged(double)), this, SLOT(qualitySpinBoxChanged(double)) );
     connect( dQuality, SIGNAL(valueChanged(double)), SIGNAL(optionsChanged()) );
     userdefinedTopBox->addWidget( dQuality );
-    dQuality->setToolTip( i18n("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", 0, 10) );
+    dQuality->setToolTip( tr("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", 0, 10) );
 
     userdefinedTopBox->addStretch();
 
@@ -95,7 +95,7 @@ MusePackCodecWidget::MusePackCodecWidget()
     QHBoxLayout *cmdArgumentsBox = new QHBoxLayout();
     grid->addLayout( cmdArgumentsBox, 2, 0 );
 
-    cCmdArguments = new QCheckBox( i18n("Additional encoder arguments:"), this );
+    cCmdArguments = new QCheckBox( tr("Additional encoder arguments:"), this );
     cmdArgumentsBox->addWidget( cCmdArguments );
     lCmdArguments = new KLineEdit( this );
     lCmdArguments->setEnabled( false );
@@ -159,35 +159,35 @@ QString MusePackCodecWidget::currentProfile()
 {
     if( currentFormat == "wav" )
     {
-        return i18n("Lossless");
+        return tr("Lossless");
     }
     else if( cPreset->currentIndex() == 7 && dQuality->value() == 3.0 )
     {
-        return i18n("Very low");
+        return tr("Very low");
     }
     else if( cPreset->currentIndex() == 7 && dQuality->value() == 4.0 )
     {
-        return i18n("Low");
+        return tr("Low");
     }
     else if( cPreset->currentIndex() == 7 && dQuality->value() == 5.0 )
     {
-        return i18n("Medium");
+        return tr("Medium");
     }
     else if( cPreset->currentIndex() == 7 && dQuality->value() == 6.0 )
     {
-        return i18n("High");
+        return tr("High");
     }
     else if( cPreset->currentIndex() == 7 && dQuality->value() == 7.0 )
     {
-        return i18n("Very high");
+        return tr("Very high");
     }
 
-    return i18n("User defined");
+    return tr("User defined");
 }
 
 bool MusePackCodecWidget::setCurrentProfile( const QString& profile )
 {
-    if( profile == i18n("Very low") )
+    if( profile == tr("Very low") )
     {
         cPreset->setCurrentIndex( 7 );
         presetChanged( cPreset->currentText() );
@@ -196,7 +196,7 @@ bool MusePackCodecWidget::setCurrentProfile( const QString& profile )
         cCmdArguments->setChecked( false );
         return true;
     }
-    else if( profile == i18n("Low") )
+    else if( profile == tr("Low") )
     {
         cPreset->setCurrentIndex( 7 );
         presetChanged( cPreset->currentText() );
@@ -205,7 +205,7 @@ bool MusePackCodecWidget::setCurrentProfile( const QString& profile )
         cCmdArguments->setChecked( false );
         return true;
     }
-    else if( profile == i18n("Medium") )
+    else if( profile == tr("Medium") )
     {
         cPreset->setCurrentIndex( 7 );
         presetChanged( cPreset->currentText() );
@@ -214,7 +214,7 @@ bool MusePackCodecWidget::setCurrentProfile( const QString& profile )
         cCmdArguments->setChecked( false );
         return true;
     }
-    else if( profile == i18n("High") )
+    else if( profile == tr("High") )
     {
         cPreset->setCurrentIndex( 7 );
         presetChanged( cPreset->currentText() );
@@ -223,7 +223,7 @@ bool MusePackCodecWidget::setCurrentProfile( const QString& profile )
         cCmdArguments->setChecked( false );
         return true;
     }
-    else if( profile == i18n("Very high") )
+    else if( profile == tr("Very high") )
     {
         cPreset->setCurrentIndex( 7 );
         presetChanged( cPreset->currentText() );
@@ -259,40 +259,40 @@ void MusePackCodecWidget::presetChanged( const QString& preset )
 {
     cPreset->setToolTip( "" );
 
-    if( preset == i18nc("Backend profile","Telephone") )
+    if( preset == trc("Backend profile","Telephone") )
     {
         userdefinedBox->setEnabled( false );
-        cPreset->setToolTip( i18n("low quality (~60 kbps abr).") );
+        cPreset->setToolTip( tr("low quality (~60 kbps abr).") );
     }
-    else if( preset == i18nc("Backend profile","Thumb") )
+    else if( preset == trc("Backend profile","Thumb") )
     {
         userdefinedBox->setEnabled( false );
-        cPreset->setToolTip( i18n("low/medium quality (~90 kbps abr).") );
+        cPreset->setToolTip( tr("low/medium quality (~90 kbps abr).") );
     }
-    else if( preset == i18nc("Backend profile","Radio") )
+    else if( preset == trc("Backend profile","Radio") )
     {
         userdefinedBox->setEnabled( false );
-        cPreset->setToolTip( i18n("medium quality (~130 kbps abr).") );
+        cPreset->setToolTip( tr("medium quality (~130 kbps abr).") );
     }
-    else if( preset == i18nc("Backend profile","Standard") )
+    else if( preset == trc("Backend profile","Standard") )
     {
         userdefinedBox->setEnabled( false );
-        cPreset->setToolTip( i18n("high quality (~180 kbps abr).") );
+        cPreset->setToolTip( tr("high quality (~180 kbps abr).") );
     }
-    else if( preset == i18nc("Backend profile","Extreme") )
+    else if( preset == trc("Backend profile","Extreme") )
     {
         userdefinedBox->setEnabled( false );
-        cPreset->setToolTip( i18n("excellent quality (~210 kbps abr).") );
+        cPreset->setToolTip( tr("excellent quality (~210 kbps abr).") );
     }
-    else if( preset == i18nc("Backend profile","Insane") )
+    else if( preset == trc("Backend profile","Insane") )
     {
         userdefinedBox->setEnabled( false );
-        cPreset->setToolTip( i18n("excellent quality (~240 kbps abr).") );
+        cPreset->setToolTip( tr("excellent quality (~240 kbps abr).") );
     }
-    else if( preset == i18nc("Backend profile","Braindead") )
+    else if( preset == trc("Backend profile","Braindead") )
     {
         userdefinedBox->setEnabled( false );
-        cPreset->setToolTip( i18n("excellent quality (~270 kbps abr).") );
+        cPreset->setToolTip( tr("excellent quality (~270 kbps abr).") );
     }
     else // "User defined"
     {

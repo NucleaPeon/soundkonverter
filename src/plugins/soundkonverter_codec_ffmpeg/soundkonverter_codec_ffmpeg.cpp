@@ -208,12 +208,12 @@ QList<ConversionPipeTrunk> soundkonverter_codec_ffmpeg::codecTable()
                         {
                             if( codecList.at(k).ffmpegEnoderList.at(l).experimental && !experimentalCodecsEnabled && !experimantalInfo )
                             {
-                                ffmpegProblemInfo.append( i18n("Enable experimental codecs in the ffmpeg configuration dialog.") );
+                                ffmpegProblemInfo.append( tr("Enable experimental codecs in the ffmpeg configuration dialog.") );
                                 experimantalInfo = true;
                             }
                             else
                             {
-                                ffmpegProblemInfo.append( i18n("Compile ffmpeg with %1 support.",codecList.at(k).ffmpegEnoderList.at(l).name) );
+                                ffmpegProblemInfo.append( tr("Compile ffmpeg with %1 support.",codecList.at(k).ffmpegEnoderList.at(l).name) );
                             }
                         }
                         break;
@@ -241,7 +241,7 @@ QList<ConversionPipeTrunk> soundkonverter_codec_ffmpeg::codecTable()
             }
             else
             {
-                newTrunk.problemInfo = ffmpegProblemInfo.join("\n"+i18nc("like in either or","or")+"\n");
+                newTrunk.problemInfo = ffmpegProblemInfo.join("\n"+trc("like in either or","or")+"\n");
             }
             newTrunk.data.hasInternalReplayGain = false;
             table.append( newTrunk );
@@ -273,12 +273,12 @@ void soundkonverter_codec_ffmpeg::showConfigDialog( ActionType action, const QSt
     if( !configDialog.data() )
     {
         configDialog = new QDialog( parent );
-        configDialog.data()->setCaption( i18n("Configure %1",*global_plugin_name) );
+        configDialog.data()->setCaption( tr("Configure %1",*global_plugin_name) );
         configDialog.data()->setButtons( QDialog::Ok | QDialog::Cancel | QDialog::Default );
 
         QWidget *configDialogWidget = new QWidget( configDialog.data() );
         QHBoxLayout *configDialogBox = new QHBoxLayout( configDialogWidget );
-        configDialogExperimantalCodecsEnabledCheckBox = new QCheckBox( i18n("Enable experimental codecs"), configDialogWidget );
+        configDialogExperimantalCodecsEnabledCheckBox = new QCheckBox( tr("Enable experimental codecs"), configDialogWidget );
         configDialogBox->addWidget( configDialogExperimantalCodecsEnabledCheckBox );
 
         configDialog.data()->setMainWidget( configDialogWidget );
@@ -304,7 +304,7 @@ void soundkonverter_codec_ffmpeg::configDialogSave()
 
         if( experimentalCodecsEnabled != old_experimentalCodecsEnabled )
         {
-            KMessageBox::information( configDialog.data(), i18n("Please restart soundKonverter in order to activate the changes.") );
+            KMessageBox::information( configDialog.data(), tr("Please restart soundKonverter in order to activate the changes.") );
         }
         configDialog.data()->deleteLater();
     }

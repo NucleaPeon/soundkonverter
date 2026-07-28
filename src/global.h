@@ -17,6 +17,7 @@
 #define SOUNDKONVERTER_VERSION_NUMBER 1006
 #define SOUNDKONVERTER_VERSION_STRING "3.0.1"
 
+static const QString SOUNDKONVERTER_DOMAIN = "soundkonverter";
 static const QString SOUNDKONVERTER_NAME = "soundKonverter";
 
 /**

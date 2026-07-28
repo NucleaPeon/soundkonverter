@@ -1,18 +1,22 @@
 
 #include "soundkonverterapp.h"
+#include "global.h"
 #include "soundkonverter.h"
 
-#include <KCmdLineArgs>
-#include <KStandardDirs>
-#include <KUrl>
+#include <QApplication>
+#include <QStandardPaths>
+#include <QUrl>
 #include <QFile>
 
 
-soundKonverterApp::soundKonverterApp()
-    : QApplication()
+soundKonverterApp::soundKonverterApp(int argc, char **argv)
+    : QApplication(argc, argv)
 {
     mainWindow = new soundKonverter();
     setActiveWindow( mainWindow );
+
+    this->setApplicationName(SOUNDKONVERTER_NAME);
+
 }
 
 soundKonverterApp::~soundKonverterApp()
@@ -20,18 +24,18 @@ soundKonverterApp::~soundKonverterApp()
 
 int soundKonverterApp::newInstance()
 {
-    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+    QStringList arguments = this->arguments();
     static bool first = true;
     bool visible = true;
     bool autoclose = false;
     bool autostart = false;
     bool activateMainWindow = true;
     
-    if( ( first || !mainWindow->isVisible() ) && args->isSet("replaygain") && args->count() > 0 )
+    if( ( first || !mainWindow->isVisible() ) && arguments.contains("replaygain") && args->count() > 0 )
         visible = false;
 
-    autoclose = args->isSet( "autoclose" );
-    autostart = args->isSet( "autostart" );
+    autoclose = arguments.contains( "autoclose" );
+    autostart = arguments.contains( "autostart" );
 
     const QString profile = args->getOption( "profile" );
     const QString format = args->getOption( "format" );
@@ -39,7 +43,7 @@ int soundKonverterApp::newInstance()
     const QString notifyCommand = args->getOption( "command" );
     const QString fileListPath = args->getOption( "file-list" );
 
-    if( args->isSet( "invisible" ) )
+    if( arguments.contains( "invisible" ) )
     {
         autoclose = true;
         autostart = true;
@@ -81,7 +85,7 @@ int soundKonverterApp::newInstance()
 
     mainWindow->setAutoClose( autoclose );
 
-    if( args->isSet( "replaygain" ) )
+    if( arguments.contains( "replaygain" ) )
     {
         QList<QUrl> urls;
         for( int i=0; i<args->count(); i++ )

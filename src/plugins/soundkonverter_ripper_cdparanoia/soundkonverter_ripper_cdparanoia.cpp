@@ -57,7 +57,7 @@ QList<ConversionPipeTrunk> soundkonverter_ripper_cdparanoia::codecTable()
     newTrunk.rating = 100;
     newTrunk.enabled = ( binaries["cdparanoia"] != "" );
     newTrunk.data.canRipEntireCd = true;
-    newTrunk.problemInfo = i18n( "In order to rip audio cds per track or to a single file, you need to install 'cdparanoia'.\n'cdparanoia' is usually shipped with your distribution, the package name can vary." );
+    newTrunk.problemInfo = tr( "In order to rip audio cds per track or to a single file, you need to install 'cdparanoia'.\n'cdparanoia' is usually shipped with your distribution, the package name can vary." );
     table.append( newTrunk );
 
     return table;
@@ -79,14 +79,14 @@ void soundkonverter_ripper_cdparanoia::showConfigDialog( ActionType action, cons
     if( !configDialog.data() )
     {
         configDialog = new QDialog( parent );
-        configDialog.data()->setCaption( i18n("Configure %1",*global_plugin_name) );
+        configDialog.data()->setCaption( tr("Configure %1",*global_plugin_name) );
         configDialog.data()->setButtons( QDialog::Ok | QDialog::Cancel | QDialog::Default );
 
         QWidget *configDialogWidget = new QWidget( configDialog.data() );
         QVBoxLayout *configDialogBox = new QVBoxLayout( configDialogWidget );
 
         QHBoxLayout *configDialogBox0 = new QHBoxLayout();
-        configDialogForceReadSpeedCheckBox = new QCheckBox( i18n("Force read speed:"), configDialogWidget );
+        configDialogForceReadSpeedCheckBox = new QCheckBox( tr("Force read speed:"), configDialogWidget );
         configDialogBox0->addWidget( configDialogForceReadSpeedCheckBox );
         configDialogForceReadSpeedSpinBox = new QSpinBox( configDialogWidget );
         configDialogForceReadSpeedSpinBox->setRange(1, 64);
@@ -96,7 +96,7 @@ void soundkonverter_ripper_cdparanoia::showConfigDialog( ActionType action, cons
         connect( configDialogForceReadSpeedCheckBox, SIGNAL( stateChanged(int) ), this, SLOT( configDialogForceReadSpeedChanged(int) ) );
 
         QHBoxLayout *configDialogBox1 = new QHBoxLayout();
-        QLabel *configDialogForceEndiannessLabel = new QLabel( i18nc("Byte-Order", "Endianness:"), configDialogWidget );
+        QLabel *configDialogForceEndiannessLabel = new QLabel( trc("Byte-Order", "Endianness:"), configDialogWidget );
         configDialogBox1->addWidget( configDialogForceEndiannessLabel );
         configDialogForceEndiannessComboBox = new QComboBox( configDialogWidget );
         configDialogForceEndiannessComboBox->addItem( "Auto" );
@@ -106,7 +106,7 @@ void soundkonverter_ripper_cdparanoia::showConfigDialog( ActionType action, cons
         configDialogBox->addLayout( configDialogBox1 );
 
         QHBoxLayout *configDialogBox2 = new QHBoxLayout();
-        QLabel *configDialogMaximumRetriesLabel = new QLabel( i18n("Maximum read retries:"), configDialogWidget );
+        QLabel *configDialogMaximumRetriesLabel = new QLabel( tr("Maximum read retries:"), configDialogWidget );
         configDialogBox2->addWidget( configDialogMaximumRetriesLabel );
         configDialogMaximumRetriesSpinBox = new QSpinBox( configDialogWidget );
         configDialogMaximumRetriesSpinBox->setRange(0, 100);
@@ -114,12 +114,12 @@ void soundkonverter_ripper_cdparanoia::showConfigDialog( ActionType action, cons
         configDialogBox->addLayout( configDialogBox2 );
 
         QHBoxLayout *configDialogBox3 = new QHBoxLayout( configDialogWidget );
-        configDialogEnableParanoiaCheckBox = new QCheckBox( i18n("Enable paranoia"), configDialogWidget );
+        configDialogEnableParanoiaCheckBox = new QCheckBox( tr("Enable paranoia"), configDialogWidget );
         configDialogBox3->addWidget( configDialogEnableParanoiaCheckBox );
         configDialogBox->addLayout( configDialogBox3 );
 
         QHBoxLayout *configDialogBox4 = new QHBoxLayout( configDialogWidget );
-        configDialogEnableExtraParanoiaCheckBox = new QCheckBox( i18n("Enable extra paranoia"), configDialogWidget );
+        configDialogEnableExtraParanoiaCheckBox = new QCheckBox( tr("Enable extra paranoia"), configDialogWidget );
         configDialogBox4->addWidget( configDialogEnableExtraParanoiaCheckBox );
         configDialogBox->addLayout( configDialogBox4 );
 

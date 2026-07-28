@@ -299,8 +299,8 @@ void SoxCodecWidget::setCurrentFormat( const QString& format )
         dQuality->setSuffix( "" );
         sQuality->setValue( 400 );
         dQuality->setValue( 4.0 );
-        sQuality->setToolTip( tr("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", -1, 10) );
-        dQuality->setToolTip( tr("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", -1, 10) );
+        sQuality->setToolTip( tr("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", "-1", "10") );
+        dQuality->setToolTip( tr("Quality level from %1 to %2 where %2 is the highest quality.\nThe higher the quality, the bigger the file size and vice versa.", "-1", "10") );
 
         lBitratePreset->hide();
         cBitratePreset->hide();
