@@ -11,6 +11,7 @@
 //
 #include "global.h"
 
+#include <KLocalization>
 #include <QLocale>
 #include <QtGlobal>
 
@@ -24,27 +25,28 @@ Global::~Global()
 QString Global::prettyNumber( double num, QString unit, short digits )
 {
     QString prettyString;
+    QLocale locale;
     if( unit == "%" && digits == 3 )
     {
         if( num < 10 )
-            prettyString.sprintf("%.2f %%",num);
+            prettyString.asprintf("%.2f %%",num);
         else if( num < 100 )
-            prettyString.sprintf("%.1f %%",num);
+            prettyString.asprintf("%.1f %%",num);
         else
-            prettyString.sprintf("%.0f %%",num);
+            prettyString.asprintf("%.0f %%",num);
 
-        if( QtGlobal::locale()->decimalSymbol() != "." )
-            prettyString.replace(".",QtGlobal::locale()->decimalSymbol());
+        if( locale.decimalPoint() != "." )
+            prettyString.replace(".",locale.decimalPoint());
     }
     else if( unit == "%" && digits == 2 )
     {
         if( num < 10 )
-            prettyString.sprintf("%.1f %%",num);
+            prettyString.asprintf("%.1f %%",num);
         else
-            prettyString.sprintf("%.0f %%",num);
+            prettyString.asprintf("%.0f %%",num);
 
-        if( QtGlobal::locale()->decimalSymbol() != "." )
-            prettyString.replace(".",QtGlobal::locale()->decimalSymbol());
+        if( locale.decimalPoint() != "." )
+            prettyString.replace(".",locale.decimalPoint());
     }
     else if( unit == "B" )
     {
@@ -82,8 +84,8 @@ QString Global::prettyNumber( double num, QString unit, short digits )
 
         prettyString = prettyString + " " + unit;
 
-        if( QtGlobal::locale()->decimalSymbol() != "." )
-            prettyString.replace(".",QtGlobal::locale()->decimalSymbol());
+        if( locale.decimalPoint() != "." )
+            prettyString.replace(".",locale.decimalPoint());
     }
     else if( unit == "ms" )
     {

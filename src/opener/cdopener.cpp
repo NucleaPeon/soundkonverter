@@ -35,7 +35,7 @@
 #include <solid/block.h>
 #include <solid/opticaldisc.h>
 
-
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 PlayerWidget::PlayerWidget( Phonon::MediaObject *mediaObject, int _track, QTreeWidgetItem *_treeWidgetItem, QWidget *parent, Qt::WindowFlags f )
     : QWidget( parent, f ),
     track( _track ),
@@ -62,6 +62,7 @@ PlayerWidget::PlayerWidget( Phonon::MediaObject *mediaObject, int _track, QTreeW
     trackPlayerBox->addWidget( seekSlider, 1 );
     trackPlayerBox->addStretch();
 }
+#endif
 
 PlayerWidget::~PlayerWidget()
 {}
@@ -186,17 +187,17 @@ CDOpener::CDOpener( Config *_config, const QString& _device, QWidget *parent, Qt
     QHBoxLayout *yearBox = new QHBoxLayout();
     topGridLayout->addLayout( yearBox, 2, 1 );
     // and fill it up
-    iDisc = new KIntSpinBox( 1, 99, 1, 1, cdOpenerWidget );
+    iDisc = new QSpinBox( 1, 99, 1, 1, cdOpenerWidget );
     yearBox->addWidget( iDisc );
     QLabel *lDiscTotalLabel = new QLabel( trc("Track/Disc No. x of y","of"), cdOpenerWidget );
     lDiscTotalLabel->setAlignment( Qt::AlignHCenter | Qt::AlignVCenter );
     yearBox->addWidget( lDiscTotalLabel );
-    iDiscTotal = new KIntSpinBox( 1, 99, 1, 1, cdOpenerWidget );
+    iDiscTotal = new QSpinBox( 1, 99, 1, 1, cdOpenerWidget );
     yearBox->addWidget( iDiscTotal );
     QLabel *lYearLabel = new QLabel( tr("Year:"), cdOpenerWidget );
     lYearLabel->setAlignment( Qt::AlignRight | Qt::AlignVCenter );
     yearBox->addWidget( lYearLabel );
-    iYear = new KIntSpinBox( 0, 99999, 1, QDate::currentDate().year(), cdOpenerWidget );
+    iYear = new QSpinBox( 0, 99999, 1, QDate::currentDate().year(), cdOpenerWidget );
     yearBox->addWidget( iYear );
     QLabel *lGenreLabel = new QLabel( tr("Genre:"), cdOpenerWidget );
     lGenreLabel->setAlignment( Qt::AlignRight | Qt::AlignVCenter );
@@ -319,7 +320,7 @@ CDOpener::CDOpener( Config *_config, const QString& _device, QWidget *parent, Qt
     trackCommentBox->addWidget( pTrackCommentEdit );
     connect( pTrackCommentEdit, SIGNAL(clicked()), this, SLOT(editTrackCommentClicked()) );
 
-
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     audioOutput = new Phonon::AudioOutput( Phonon::MusicCategory, this );
     audioOutput->setVolume( 0.5 );
     mediaObject = new Phonon::MediaObject( this );
@@ -332,7 +333,7 @@ CDOpener::CDOpener( Config *_config, const QString& _device, QWidget *parent, Qt
 
     connect( mediaController, SIGNAL(titleChanged(int)), this, SLOT(playbackTitleChanged(int)) );
     connect( mediaObject, SIGNAL(stateChanged(Phonon::State,Phonon::State)), this, SLOT(playbackStateChanged(Phonon::State,Phonon::State)) );
-
+#endif
 
 
     // Cd Opener Overlay Widget
@@ -477,9 +478,10 @@ CDOpener::CDOpener( Config *_config, const QString& _device, QWidget *parent, Qt
         return;
     }
 
-
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     mediaSource = new Phonon::MediaSource( Phonon::Cd, device );
     mediaObject->setCurrentSource( *mediaSource ); // WARNING doesn't work with phonon-xine
+#endif
 
 
     // Prevent the dialog from beeing too wide because of the directory history
@@ -1373,7 +1375,7 @@ void CDOpener::playbackTitleChanged( int title )
             playerWidgets[i]->trackChanged( title );
     }
 }
-
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 void CDOpener::playbackStateChanged( Phonon::State newstate, Phonon::State oldstate )
 {
     Q_UNUSED(oldstate)

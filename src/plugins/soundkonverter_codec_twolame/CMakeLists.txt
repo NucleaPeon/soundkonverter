@@ -3,6 +3,8 @@ project(soundkonverter_codec_twolame)
 set(${PROJECT_NAME}_SRCS
    soundkonverter_codec_twolame.cpp
    twolamecodecwidget.cpp
+   soundkonverter_codec_twolame.h
+   twolamecodecwidget.h
 )
 
 add_library(${PROJECT_NAME} MODULE ${${PROJECT_NAME}_SRCS})

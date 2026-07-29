@@ -4,12 +4,13 @@
 
 #include "../../core/codecplugin.h"
 
-#include <QWeakPointer>
+#include <QDialogButtonBox>
+#include <QPointer>
 #include <QUrl>
 
 class ConversionOptions;
 class QDialog;
-class KComboBox;
+class QComboBox;
 
 
 class soundkonverter_codec_lame : public CodecPlugin
@@ -39,8 +40,8 @@ public:
     ConversionOptions *conversionOptionsFromXml( QDomElement conversionOptions, QList<QDomElement> *filterOptionsElements = 0 );
 
 private:
-    QWeakPointer<QDialog> configDialog;
-    KComboBox *configDialogStereoModeComboBox;
+    QPointer<QDialogButtonBox> configDialog;
+    QComboBox *configDialogStereoModeComboBox;
 
     int configVersion;
     QString stereoMode;

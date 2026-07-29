@@ -43,7 +43,7 @@ ConfigGeneralPage::ConfigGeneralPage( Config *_config, QWidget *parent )
     QLabel *lUserInterface = new QLabel( tr("User interface"), this );
     lUserInterface->setFont( groupFont );
     box->addWidget( lUserInterface );
-KPushButton
+
     box->addSpacing( spacingSmall );
 
     QHBoxLayout *startTabBox = new QHBoxLayout();

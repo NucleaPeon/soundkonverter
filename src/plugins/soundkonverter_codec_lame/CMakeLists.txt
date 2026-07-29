@@ -4,6 +4,9 @@ set(${PROJECT_NAME}_SRCS
    soundkonverter_codec_lame.cpp
    lameconversionoptions.cpp
    lamecodecwidget.cpp
+   soundkonverter_codec_lame.h
+   lameconversionoptions.h
+   lamecodecwidget.h
 )
 
 add_library(${PROJECT_NAME} MODULE ${${PROJECT_NAME}_SRCS})

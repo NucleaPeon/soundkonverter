@@ -11,10 +11,10 @@
 #include <QUrl>
 
 
-class KPushButton;
+class QPushButton;
 class QMenu;
-class KAction;
-class KActionMenu;
+class QAction;
+class QMenu;
 class QToolButton;
 
 class ProgressIndicator;
@@ -53,7 +53,7 @@ public:
     void loadFileList(const QString& fileListPath);
 
     QAction *start() { return startAction; }
-    KActionMenu *stopMenu() { return stopActionMenu; }
+    QMenu *stopMenu() { return stopActionMenu; }
 
     void startConversion();
     void killConversion();
@@ -100,17 +100,17 @@ private:
     ComboButton *cAdd;
 
     /** The button to start the conversion */
-    KPushButton *pStart;
+    QPushButton *pStart;
     /** Tha start action */
     QAction *startAction;
 
     /** The button to stop the conversion */
-    KPushButton *pStop;
+    QPushButton *pStop;
     /** The menu for the stop button */
-    KActionMenu *stopActionMenu;
-    KAction *killAction;
-    KAction *stopAction;
-    KAction *continueAction;
+    QMenu *stopActionMenu;
+    QAction *killAction;
+    QAction *stopAction;
+    QAction *continueAction;
 
     /** Displays the current progress */
     ProgressIndicator *progressIndicator;

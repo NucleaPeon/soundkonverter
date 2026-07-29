@@ -514,19 +514,23 @@ float soundkonverter_codec_libav::parseOutput( const QString& output, int *lengt
     // size=    2445kB time=158.31 bitrate= 169.3kbits/s
 
     QRegularExpression regLength("Duration: (\\d{2}):(\\d{2}):(\\d{2})\\.(\\d{2})");
-    if( length && output.contains(regLength) )
+    QRegularExpressionMatch match = regLength.match(output);
+    if( length && match.hasMatch() )
     {
-        *length = regLength.cap(1).toInt()*3600 + regLength.cap(2).toInt()*60 + regLength.cap(3).toInt();
+        *length = match.captured(1).toInt()*3600 + match.captured(2).toInt()*60 + match.captured(3).toInt();
     }
     QRegularExpression reg1("time=(\\d{2}):(\\d{2}):(\\d{2})\\.(\\d{2})");
+    QRegularExpressionMatch match1 = reg1.match(output);
     QRegularExpression reg2("time=(\\d+)\\.\\d");
-    if( output.contains(reg1) )
+    QRegularExpressionMatch match2 = reg2.match(output);
+
+    if( match1.hasMatch() )
     {
-        return (float)reg1.cap(1).toInt()*3600 + (float)reg1.cap(2).toInt()*60 + (float)reg1.cap(3).toInt();
+        return (float)match1.captured(1).toInt()*3600 + (float)match1.captured(2).toInt()*60 + (float)match1.captured(3).toInt();
     }
-    else if( output.contains(reg2) )
+    else if( match2.hasMatch() )
     {
-        return (float)reg2.cap(1).toInt();
+        return (float)match2.captured(1).toInt();
     }
 
     // TODO error handling
@@ -597,15 +601,15 @@ void soundkonverter_codec_libav::infoProcessExit( int exitCode, QProcess::ExitSt
     QFileInfo libavInfo( binaries["avconv"] );
     libavLastModified = libavInfo.lastModified();
 
-    KSharedConfig::Ptr conf = KGlobal::config();
-    KConfigGroup group;
+    KSharedConfig::Ptr conf = KSharedConfig::openConfig(SOUNDKONVERTER_RC);
+    KConfigGroup group = conf->group("Plugin-"+name());
 
     group = conf->group( "Plugin-"+name() );
     group.writeEntry( "configVersion", version() );
     group.writeEntry( "libavVersionMajor", libavVersionMajor );
     group.writeEntry( "libavVersionMinor", libavVersionMinor );
     group.writeEntry( "libavLastModified", libavLastModified );
-    group.writeEntry( "codecList", libavCodecList.toList() );
+    group.writeEntry( "codecList", libavCodecList.values() );
 
     infoProcessOutputData.clear();
     infoProcess.data()->deleteLater();

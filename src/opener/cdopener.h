@@ -52,7 +52,9 @@ class PlayerWidget : public QWidget
 {
      Q_OBJECT
 public:
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     PlayerWidget( Phonon::MediaObject *mediaObject, int _track, QTreeWidgetItem *_treeWidgetItem, QWidget *parent, Qt::WindowFlags f = Qt::Widget );
+#endif
     ~PlayerWidget();
 
     void trackChanged( int track );
@@ -66,7 +68,9 @@ private:
 
     QPushButton *pStartPlayback;
     QPushButton *pStopPlayback;
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     Phonon::SeekSlider *seekSlider;
+#endif
 
 private slots:
     void startPlaybackClicked();
@@ -179,10 +183,12 @@ private:
     QTextEdit *tTrackComment;
     QPushButton *pTrackCommentEdit;
 
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     Phonon::AudioOutput *audioOutput;
     Phonon::MediaObject *mediaObject;
     Phonon::MediaController *mediaController;
     Phonon::MediaSource *mediaSource;
+#endif
 
     QList<PlayerWidget*> playerWidgets;
 
@@ -265,7 +271,9 @@ private slots:
     void startPlayback( int track );
     void stopPlayback();
     void playbackTitleChanged( int title );
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     void playbackStateChanged( Phonon::State newstate, Phonon::State oldstate );
+#endif
 
     void proceedClicked();
     void addClicked();

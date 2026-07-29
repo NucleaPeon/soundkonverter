@@ -107,10 +107,11 @@ float soundkonverter_replaygain_wvgain::parseOutput( const QString& output )
 {
     // analyzing test.wv,  35% done...
 
-    QRegExp reg("\\s+(\\d+)% done");
-    if( output.contains(reg) )
+    QRegularExpression reg("\\s+(\\d+)% done");
+    QRegularExpressionMatch match = reg.match(ouput);
+    if( match.hasMatch() )
     {
-        return (float)reg.cap(1).toInt();
+        return (float)match.capture(1).toInt();
     }
 
     return -1;

@@ -12,7 +12,7 @@ CodecProblems::CodecProblems( Mode mode, const QList<Problem>& problemList, QWid
     : QDialog( parent, f )
 {
     setCaption( tr("Solutions for backend problems") );
-    setWindowIcon( KIcon("help-about") );
+    setWindowIcon( QIcon("help-about") );
     setButtons( QDialog::Close );
     setButtonFocus( QDialog::Close );
 

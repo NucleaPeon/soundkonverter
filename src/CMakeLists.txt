@@ -63,10 +63,39 @@ elseif(${QT_DEFAULT_MAJOR_VERSION} STREQUAL "5")
     find_package(Phonon4Qt5 REQUIRED)  # Else we need something else
 endif()
 
+# show more warnings
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+# strict ISO C and ISO C++
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
+# use c++11 standard
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+# implicit conversions
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wconversion")
+# implicit conversions from signed to unsigned
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wsign-conversion")
+
+# hide deprecated declarations warnings
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
+
+# kde libs
+find_package(ECM REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${ECM_MODULE_PATH})
+
+include(KDEInstallDirs)
+include(KDECompilerSettings)
+include(KDECMakeSettings)
+include(CMakePackageConfigHelpers)
+include(ECMInstallIcons)
+include(FeatureSummary)
+
+
 if(${KDE_DEFAULT_MAJOR_VERSION} STREQUAL "5")
     find_package(KDELibs4Support)
-else()
-    find_package(KC6)
+elseif(${KDE_DEFAULT_MAJOR_VERSION} STREQUAL "6")
+   message(STATUS "KF6 Specific components being added")
+    find_package(KF6 REQUIRED COMPONENTS
+       StatusNotifierItem
+    )
     find_package(KCddb6 REQUIRED)  # Uses cmake/FindKCddb6.cmake
     find_package(KF6XmlGui REQUIRED)
 endif()
@@ -80,6 +109,7 @@ find_package(KF${KDE_DEFAULT_MAJOR_VERSION} REQUIRED COMPONENTS
     Config
     ConfigWidgets
     WidgetsAddons
+    StatusNotifierItem
 )
 
 
@@ -133,26 +163,22 @@ target_link_libraries(${PROJECT_NAME}core
     KF${KDE_DEFAULT_MAJOR_VERSION}::I18n
     KF${KDE_DEFAULT_MAJOR_VERSION}::Solid
     KF${KDE_DEFAULT_MAJOR_VERSION}::ConfigWidgets
-)
 
-if(${KDE_DEFAULT_MAJOR_VERSION} STREQUAL "5")
-    find_package(KF${KDE_DEFAULT_MAJOR_VERSION}::KDELibs4Support)
-endif()
-
-
-target_link_libraries(${PROJECT_NAME}core
     Qt${QT_DEFAULT_MAJOR_VERSION}::Core
     Qt${QT_DEFAULT_MAJOR_VERSION}::Multimedia
     Qt${QT_DEFAULT_MAJOR_VERSION}::Widgets
     Qt${QT_DEFAULT_MAJOR_VERSION}::Xml
 )
+
 if(${QT_DEFAULT_MAJOR_VERSION} STREQUAL "6")
     target_link_libraries(${PROJECT_NAME}core
+        KF6::StatusNotifierItem
+
         Qt6::Core5Compat
     )
 endif()
-install(TARGETS soundkonvertercore DESTINATION ${LIB_INSTALL_DIR})
 
+install(TARGETS soundkonvertercore DESTINATION ${LIB_INSTALL_DIR})
 
 # soundkonverter
 set(soundkonverter_SRCS
@@ -245,7 +271,6 @@ set(soundkonverter_SRCS
 
 add_executable(${PROJECT_NAME} ${soundkonverter_SRCS})
 
-
 target_link_libraries(${PROJECT_NAME}
     KF${KDE_DEFAULT_MAJOR_VERSION}::WidgetsAddons
     KF${KDE_DEFAULT_MAJOR_VERSION}::KIOFileWidgets
@@ -256,13 +281,17 @@ target_link_libraries(${PROJECT_NAME}
     KF${KDE_DEFAULT_MAJOR_VERSION}::Solid
     KF${KDE_DEFAULT_MAJOR_VERSION}::ConfigWidgets
     Taglib::Taglib
-    ${CDPARANOIA_LIBRARIES})
+    ${CDPARANOIA_LIBRARIES}
+)
 
 
 if(${KDE_DEFAULT_MAJOR_VERSION} STREQUAL "5")
-    target_link_libraries(KF${KDE_DEFAULT_MAJOR_VERSION}::KDELibs4Support)
-else()
-    target_link_libraries(KF${KDE_DEFAULT_MAJOR_VERSION}::XmlGui)
+    target_link_libraries(${PROJECT_NAME} KF${KDE_DEFAULT_MAJOR_VERSION}::KDELibs4Support)
+elseif(${KDE_DEFAULT_MAJOR_VERSION} STREQUAL "6")
+    target_link_libraries(${PROJECT_NAME}
+        KF${KDE_DEFAULT_MAJOR_VERSION}::XmlGui
+        KF${KDE_DEFAULT_MAJOR_VERSION}::StatusNotifierItem
+    )
     # This include_directories statement needs to be here since KCddb6 includes "kcddb6_version.h" (no prefix)
     # and the find_package() and target_link_libraries() fails to find it.
     include_directories(/usr/include/KCddb6 BEFORE)

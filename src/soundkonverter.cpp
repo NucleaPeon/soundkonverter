@@ -16,6 +16,8 @@
 
 #include <taglib.h>
 
+#include <KStatusNotifierItem>
+#include <KXmlGuiWindow>
 #include <KActionCollection>
 #include <QApplication>
 #include <KActionMenu>
@@ -27,7 +29,8 @@
 #include <KMessageBox>
 #include <QDir>
 
-#include <KStatusNotifierItem>
+using KStatusNotifierItem;
+
 using namespace SoundKonverter::Version;
 
 soundKonverter::soundKonverter()

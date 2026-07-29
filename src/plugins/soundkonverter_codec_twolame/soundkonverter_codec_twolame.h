@@ -5,6 +5,7 @@
 #include "../../core/codecplugin.h"
 
 #include <QUrl>
+#include <QDialogButtonBox>
 
 class ConversionOptions;
 

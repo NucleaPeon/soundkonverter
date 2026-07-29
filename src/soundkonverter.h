@@ -12,6 +12,7 @@
 #include <kdeversion.h>
 #endif
 
+#include <KStatusNotifierItem>
 #include <QObject>
 #include <KXmlGuiWindow>
 #include <QUrl>

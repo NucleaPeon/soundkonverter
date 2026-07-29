@@ -11,20 +11,19 @@
 
 
 CodecOptimizations::CodecOptimizations( const QList<Optimization>& _optimizationList, QWidget* parent, Qt::WindowFlags f )
-    : QDialog( parent, f ),
+    : QDialogButtonBox(  QDialogButtonBox::Ok | QDialogButtonBox::Cancel,  parent ),
     optimizationList( _optimizationList )
 {
-    setCaption( i18n("Solutions for backend problems") );
+    setWindowTitle( tr("Solutions for backend problems") );
     setWindowIcon( QIcon("help-about") );
-    setButtons( QDialog::Ok | QDialog::Cancel );
-    setButtonFocus( QDialog::Cancel );
+    // setButtonFocus( QDialogButtonBox::Cancel );
     connect( this, SIGNAL(okClicked()), this, SLOT(okClicked()) );
 
     QWidget *widget = new QWidget( this );
-    setMainWidget( widget );
+    this->layout()->addWidget( widget );
     QVBoxLayout *box = new QVBoxLayout( widget );
 
-    QLabel *messageLabel = new QLabel( i18n("You have installed or removed backends and your soundKonverter settings can be optimized."), this );
+    QLabel *messageLabel = new QLabel( tr("You have installed or removed backends and your soundKonverter settings can be optimized."), this );
     box->addWidget( messageLabel );
 
     QFrame *frame = new QFrame( widget );
@@ -48,27 +47,27 @@ CodecOptimizations::CodecOptimizations( const QList<Optimization>& _optimization
         grid->addWidget( solutionLabel, i, 0 );
         if( mode == Optimization::Encode )
         {
-            solutionLabel->setText( i18n( "For encoding %1 files the backend '%2' can be replaced with '%3'.", codecName, currentBackend, betterBackend ) );
+            solutionLabel->setText( tr(QString("For encoding %1 files the backend '%2' can be replaced with '%3'.").arg(codecName).arg(currentBackend).arg(betterBackend).toLatin1() ) );
         }
         else if( mode == Optimization::Decode && codecName == "audio cd" )
         {
-            solutionLabel->setText( i18n( "For ripping audio CDs the backend '%1' can be replaced with '%2'.", currentBackend, betterBackend ) );
+            solutionLabel->setText( tr(QString("For ripping audio CDs the backend '%1' can be replaced with '%2'.").arg(currentBackend).arg(betterBackend).toLatin1() ) );
         }
         else if( mode == Optimization::Decode )
         {
-            solutionLabel->setText( i18n( "For decoding %1 files the backend '%2' can be replaced with '%3'.", codecName, currentBackend, betterBackend ) );
+            solutionLabel->setText( tr(QString("For decoding %1 files the backend '%2' can be replaced with '%3'.").arg(codecName).arg(currentBackend).arg(betterBackend).toLatin1() ) );
         }
         else if( mode == Optimization::ReplayGain )
         {
-            solutionLabel->setText( i18n( "For applying Replay Gain to %1 files the backend '%2' can be replaced with '%3'.", codecName, currentBackend, betterBackend ) );
+            solutionLabel->setText( tr(QString("For applying Replay Gain to %1 files the backend '%2' can be replaced with '%3'.").arg(codecName).arg(currentBackend).arg(betterBackend).toLatin1() ) );
         }
 
-        QRadioButton *solutionIgnore = new QRadioButton( i18n("Ignore"), frame );
+        QRadioButton *solutionIgnore = new QRadioButton( tr("Ignore"), frame );
         if( solution == Optimization::Ignore )
             solutionIgnore->setChecked( true );
         grid->addWidget( solutionIgnore, i, 1 );
 
-        QRadioButton *solutionFix = new QRadioButton( i18n("Fix"), frame );
+        QRadioButton *solutionFix = new QRadioButton( tr("Fix"), frame );
         solutionFixButtons.append( solutionFix );
         if( solution != Optimization::Ignore )
             solutionFix->setChecked( true );

@@ -23,7 +23,7 @@ ComboButton::ComboButton( QWidget *parent )
     connect( m_box, SIGNAL(activated(int)), this, SLOT(boxActivated(int)) );
     setFocusProxy( m_box );
 
-    m_button = new KPushButton( QString(), this );
+    m_button = new QPushButton( QString(), this );
     grid->addWidget( m_button, 0, 0 );
     connect( m_button, SIGNAL(clicked()), this, SLOT(buttonClicked()) );
     m_iconHight = m_button->iconSize().height();

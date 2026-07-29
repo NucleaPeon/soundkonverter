@@ -3,7 +3,7 @@
 #ifndef CODECOPTIMIZATIONS_H
 #define CODECOPTIMIZATIONS_H
 
-#include <QDialog>
+#include <QDialogButtonBox>
 
 class QRadioButton;
 
@@ -13,7 +13,7 @@ class QRadioButton;
  * @author Daniel Faust <hessijames@gmail.com>
  * @version 1.0
  */
-class CodecOptimizations : public QDialog
+class CodecOptimizations : public QDialogButtonBox
 {
     Q_OBJECT
 public:
