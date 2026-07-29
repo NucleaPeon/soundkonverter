@@ -4,11 +4,13 @@
 
 #include "../../core/codecplugin.h"
 
+#include <QDialogButtonBox>
+#include <QPointer>
 #include <QWeakPointer>
 #include <QDateTime>
 
 class ConversionOptions;
-class QDialog;
+class QDialogButtonBox;
 class QCheckBox;
 
 
@@ -55,10 +57,10 @@ public:
 
 private:
     QList<CodecData> codecList;
-    QWeakPointer<KProcess> infoProcess;
+    QPointer<KProcess> infoProcess;
     QString infoProcessOutputData;
 
-    QWeakPointer<QDialog> configDialog;
+    QPointer<QDialogButtonBox> configDialog;
     QCheckBox *configDialogExperimantalCodecsEnabledCheckBox;
 
     int configVersion;

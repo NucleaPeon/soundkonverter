@@ -1,6 +1,7 @@
 
 #include "soxfilterglobal.h"
 
+#include <QObject>
 #include "soxfilteroptions.h"
 #include "../../core/conversionoptions.h"
 
@@ -83,7 +84,7 @@ QDomElement SoxFilterOptions::toXml( QDomDocument document, const QString& eleme
     int i = 0;
     foreach( const EffectData& effectData, data.effects )
     {
-        if( effectData.effectName == i18n("Disabled") )
+        if( effectData.effectName == tr("Disabled") )
             continue;
 
         QDomElement effectElement = document.createElement("effect"+QString::number(i++));

@@ -20,6 +20,8 @@
 static const QString SOUNDKONVERTER_DOMAIN = "soundkonverter";
 static const QString SOUNDKONVERTER_NAME = "soundKonverter";
 
+static const QString SOUNDKONVERTER_RC = QString("%1rc").arg(SOUNDKONVERTER_NAME);
+
 /**
 	@author Daniel Faust <hessijames@gmail.com>
 */

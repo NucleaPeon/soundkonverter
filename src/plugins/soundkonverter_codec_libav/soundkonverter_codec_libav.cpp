@@ -1,4 +1,4 @@
-
+#include "global.h"
 #include "libavcodecglobal.h"
 
 #include "soundkonverter_codec_libav.h"
@@ -11,7 +11,10 @@
 #include <QCheckBox>
 #include <QHBoxLayout>
 #include <QFileInfo>
-
+#include <KSharedConfig>
+#include <KConfigGroup>
+#include <QSet>
+#include <QWeakPointer>
 
 // TODO check for decoders at runtime, too
 
@@ -24,17 +27,16 @@ soundkonverter_codec_libav::soundkonverter_codec_libav( QObject *parent, const Q
 
     binaries["avconv"] = "";
 
-    KSharedConfig::Ptr conf = KGlobal::config();
-    KConfigGroup group;
+    KSharedConfig::Ptr conf = KSharedConfig::openConfig(SOUNDKONVERTER_RC);
+    KConfigGroup group = conf->group("Plugin-"+name());
 
-    group = conf->group( "Plugin-"+name() );
     configVersion = group.readEntry( "configVersion", 0 );
     experimentalCodecsEnabled = group.readEntry( "experimentalCodecsEnabled", false );
     libavVersionMajor = group.readEntry( "libavVersionMajor", 0 );
     libavVersionMinor = group.readEntry( "libavVersionMinor", 0 );
     libavLastModified = group.readEntry( "libavLastModified", QDateTime() );
-    libavCodecList = group.readEntry( "codecList", QStringList() ).toSet();
-
+    QStringList strlist = group.readEntry( "codecList", QStringList() );
+    libavCodecList = QSet(strlist.begin(), strlist.end());
     CodecData data;
     LibavCodecData libavData;
 
@@ -305,7 +307,7 @@ QList<ConversionPipeTrunk> soundkonverter_codec_libav::codecTable()
                             }
                             if( codecList.at(k).libavCodecList.at(l).external )
                             {
-                                libavProblemInfo.append( tr("Compile libav with %1 support.",codecList.at(k).libavCodecList.at(l).name) );
+                                libavProblemInfo.append( tr("Compile libav with %1 support.",codecList.at(k).libavCodecList.at(l).name.toLatin1()) );
                             }
                         }
                         break;
@@ -333,7 +335,7 @@ QList<ConversionPipeTrunk> soundkonverter_codec_libav::codecTable()
             }
             else
             {
-                newTrunk.problemInfo = libavProblemInfo.join("\n"+trc("like in either or","or")+"\n");
+                newTrunk.problemInfo = libavProblemInfo.join("\n"+tr("like in either or","or")+"\n");
             }
             newTrunk.data.hasInternalReplayGain = false;
             table.append( newTrunk );
@@ -341,9 +343,9 @@ QList<ConversionPipeTrunk> soundkonverter_codec_libav::codecTable()
     }
 
     QSet<QString> codecs;
-    codecs += QSet<QString>::fromList(fromCodecs);
-    codecs += QSet<QString>::fromList(toCodecs);
-    allCodecs = codecs.toList();
+    codecs += QSet<QString>(fromCodecs.begin(), fromCodecs.end());
+    codecs += QSet<QString>(toCodecs.begin(), toCodecs.end());
+    allCodecs = codecs.values();
 
     return table;
 }
@@ -362,18 +364,18 @@ void soundkonverter_codec_libav::showConfigDialog( ActionType action, const QStr
     Q_UNUSED(action)
     Q_UNUSED(codecName)
 
-    if( !configDialog.data() )
+    if( ! configDialog.data() )
     {
-        configDialog = new QDialog( parent );
-        configDialog.data()->setCaption( tr("Configure %1",*global_plugin_name) );
-        configDialog.data()->setButtons( QDialog::Ok | QDialog::Cancel | QDialog::Default );
+        configDialog = new QDialogButtonBox(  QDialogButtonBox::Ok | QDialogButtonBox::Cancel | QDialogButtonBox::RestoreDefaults,
+                                            Qt::Horizontal, parent );
+        configDialog.data()->setWindowTitle( tr("Configure %1", global_plugin_name) );
 
         QWidget *configDialogWidget = new QWidget( configDialog.data() );
         QHBoxLayout *configDialogBox = new QHBoxLayout( configDialogWidget );
         configDialogExperimantalCodecsEnabledCheckBox = new QCheckBox( tr("Enable experimental codecs"), configDialogWidget );
         configDialogBox->addWidget( configDialogExperimantalCodecsEnabledCheckBox );
 
-        configDialog.data()->setMainWidget( configDialogWidget );
+        configDialog.data()->layout()->addWidget( configDialogWidget );
         connect( configDialog.data(), SIGNAL( okClicked() ), this, SLOT( configDialogSave() ) );
         connect( configDialog.data(), SIGNAL( defaultClicked() ), this, SLOT( configDialogDefault() ) );
     }
@@ -388,8 +390,8 @@ void soundkonverter_codec_libav::configDialogSave()
         const bool old_experimentalCodecsEnabled = experimentalCodecsEnabled;
         experimentalCodecsEnabled = configDialogExperimantalCodecsEnabledCheckBox->isChecked();
 
-        KSharedConfig::Ptr conf = KGlobal::config();
-        KConfigGroup group;
+        KSharedConfig::Ptr conf = KSharedConfig::openConfig(SOUNDKONVERTER_RC);
+        KConfigGroup group = conf->group("Plugin-"+name());
 
         group = conf->group( "Plugin-"+name() );
         group.writeEntry( "experimentalCodecsEnabled", experimentalCodecsEnabled );
@@ -426,7 +428,7 @@ CodecWidget *soundkonverter_codec_libav::newCodecWidget()
     return qobject_cast<CodecWidget*>(widget);
 }
 
-int soundkonverter_codec_libav::convert( const KUrl& inputFile, const KUrl& outputFile, const QString& inputCodec, const QString& outputCodec, const ConversionOptions *_conversionOptions, TagData *tags, bool replayGain )
+int soundkonverter_codec_libav::convert( const QUrl& inputFile, const QUrl& outputFile, const QString& inputCodec, const QString& outputCodec, const ConversionOptions *_conversionOptions, TagData *tags, bool replayGain )
 {
     Q_UNUSED(inputCodec)
     Q_UNUSED(tags)
@@ -493,7 +495,7 @@ int soundkonverter_codec_libav::convert( const KUrl& inputFile, const KUrl& outp
     return newItem->id;
 }
 
-QStringList soundkonverter_codec_libav::convertCommand( const KUrl& inputFile, const KUrl& outputFile, const QString& inputCodec, const QString& outputCodec, const ConversionOptions *_conversionOptions, TagData *tags, bool replayGain )
+QStringList soundkonverter_codec_libav::convertCommand( const QUrl& inputFile, const QUrl& outputFile, const QString& inputCodec, const QString& outputCodec, const ConversionOptions *_conversionOptions, TagData *tags, bool replayGain )
 {
     Q_UNUSED(inputFile)
     Q_UNUSED(outputFile)
@@ -511,13 +513,13 @@ float soundkonverter_codec_libav::parseOutput( const QString& output, int *lengt
     // Duration: 00:02:16.50, start: 0.000000, bitrate: 1411 kb/s
     // size=    2445kB time=158.31 bitrate= 169.3kbits/s
 
-    QRegExp regLength("Duration: (\\d{2}):(\\d{2}):(\\d{2})\\.(\\d{2})");
+    QRegularExpression regLength("Duration: (\\d{2}):(\\d{2}):(\\d{2})\\.(\\d{2})");
     if( length && output.contains(regLength) )
     {
         *length = regLength.cap(1).toInt()*3600 + regLength.cap(2).toInt()*60 + regLength.cap(3).toInt();
     }
-    QRegExp reg1("time=(\\d{2}):(\\d{2}):(\\d{2})\\.(\\d{2})");
-    QRegExp reg2("time=(\\d+)\\.\\d");
+    QRegularExpression reg1("time=(\\d{2}):(\\d{2}):(\\d{2})\\.(\\d{2})");
+    QRegularExpression reg2("time=(\\d+)\\.\\d");
     if( output.contains(reg1) )
     {
         return (float)reg1.cap(1).toInt()*3600 + (float)reg1.cap(2).toInt()*60 + (float)reg1.cap(3).toInt();
@@ -571,11 +573,12 @@ void soundkonverter_codec_libav::infoProcessExit( int exitCode, QProcess::ExitSt
     Q_UNUSED(exitStatus)
     Q_UNUSED(exitCode)
 
-    QRegExp regVersion("libav version (\\d+)\\.(\\d+) ");
-    if( infoProcessOutputData.contains( regVersion ) )
+    QRegularExpression regVersion("libav version (\\d+)\\.(\\d+) ");
+    QRegularExpressionMatch match = regVersion.match(infoProcessOutputData);
+    if( match.hasMatch() )
     {
-        libavVersionMajor = regVersion.cap(1).toInt();
-        libavVersionMinor = regVersion.cap(2).toInt();
+        libavVersionMajor = match.captured(1).toInt();
+        libavVersionMinor = match.captured(2).toInt();
     }
 
     libavCodecList.clear();
@@ -584,7 +587,7 @@ void soundkonverter_codec_libav::infoProcessExit( int exitCode, QProcess::ExitSt
     {
         for( int j=0; j<codecList.at(i).libavCodecList.count(); j++ )
         {
-            if( infoProcessOutputData.contains( QRegExp(" (D| )E.{4} "+codecList.at(i).libavCodecList.at(j).name+" ")) )
+            if( infoProcessOutputData.contains( QRegularExpression(" (D| )E.{4} "+codecList.at(i).libavCodecList.at(j).name+" ")) )
             {
                 libavCodecList += codecList.at(i).libavCodecList.at(j).name;
             }

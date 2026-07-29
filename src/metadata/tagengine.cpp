@@ -134,7 +134,7 @@ TagEngine::TagEngine( Config *_config )
 TagEngine::~TagEngine()
 {}
 
-TagData* TagEngine::readTags( const KUrl& fileName )
+TagData* TagEngine::readTags( const QUrl& fileName )
 {
     TagLib::FileRef fileref( fileName.pathOrUrl().toLocal8Bit() );
 
@@ -506,7 +506,7 @@ TagData* TagEngine::readTags( const KUrl& fileName )
     return 0;
 }
 
-bool TagEngine::writeTags( const KUrl& fileName, TagData *tagData )
+bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
 {
     if( !tagData )
         return false;
@@ -1013,7 +1013,7 @@ bool TagEngine::writeTags( const KUrl& fileName, TagData *tagData )
     return false;
 }
 
-QList<CoverData*> TagEngine::readCovers( const KUrl& fileName )
+QList<CoverData*> TagEngine::readCovers( const QUrl& fileName )
 {
     QList<CoverData*> covers;
 
@@ -1185,7 +1185,7 @@ QList<CoverData*> TagEngine::readCovers( const KUrl& fileName )
     return covers;
 }
 
-bool TagEngine::writeCovers( const KUrl& fileName, QList<CoverData*> covers )
+bool TagEngine::writeCovers( const QUrl& fileName, QList<CoverData*> covers )
 {
     if( covers.isEmpty() )
         return true;
