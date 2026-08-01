@@ -132,7 +132,7 @@ void ConfigCoverArtPage::resetDefaults()
 {
     rWriteCoversAuto->setChecked( true );
     rWriteCoverNameTitle->setChecked( true );
-    lWriteCoverNameDefaultEdit->setText( trc("cover file name","cover") );
+    lWriteCoverNameDefaultEdit->setText( tr("cover file name","cover") );
 
     emit configChanged( true );
 }

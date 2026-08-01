@@ -4,7 +4,7 @@
 #define TAGENGINE_H
 
 #include <QUrl>
-
+#include <QObject>
 #include <QStringList>
 
 class Config;

@@ -12,7 +12,10 @@
 #ifndef FILEOPENER_H
 #define FILEOPENER_H
 
-#include <QDialog>
+#include "../options.h"
+#include "../config.h"
+
+#include <QFileDialog>
 
 #include <QUrl>
 
@@ -20,12 +23,11 @@ class Config;
 class Options;
 class QLabel;
 class ConversionOptions;
-class QDialog;
-class KPushButton;
-class KFileDialog;
+class QFileDialog;
+class QPushButton;
 
 /** @author Daniel Faust <hessijames@gmail.com> */
-class FileOpener : public QDialog
+class FileOpener : public QFileDialog
 {
     Q_OBJECT
 public:
@@ -38,11 +40,11 @@ public:
 private:
     Config *config;
 
-    KFileDialog *fileDialog;
+    QFileDialog *fileDialog;
     Options *options;
     QList<QUrl> urls;
-    KPushButton *pAdd;
-    KPushButton *pCancel;
+    QPushButton *pAdd;
+    QPushButton *pCancel;
     QLabel *formatHelp;
 
 private slots:

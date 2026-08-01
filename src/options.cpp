@@ -7,7 +7,6 @@
 #include "config.h"
 
 #include <QLayout>
-
 #include <QLocale>
 #include <QTabWidget>
 

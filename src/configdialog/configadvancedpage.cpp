@@ -142,7 +142,7 @@ ConfigAdvancedPage::ConfigAdvancedPage( Config *_config, QWidget *parent )
     writeLogFilesBox->addSpacing( spacingOffset );
     box->addLayout( writeLogFilesBox );
     cWriteLogFiles = new QCheckBox( tr("Write log files to disc"), this );
-    cWriteLogFiles->setToolTip( tr("Write log files to the hard drive while converting.\nThis can be useful if a crash occurs and you can't access the log file using the log viewer.\nLog files will be written to %1",QStandardPaths::locateLocal("data","soundkonverter/log/")) );
+    cWriteLogFiles->setToolTip( tr("Write log files to the hard drive while converting.\nThis can be useful if a crash occurs and you can't access the log file using the log viewer.\nLog files will be written to %1%2").arg(QStandardPaths::locate(QStandardPaths::AppLocalDataLocation, "soundkonverter/log/")).toLatin1() );
     cWriteLogFiles->setChecked( config->data.general.writeLogFiles );
     writeLogFilesBox->addWidget( cWriteLogFiles );
     connect( cWriteLogFiles, SIGNAL(toggled(bool)), this, SLOT(somethingChanged()) );
@@ -162,9 +162,11 @@ ConfigAdvancedPage::ConfigAdvancedPage( Config *_config, QWidget *parent )
     cUseSharedMemoryForTempFiles->setToolTip( tr("Don't store files that are expected to be bigger than this value in memory to avoid swapping") );
     cUseSharedMemoryForTempFiles->setChecked( config->data.advanced.useSharedMemoryForTempFiles );
     useSharedMemoryForTempFilesBox->addWidget( cUseSharedMemoryForTempFiles );
-    iMaxSizeForSharedMemoryTempFiles = new QSpinBox( 1, config->data.advanced.sharedMemorySize, 1, config->data.advanced.sharedMemorySize / 2, this );
+    iMaxSizeForSharedMemoryTempFiles = new QSpinBox( this );
+    iMaxSizeForSharedMemoryTempFiles->setMinimum(1);
+    iMaxSizeForSharedMemoryTempFiles->setMaximum(config->data.advanced.sharedMemorySize / 2);
     iMaxSizeForSharedMemoryTempFiles->setToolTip( tr("Don't store files that are expected to be bigger than this value in memory to avoid swapping") );
-    iMaxSizeForSharedMemoryTempFiles->setSuffix( " " + trc("mega in bytes","MiB") );
+    iMaxSizeForSharedMemoryTempFiles->setSuffix( " " + tr("mega in bytes","MiB") );
     iMaxSizeForSharedMemoryTempFiles->setValue( config->data.advanced.maxSizeForSharedMemoryTempFiles );
     useSharedMemoryForTempFilesBox->addWidget( iMaxSizeForSharedMemoryTempFiles );
     if( config->data.advanced.sharedMemorySize == 0 )

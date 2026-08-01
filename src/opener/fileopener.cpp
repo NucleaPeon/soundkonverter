@@ -20,25 +20,24 @@
 #include <QLabel>
 #include <QLayout>
 #include <QBoxLayout>
-#include <KMessageBox>
+#include <QMessageBox>
 #include <QFileDialog>
 #include <QDir>
 #include <QIcon>
 
 
 FileOpener::FileOpener( Config *_config, QWidget *parent, Qt::WindowFlags f )
-    : QDialog( parent, f ),
+    : QFileDialog( parent, f ),
     dialogAborted( false ),
     config( _config )
 {
-    setCaption( tr("Add Files") );
+    setWindowTitle( tr("Add Files") );
     setWindowIcon( QIcon("audio-x-generic") );
-    setButtons( 0 );
 
     const int fontHeight = QFontMetrics(QApplication::font()).boundingRect("M").size().height();
 
     QWidget *widget = new QWidget();
-    setMainWidget( widget );
+    this->layout()->addWidget( widget );
 
     QGridLayout *mainGrid = new QGridLayout( widget );
 
@@ -76,9 +75,10 @@ FileOpener::FileOpener( Config *_config, QWidget *parent, Qt::WindowFlags f )
     formatHelp = new QLabel( "<a href=\"format-help\">" + tr("Are you missing some file formats?") + "</a>", widget );
     connect( formatHelp, SIGNAL(linkActivated(const QString&)), this, SLOT(showHelp()) );
 
-    fileDialog = new QFileDialog( QUrl("QFileDialog:///soundkonverter-add-media"), filterList.join("\n"), this, formatHelp );
+    fileDialog = new QFileDialog( this, QString("QFileDialog:///soundkonverter-add-media"), QDir::current(), filterList.join("\n"));
+
     fileDialog->setWindowTitle( tr("Add Files") );
-    fileDialog->setMode( KFile::Files | KFile::ExistingOnly );
+    fileDialog->setFileMode( QFileDialog::ExistingFiles );
     connect( fileDialog, SIGNAL(accepted()), this, SLOT(fileDialogAccepted()) );
     connect( fileDialog, SIGNAL(rejected()), this, SLOT(reject()) );
     const int dialogReturnCode = fileDialog->exec();
@@ -87,7 +87,7 @@ FileOpener::FileOpener( Config *_config, QWidget *parent, Qt::WindowFlags f )
 
     // Prevent the dialog from beeing too wide because of the directory history
     if( parent && width() > parent->width() )
-        setInitialSize( QSize(parent->width()-fontHeight,sizeHint().height()) );
+        setBaseSize( QSize(parent->width()-fontHeight,sizeHint().height()) );
     KSharedConfig::Ptr conf = KGlobal::config();
     KConfigGroup group = conf->group( "FileOpener" );
     restoreDialogSize( group );
@@ -207,7 +207,7 @@ void FileOpener::okClickedSlot()
     }
     else
     {
-        KMessageBox::error( this, tr("No conversion options selected.") );
+        QMessageBox::error( this, tr("No conversion options selected.") );
     }
 }
 

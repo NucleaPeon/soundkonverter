@@ -3,7 +3,7 @@
 #include "MetaReplayGain.h"
 #include "config.h"
 
-
+#include <QObject>
 #include <QFile>
 #include <QDir>
 #include <QBuffer>
@@ -50,47 +50,47 @@ QString CoverData::roleName( Role role )
     switch( role )
     {
         case Other:
-            return trc("cover type","Unclassified");
+            return QObject::tr("cover type","Unclassified");
         case FileIcon:
-            return trc("cover type","32x32 PNG file icon");
+            return QObject::tr("cover type","32x32 PNG file icon");
         case OtherFileIcon:
-            return trc("cover type","File icon");
+            return QObject::tr("cover type","File icon");
         case FrontCover:
-            return trc("cover type","Front cover");
+            return QObject::tr("cover type","Front cover");
         case BackCover:
-            return trc("cover type","Back cover");
+            return QObject::tr("cover type","Back cover");
         case LeafletPage:
-            return trc("cover type","Leaflet page");
+            return QObject::tr("cover type","Leaflet page");
         case Media:
-            return trc("cover type","CD photo");
+            return QObject::tr("cover type","CD photo");
         case LeadArtist:
-            return trc("cover type","Lead artist picture");
+            return QObject::tr("cover type","Lead artist picture");
         case Artist:
-            return trc("cover type","Artist picture");
+            return QObject::tr("cover type","Artist picture");
         case Conductor:
-            return trc("cover type","Conductor picture");
+            return QObject::tr("cover type","Conductor picture");
         case Band:
-            return trc("cover type","Band picture");
+            return QObject::tr("cover type","Band picture");
         case Composer:
-            return trc("cover type","Composer picture");
+            return QObject::tr("cover type","Composer picture");
         case Lyricist:
-            return trc("cover type","Lyricist picture");
+            return QObject::tr("cover type","Lyricist picture");
         case RecordingLocation:
-            return trc("cover type","Picture of the recording location");
+            return QObject::tr("cover type","Picture of the recording location");
         case DuringRecording:
-            return trc("cover type","Picture of the artists during recording");
+            return QObject::tr("cover type","Picture of the artists during recording");
         case DuringPerformance:
-            return trc("cover type","Picture of the artists during performance");
+            return QObject::tr("cover type","Picture of the artists during performance");
         case MovieScreenCapture:
-            return trc("cover type","Picture from a video");
+            return QObject::tr("cover type","Picture from a video");
         case ColouredFish:
-            return trc("cover type","Picture of a large, coloured fish");
+            return QObject::tr("cover type","Picture of a large, coloured fish");
         case Illustration:
-            return trc("cover type","Illustration related to the track");
+            return QObject::tr("cover type","Illustration related to the track");
         case BandLogo:
-            return trc("cover type","Band logo");
+            return QObject::tr("cover type","Band logo");
         case PublisherLogo:
-            return trc("cover type","Publisher logo");
+            return QObject::tr("cover type","Publisher logo");
     }
 
     return QString();
@@ -136,7 +136,7 @@ TagEngine::~TagEngine()
 
 TagData* TagEngine::readTags( const QUrl& fileName )
 {
-    TagLib::FileRef fileref( fileName.pathOrUrl().toLocal8Bit() );
+    TagLib::FileRef fileref( fileName.toString().toLocal8Bit() );
 
     if( !fileref.isNull() )
     {
@@ -233,7 +233,7 @@ TagData* TagEngine::readTags( const QUrl& fileName )
                         if( frame && frame->owner() == "http://musicbrainz.org" )
                         {
                             const TagLib::ByteVector id = frame->identifier();
-                            tagData->musicBrainzTrackId = QString::fromAscii( id.data(), id.size() );
+                            tagData->musicBrainzTrackId = QString::fromLocal8Bit( id.data(), id.size() );
                         }
                     }
                 }
@@ -367,8 +367,8 @@ TagData* TagEngine::readTags( const QUrl& fileName )
 
             if( TagLib::MP4::Tag *tag = file->tag() )
             {
-                TagLib::MP4::ItemListMap map = tag->itemListMap();
-                for( TagLib::MP4::ItemListMap::ConstIterator it = map.begin(); it != map.end(); ++it )
+                TagLib::MP4::ItemMap map = tag->itemMap();
+                for( TagLib::MP4::ItemMap::ConstIterator it = map.begin(); it != map.end(); ++it )
                 {
                     if( it->first == "aART" )
                     {
@@ -447,22 +447,22 @@ TagData* TagEngine::readTags( const QUrl& fileName )
         {
             if( file->APETag() )
             {
-                if( !file->APETag()->itemListMap()[ "REPLAYGAIN_TRACK_GAIN" ].isEmpty() )
-                    trackGain = TStringToQString( file->APETag()->itemListMap()["REPLAYGAIN_TRACK_GAIN"].toString() );
+                if( !file->APETag()->itemMap()[ "REPLAYGAIN_TRACK_GAIN" ].isEmpty() )
+                    trackGain = TStringToQString( file->APETag()->itemMap()["REPLAYGAIN_TRACK_GAIN"].toString() );
 
-                if( !file->APETag()->itemListMap()[ "REPLAYGAIN_ALBUM_GAIN" ].isEmpty() )
-                    albumGain = TStringToQString( file->APETag()->itemListMap()["REPLAYGAIN_ALBUM_GAIN"].toString() );
+                if( !file->APETag()->itemMap()[ "REPLAYGAIN_ALBUM_GAIN" ].isEmpty() )
+                    albumGain = TStringToQString( file->APETag()->itemMap()["REPLAYGAIN_ALBUM_GAIN"].toString() );
             }
         }*/
 /*        else if( TagLib::WavPack::File *file = dynamic_cast<TagLib::WavPack::File *>( fileref.file() ) )
         {
             if( file->APETag() )
             {
-                if( !file->APETag()->itemListMap()[ "REPLAYGAIN_TRACK_GAIN" ].isEmpty() )
-                    trackGain = TStringToQString( file->APETag()->itemListMap()["REPLAYGAIN_TRACK_GAIN"].toString() );
+                if( !file->APETag()->itemMap()[ "REPLAYGAIN_TRACK_GAIN" ].isEmpty() )
+                    trackGain = TStringToQString( file->APETag()->itemMap()["REPLAYGAIN_TRACK_GAIN"].toString() );
 
-                if( !file->APETag()->itemListMap()[ "REPLAYGAIN_ALBUM_GAIN" ].isEmpty() )
-                    albumGain = TStringToQString( file->APETag()->itemListMap()["REPLAYGAIN_ALBUM_GAIN"].toString() );
+                if( !file->APETag()->itemMap()[ "REPLAYGAIN_ALBUM_GAIN" ].isEmpty() )
+                    albumGain = TStringToQString( file->APETag()->itemMap()["REPLAYGAIN_ALBUM_GAIN"].toString() );
             }
         }*/
         /*else if( TagLib::TTA::File *file = dynamic_cast<TagLib::TTA::File *>( fileref.file() ) ) // NOTE writing works, but reading not
@@ -511,7 +511,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
     if( !tagData )
         return false;
 
-    TagLib::FileRef fileref( fileName.pathOrUrl().toLocal8Bit(), false );
+    TagLib::FileRef fileref( fileName.toString().toLocal8Bit(), false );
 
     //Set default codec to UTF-8 (see bugs 111246 and 111232)
     TagLib::ID3v2::FrameFactory::instance()->setDefaultTextEncoding( TagLib::String::UTF8 );
@@ -680,7 +680,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                 if( !tagData->albumArtist.isEmpty() )
                 {
                     if( tag->contains("ALBUMARTIST") )
-                        tag->removeField("ALBUMARTIST");
+                        tag->removeFields("ALBUMARTIST");
 
                     tag->addField( "ALBUMARTIST", TagLib::String(tagData->albumArtist.toUtf8().data(), TagLib::String::UTF8), true );
                 }
@@ -688,7 +688,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                 if( !tagData->composer.isEmpty() )
                 {
                     if( tag->contains("COMPOSER") )
-                        tag->removeField("COMPOSER");
+                        tag->removeFields("COMPOSER");
 
                     tag->addField( "COMPOSER", TagLib::String(tagData->composer.toUtf8().data(), TagLib::String::UTF8), true );
                 }
@@ -698,7 +698,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                     if( config->data.general.preferredVorbisCommentTrackTotalTag == "TRACKNUMBER" )
                     {
                         if( tag->contains("TRACKNUMBER") )
-                            tag->removeField("TRACKNUMBER");
+                            tag->removeFields("TRACKNUMBER");
 
                         tag->addField( "TRACKNUMBER", TagLib::String(track.toUtf8().data(), TagLib::String::UTF8), true );
                     }
@@ -711,7 +711,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                 if( tagData->disc > 0 )
                 {
                     if( tag->contains("DISCNUMBER") )
-                        tag->removeField("DISCNUMBER");
+                        tag->removeFields("DISCNUMBER");
 
                     tag->addField( "DISCNUMBER", TagLib::String(QString::number(tagData->disc).toUtf8().data(), TagLib::String::UTF8), true );
                 }
@@ -721,7 +721,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                     if( config->data.general.preferredVorbisCommentDiscTotalTag == "DISCNUMBER" )
                     {
                         if( tag->contains("DISCNUMBER") )
-                            tag->removeField("DISCNUMBER");
+                            tag->removeFields("DISCNUMBER");
 
                         tag->addField( "DISCNUMBER", TagLib::String(disc.toUtf8().data(), TagLib::String::UTF8), true );
                     }
@@ -734,7 +734,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                 if( !tagData->musicBrainzTrackId.isEmpty() )
                 {
                     if( tag->contains("MUSICBRAINZ_TRACKID") )
-                        tag->removeField("MUSICBRAINZ_TRACKID");
+                        tag->removeFields("MUSICBRAINZ_TRACKID");
 
                     tag->addField( "MUSICBRAINZ_TRACKID", TagLib::String(tagData->musicBrainzTrackId.toUtf8().data(), TagLib::String::UTF8), true );
                 }
@@ -742,7 +742,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                 if( !tagData->musicBrainzReleaseId.isEmpty() )
                 {
                     if( tag->contains("MUSICBRAINZ_ALBUMID") )
-                        tag->removeField("MUSICBRAINZ_ALBUMID");
+                        tag->removeFields("MUSICBRAINZ_ALBUMID");
 
                     tag->addField( "MUSICBRAINZ_ALBUMID", TagLib::String(tagData->musicBrainzReleaseId.toUtf8().data(), TagLib::String::UTF8), true );
                 }
@@ -755,7 +755,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                 if( !tagData->albumArtist.isEmpty() )
                 {
                     if( tag->contains("ALBUMARTIST") )
-                        tag->removeField("ALBUMARTIST");
+                        tag->removeFields("ALBUMARTIST");
 
                     tag->addField( "ALBUMARTIST", TagLib::String(tagData->albumArtist.toUtf8().data(), TagLib::String::UTF8), true );
                 }
@@ -763,7 +763,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                 if( !tagData->composer.isEmpty() )
                 {
                     if( tag->contains("COMPOSER") )
-                        tag->removeField("COMPOSER");
+                        tag->removeFields("COMPOSER");
 
                     tag->addField( "COMPOSER", TagLib::String(tagData->composer.toUtf8().data(), TagLib::String::UTF8), true );
                 }
@@ -773,7 +773,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                     if( config->data.general.preferredVorbisCommentTrackTotalTag == "TRACKNUMBER" )
                     {
                         if( tag->contains("TRACKNUMBER") )
-                            tag->removeField("TRACKNUMBER");
+                            tag->removeFields("TRACKNUMBER");
 
                         tag->addField( "TRACKNUMBER", TagLib::String(track.toUtf8().data(), TagLib::String::UTF8), true );
                     }
@@ -786,7 +786,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                 if( tagData->disc > 0 )
                 {
                     if( tag->contains("DISCNUMBER") )
-                        tag->removeField("DISCNUMBER");
+                        tag->removeFields("DISCNUMBER");
 
                     tag->addField( "DISCNUMBER", TagLib::String(QString::number(tagData->disc).toUtf8().data(), TagLib::String::UTF8), true );
                 }
@@ -796,7 +796,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                     if( config->data.general.preferredVorbisCommentDiscTotalTag == "DISCNUMBER" )
                     {
                         if( tag->contains("DISCNUMBER") )
-                            tag->removeField("DISCNUMBER");
+                            tag->removeFields("DISCNUMBER");
 
                         tag->addField( "DISCNUMBER", TagLib::String(disc.toUtf8().data(), TagLib::String::UTF8), true );
                     }
@@ -809,7 +809,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                 if( !tagData->musicBrainzTrackId.isEmpty() )
                 {
                     if( tag->contains("MUSICBRAINZ_TRACKID") )
-                        tag->removeField("MUSICBRAINZ_TRACKID");
+                        tag->removeFields("MUSICBRAINZ_TRACKID");
 
                     tag->addField( "MUSICBRAINZ_TRACKID", TagLib::String(tagData->musicBrainzTrackId.toUtf8().data(), TagLib::String::UTF8), true );
                 }
@@ -817,7 +817,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                 if( !tagData->musicBrainzReleaseId.isEmpty() )
                 {
                     if( tag->contains("MUSICBRAINZ_ALBUMID") )
-                        tag->removeField("MUSICBRAINZ_ALBUMID");
+                        tag->removeFields("MUSICBRAINZ_ALBUMID");
 
                     tag->addField( "MUSICBRAINZ_ALBUMID", TagLib::String(tagData->musicBrainzReleaseId.toUtf8().data(), TagLib::String::UTF8), true );
                 }
@@ -830,7 +830,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                 if( !tagData->albumArtist.isEmpty() )
                 {
                     if( tag->contains("ALBUMARTIST") )
-                        tag->removeField("ALBUMARTIST");
+                        tag->removeFields("ALBUMARTIST");
 
                     tag->addField( "ALBUMARTIST", TagLib::String(tagData->albumArtist.toUtf8().data(), TagLib::String::UTF8), true );
                 }
@@ -838,7 +838,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                 if( !tagData->composer.isEmpty() )
                 {
                     if( tag->contains("COMPOSER") )
-                        tag->removeField("COMPOSER");
+                        tag->removeFields("COMPOSER");
 
                     tag->addField( "COMPOSER", TagLib::String(tagData->composer.toUtf8().data(), TagLib::String::UTF8), true );
                 }
@@ -848,7 +848,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                     if( config->data.general.preferredVorbisCommentTrackTotalTag == "TRACKNUMBER" )
                     {
                         if( tag->contains("TRACKNUMBER") )
-                            tag->removeField("TRACKNUMBER");
+                            tag->removeFields("TRACKNUMBER");
 
                         tag->addField( "TRACKNUMBER", TagLib::String(track.toUtf8().data(), TagLib::String::UTF8), true );
                     }
@@ -861,7 +861,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                 if( tagData->disc > 0 )
                 {
                     if( tag->contains("DISCNUMBER") )
-                        tag->removeField("DISCNUMBER");
+                        tag->removeFields("DISCNUMBER");
 
                     tag->addField( "DISCNUMBER", TagLib::String(QString::number(tagData->disc).toUtf8().data(), TagLib::String::UTF8), true );
                 }
@@ -871,7 +871,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                     if( config->data.general.preferredVorbisCommentDiscTotalTag == "DISCNUMBER" )
                     {
                         if( tag->contains("DISCNUMBER") )
-                            tag->removeField("DISCNUMBER");
+                            tag->removeFields("DISCNUMBER");
 
                         tag->addField( "DISCNUMBER", TagLib::String(disc.toUtf8().data(), TagLib::String::UTF8), true );
                     }
@@ -884,7 +884,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                 if( !tagData->musicBrainzTrackId.isEmpty() )
                 {
                     if( tag->contains("MUSICBRAINZ_TRACKID") )
-                        tag->removeField("MUSICBRAINZ_TRACKID");
+                        tag->removeFields("MUSICBRAINZ_TRACKID");
 
                     tag->addField( "MUSICBRAINZ_TRACKID", TagLib::String(tagData->musicBrainzTrackId.toUtf8().data(), TagLib::String::UTF8), true );
                 }
@@ -892,7 +892,7 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
                 if( !tagData->musicBrainzReleaseId.isEmpty() )
                 {
                     if( tag->contains("MUSICBRAINZ_ALBUMID") )
-                        tag->removeField("MUSICBRAINZ_ALBUMID");
+                        tag->removeFields("MUSICBRAINZ_ALBUMID");
 
                     tag->addField( "MUSICBRAINZ_ALBUMID", TagLib::String(tagData->musicBrainzReleaseId.toUtf8().data(), TagLib::String::UTF8), true );
                 }
@@ -900,30 +900,33 @@ bool TagEngine::writeTags( const QUrl& fileName, TagData *tagData )
         }
         else if( TagLib::MP4::File *file = dynamic_cast<TagLib::MP4::File*>(fileref.file()) )
         {
-            if( TagLib::MP4::Tag *tag = file->tag() )
+            TagLib::MP4::Tag *tag = file->tag();
+
+            if( tag )
             {
+                TagLib::MP4::ItemMap map = tag->itemMap();
                 if( !tagData->albumArtist.isEmpty() )
-                    tag->itemListMap()["aART"] = TagLib::StringList(TagLib::String(tagData->albumArtist.toUtf8().data(), TagLib::String::UTF8));
+                    map["aART"] = TagLib::StringList(TagLib::String(tagData->albumArtist.toUtf8().data(), TagLib::String::UTF8));
 
                 if( !tagData->composer.isEmpty() )
-                    tag->itemListMap()["\xA9wrt"] = TagLib::StringList(TagLib::String(tagData->composer.toUtf8().data(), TagLib::String::UTF8));
+                    map["\xA9wrt"] = TagLib::StringList(TagLib::String(tagData->composer.toUtf8().data(), TagLib::String::UTF8));
 
                 if( tagData->trackTotal > 0 )
-                    tag->itemListMap()["trkn"] = TagLib::MP4::Item( tagData->track, tagData->trackTotal );
+                    map["trkn"] = TagLib::MP4::Item( tagData->track, tagData->trackTotal );
 
                 if( tagData->disc > 0 )
                 {
                     if( tagData->discTotal > 0 )
-                        tag->itemListMap()["disk"] = TagLib::MP4::Item( tagData->disc, tagData->discTotal );
+                        map["disk"] = TagLib::MP4::Item( tagData->disc, tagData->discTotal );
                     else
-                        tag->itemListMap()["disk"] = TagLib::MP4::Item( tagData->disc );
+                        map["disk"] = TagLib::MP4::Item( tagData->disc );
                 }
 
                 if( !tagData->musicBrainzTrackId.isEmpty() )
-                    tag->itemListMap()["----:com.apple.iTunes:MusicBrainz Track Id"] = TagLib::StringList(TagLib::String(tagData->musicBrainzTrackId.toUtf8().data(), TagLib::String::UTF8));
+                    map["----:com.apple.iTunes:MusicBrainz Track Id"] = TagLib::StringList(TagLib::String(tagData->musicBrainzTrackId.toUtf8().data(), TagLib::String::UTF8));
 
                 if( !tagData->musicBrainzReleaseId.isEmpty() )
-                    tag->itemListMap()["----:com.apple.iTunes:MusicBrainz Album Id"] = TagLib::StringList(TagLib::String(tagData->musicBrainzReleaseId.toUtf8().data(), TagLib::String::UTF8));
+                    map["----:com.apple.iTunes:MusicBrainz Album Id"] = TagLib::StringList(TagLib::String(tagData->musicBrainzReleaseId.toUtf8().data(), TagLib::String::UTF8));
             }
         }
         else if( TagLib::ASF::File *file = dynamic_cast<TagLib::ASF::File*>(fileref.file()) )
@@ -1017,7 +1020,7 @@ QList<CoverData*> TagEngine::readCovers( const QUrl& fileName )
 {
     QList<CoverData*> covers;
 
-    TagLib::FileRef fileref( fileName.pathOrUrl().toLocal8Bit() );
+    TagLib::FileRef fileref( fileName.toString().toLocal8Bit() );
 
     if( !fileref.isNull() )
     {
@@ -1136,8 +1139,8 @@ QList<CoverData*> TagEngine::readCovers( const QUrl& fileName )
         {
             if( TagLib::MP4::Tag *tag = file->tag() )
             {
-                TagLib::MP4::ItemListMap map = tag->itemListMap();
-                for( TagLib::MP4::ItemListMap::ConstIterator it = map.begin(); it != map.end(); ++it )
+                TagLib::MP4::ItemMap map = tag->itemMap();
+                for( TagLib::MP4::ItemMap::ConstIterator it = map.begin(); it != map.end(); ++it )
                 {
                     if( it->first == "covr" )
                     {
@@ -1190,7 +1193,7 @@ bool TagEngine::writeCovers( const QUrl& fileName, QList<CoverData*> covers )
     if( covers.isEmpty() )
         return true;
 
-    TagLib::FileRef fileref( fileName.pathOrUrl().toLocal8Bit(), false );
+    TagLib::FileRef fileref( fileName.toString().toLocal8Bit(), false );
 
     if( !fileref.isNull() )
     {
@@ -1281,8 +1284,10 @@ bool TagEngine::writeCovers( const QUrl& fileName, QList<CoverData*> covers )
         }
         else if( TagLib::MP4::File *file = dynamic_cast<TagLib::MP4::File*>(fileref.file()) )
         {
-            if( TagLib::MP4::Tag *tag = file->tag() )
+            TagLib::MP4::Tag *tag = file->tag();
+            if( tag )
             {
+                TagLib::MP4::ItemMap map = tag->itemMap();
                 TagLib::MP4::CoverArtList coversList;
                 foreach( CoverData *cover, covers )
                 {
@@ -1290,7 +1295,7 @@ bool TagEngine::writeCovers( const QUrl& fileName, QList<CoverData*> covers )
 
                     coversList.append( TagLib::MP4::CoverArt( format, TagLib::ByteVector( cover->data.data(), cover->data.size() ) ) );
                 }
-                tag->itemListMap()["covr"] = TagLib::MP4::Item( coversList );
+                map["covr"] = TagLib::MP4::Item( coversList );
             }
 
             return fileref.save();

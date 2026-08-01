@@ -11,7 +11,7 @@
 
 
 CodecOptimizations::CodecOptimizations( const QList<Optimization>& _optimizationList, QWidget* parent, Qt::WindowFlags f )
-    : QDialogButtonBox(  QDialogButtonBox::Ok | QDialogButtonBox::Cancel,  parent ),
+    : QDialog(  QDialog::Ok | QDialog::Cancel,  parent ),
     optimizationList( _optimizationList )
 {
     setWindowTitle( tr("Solutions for backend problems") );

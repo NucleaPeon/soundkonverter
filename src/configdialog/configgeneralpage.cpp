@@ -134,7 +134,7 @@ ConfigGeneralPage::ConfigGeneralPage( Config *_config, QWidget *parent )
     QLabel *lNumFiles = new QLabel( tr("Number of files to convert at once:"), this );
     numFilesBox->addWidget( lNumFiles );
     iNumFiles = new QSpinBox( this );
-    iNumFiles->setToolTip( tr("You shouldn't set this number higher than the amount of installed processor cores.\nThere have been %1 processor cores detected.", processorsCount) );
+    iNumFiles->setToolTip( tr(QString("You shouldn't set this number higher than the amount of installed processor cores.\nThere have been %1 processor cores detected.").arg(processorsCount).toLatin1()) );
     iNumFiles->setRange( 1, 100 );
     iNumFiles->setValue( config->data.general.numFiles );
     numFilesBox->addWidget( iNumFiles );
@@ -178,9 +178,9 @@ ConfigGeneralPage::ConfigGeneralPage( Config *_config, QWidget *parent )
     QLabel* lReplayGainGrouping = new QLabel( tr("Group files in the Replay Gain tool by:"), this );
     replayGainGroupingBox->addWidget( lReplayGainGrouping );
     cReplayGainGrouping = new QComboBox( this );
-    cReplayGainGrouping->addItem( trc("Group files in the Replay Gain tool by","Album tags and directories") );
-    cReplayGainGrouping->addItem( trc("Group files in the Replay Gain tool by","Album tags only") );
-    cReplayGainGrouping->addItem( trc("Group files in the Replay Gain tool by","Directories only") );
+    cReplayGainGrouping->addItem( tr("Group files in the Replay Gain tool by","Album tags and directories") );
+    cReplayGainGrouping->addItem( tr("Group files in the Replay Gain tool by","Album tags only") );
+    cReplayGainGrouping->addItem( tr("Group files in the Replay Gain tool by","Directories only") );
     cReplayGainGrouping->setCurrentIndex( (int)config->data.general.replayGainGrouping );
     replayGainGroupingBox->addWidget( cReplayGainGrouping );
     connect( cReplayGainGrouping, SIGNAL(activated(int)), this, SLOT(somethingChanged()) );
@@ -193,7 +193,7 @@ ConfigGeneralPage::ConfigGeneralPage( Config *_config, QWidget *parent )
     QLabel *lNumReplayGainFiles = new QLabel( tr("Number of items to process at once:"), this );
     numReplayGainFilesBox->addWidget( lNumReplayGainFiles );
     iNumReplayGainFiles = new QSpinBox( this );
-    iNumReplayGainFiles->setToolTip( tr("You shouldn't set this number higher than the amount of installed processor cores.\nThere have been %1 processor cores detected.", processorsCount) );
+    iNumReplayGainFiles->setToolTip( tr(QString("You shouldn't set this number higher than the amount of installed processor cores.\nThere have been %1 processor cores detected.").arg(processorsCount).toLatin1()) );
     iNumReplayGainFiles->setRange( 1, 100 );
     iNumReplayGainFiles->setValue( config->data.general.numReplayGainFiles );
     numReplayGainFilesBox->addWidget( iNumReplayGainFiles );

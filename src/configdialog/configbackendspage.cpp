@@ -17,7 +17,7 @@
 #include <KComboBox>
 #include <QIcon>
 #include <QLocale>
-#include <KMessageBox>
+#include <QMessageBox>
 #include <QPushButton>
 #include <QCheckBox>
 #include <QLabel>
@@ -145,22 +145,22 @@ void BackendsListWidget::itemSelected( int row )
         const QString pluginName = plugin->name();
 
         if( pUp->isEnabled() )
-            pUp->setToolTip( tr("Move %1 one position up",pluginName) );
+            pUp->setToolTip( tr(QString("Move %1 one position up").arg(pluginName).toLatin1()) );
         else
             pUp->setToolTip( "" );
 
         if( pDown->isEnabled() )
-            pDown->setToolTip( tr("Move %1 one position down",pluginName) );
+            pDown->setToolTip( tr(QString("Move %1 one position down").arg(pluginName).toLatin1()) );
         else
             pDown->setToolTip( "" );
 
         if( pInfo->isEnabled() )
-            pInfo->setToolTip( tr("About %1 ...",pluginName) );
+            pInfo->setToolTip( tr(QString("About %1 ...").arg(pluginName).toLatin1()) );
         else
             pInfo->setToolTip( "" );
 
         if( pConfigure->isEnabled() )
-            pConfigure->setToolTip( tr("Configure %1 ...",pluginName) );
+            pConfigure->setToolTip( tr(QString("Configure %1 ...").arg(pluginName).toLatin1()) );
         else
             pConfigure->setToolTip( "" );
     }
@@ -306,7 +306,7 @@ ConfigBackendsPage::ConfigBackendsPage( Config *_config, QWidget *parent )
         }
 
         if( newConfigButton->isEnabled() )
-            newConfigButton->setToolTip( tr("Configure %1 ...",filterPluginName) );
+            newConfigButton->setToolTip( tr(QString("Configure %1 ...").arg(filterPluginName).toLatin1()) );
 
         row++;
     }
@@ -385,7 +385,7 @@ void ConfigBackendsPage::ripperChanged( const QString& pluginName )
     }
 
     if( pConfigureRipper->isEnabled() )
-        pConfigureRipper->setToolTip( tr("Configure %1 ...",pluginName) );
+        pConfigureRipper->setToolTip( tr(QString("Configure %1 ...").arg(pluginName).toLatin1()) );
     else
         pConfigureRipper->setToolTip( "" );
 }
@@ -396,8 +396,8 @@ void ConfigBackendsPage::formatChanged( const QString& format, bool ignoreChange
 
     if( !ignoreChanges && ( decoderList->changed() || encoderList->changed() || replaygainList->changed() ) )
     {
-        const int ret = KMessageBox::questionYesNo( this, tr("You have changed the current settings.\nDo you want to save them?"), tr("Settings changed") );
-        if( ret == KMessageBox::Yes )
+        const int ret = QMessageBox::question( this, tr("Settings changed"), tr("You have changed the current settings.\nDo you want to save them?"), QMessageBox::Yes | QMessageBox::No );
+        if( ret == QMessageBox::Yes )
         {
             saveSettings();
             config->save();
@@ -448,7 +448,7 @@ void ConfigBackendsPage::resetDefaults()
         const QString pluginName = plugin->name();
         foreach( const ConversionPipeTrunk& trunk, plugin->codecTable() )
         {
-            if( trunk.enabled && allPlugins.filter(QRegExp("[0-9]{8,8}"+pluginName)).count() == 0 )
+            if( trunk.enabled && allPlugins.filter(QRegularExpression("[0-9]{8,8}"+pluginName)).count() == 0 )
             {
                 allPlugins += QString::number(trunk.rating).rightJustified(8,'0') + pluginName;
                 break;
@@ -472,9 +472,9 @@ void ConfigBackendsPage::resetDefaults()
         i++;
     }
 
-    const int answer = KMessageBox::questionYesNo( this, tr("This will choose the best backends for all formats and save the new preferences immediately.\n\nDo you want to continue?") );
+    const int answer = QMessageBox::question( this, "", tr("This will choose the best backends for all formats and save the new preferences immediately.\n\nDo you want to continue?"), QMessageBox::Yes | QMessageBox::No );
 
-    if( answer == KMessageBox::Yes )
+    if( answer == QMessageBox::Yes )
     {
         QList<CodecOptimizations::Optimization> optimizationList = config->getOptimizations( true );
         for( int i=0; i<optimizationList.count(); i++ )
@@ -604,7 +604,7 @@ void ConfigBackendsPage::showOptimizations()
     }
     else
     {
-        KMessageBox::information( this, tr("All backend settings seem to be optimal, there is nothing to do.") );
+        QMessageBox::information( this, "", tr("All backend settings seem to be optimal, there is nothing to do.") );
     }
 
     formatChanged( cSelectorFormat->currentText(), true );
