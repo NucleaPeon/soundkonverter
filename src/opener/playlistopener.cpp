@@ -14,6 +14,8 @@
 #include "../config.h"
 #include "../codecproblems.h"
 
+#include <KLocalizedString>
+
 #include <QApplication>
 #include <QLocale>
 #include <QPushButton>

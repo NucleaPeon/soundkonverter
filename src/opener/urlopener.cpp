@@ -14,6 +14,8 @@
 #include "../options.h"
 #include "../config.h"
 
+#include <KLocalizedString>
+
 #include <QApplication>
 #include <QLocale>
 #include <QPushButton>

@@ -23,11 +23,8 @@ extern "C"
 #include <phonon/volumeslider.h>
 #include <phonon/backendcapabilities.h>
 #include <phonon/MediaController>
-
 #else
-
-
-
+// Nothing
 #endif
 
 

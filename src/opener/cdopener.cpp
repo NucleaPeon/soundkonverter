@@ -6,6 +6,8 @@
 #include "../outputdirectory.h"
 #include "../global.h"
 
+#include <KLocalizedString>
+
 #include <QLocale>
 #include <QPushButton>
 #include <QComboBox>

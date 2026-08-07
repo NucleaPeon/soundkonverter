@@ -4,6 +4,9 @@
 #include "../options.h"
 #include "../codecproblems.h"
 
+#include <KLocalizedString>
+#include <KUrlRequester>
+
 #include <QApplication>
 #include <QLayout>
 #include <QHBoxLayout>
@@ -15,7 +18,6 @@
 #include <QFileDialog>
 #include <QIcon>
 #include <QListWidget>
-#include <KUrlRequester>
 #include <QMessageBox>
 
 
@@ -25,7 +27,7 @@ DirOpener::DirOpener( Config *_config, Mode _mode, QWidget *parent, Qt::WindowFl
     config( _config ),
     mode( _mode )
 {
-    setCaption( i18n("Add folder") );
+    setWindowTitle( i18n("Add folder") );
     setWindowIcon( QIcon("folder") );
 
     if( mode == Convert )

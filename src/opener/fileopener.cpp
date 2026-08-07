@@ -14,6 +14,10 @@
 #include "../config.h"
 #include "../codecproblems.h"
 
+#include <KLocalizedString>
+
+#include <KSharedConfig>
+#include <KConfigGroup>
 #include <QApplication>
 #include <QLocale>
 #include <QPushButton>
@@ -21,6 +25,7 @@
 #include <QLayout>
 #include <QBoxLayout>
 #include <QMessageBox>
+#include <QErrorMessage>
 #include <QFileDialog>
 #include <QDir>
 #include <QIcon>
@@ -56,8 +61,8 @@ FileOpener::FileOpener( Config *_config, QWidget *parent, Qt::WindowFlags f )
     filterList.prepend( allFilter.join(" ") + "|" + tr("All supported files") );
     filterList += "*.*|" + tr("All files");
 
-    options = new Options( config, tr("Select your desired output options and click on \"Ok\"."), widget );
-    mainGrid->addWidget( options, 1, 0 );
+    // options = new Options( config, tr("Select your desired output options and click on \"Ok\"."), widget );
+    // mainGrid->addWidget( options, 1, 0 );
 
     // add a horizontal box layout for the control elements
     QHBoxLayout *controlBox = new QHBoxLayout();
@@ -75,7 +80,7 @@ FileOpener::FileOpener( Config *_config, QWidget *parent, Qt::WindowFlags f )
     formatHelp = new QLabel( "<a href=\"format-help\">" + tr("Are you missing some file formats?") + "</a>", widget );
     connect( formatHelp, SIGNAL(linkActivated(const QString&)), this, SLOT(showHelp()) );
 
-    fileDialog = new QFileDialog( this, QString("QFileDialog:///soundkonverter-add-media"), QDir::current(), filterList.join("\n"));
+    fileDialog = new QFileDialog( this, QString("QFileDialog:///soundkonverter-add-media"), QDir::currentPath(), filterList.join("\n"));
 
     fileDialog->setWindowTitle( tr("Add Files") );
     fileDialog->setFileMode( QFileDialog::ExistingFiles );
@@ -88,16 +93,16 @@ FileOpener::FileOpener( Config *_config, QWidget *parent, Qt::WindowFlags f )
     // Prevent the dialog from beeing too wide because of the directory history
     if( parent && width() > parent->width() )
         setBaseSize( QSize(parent->width()-fontHeight,sizeHint().height()) );
-    KSharedConfig::Ptr conf = KGlobal::config();
+    KSharedConfig::Ptr conf = KSharedConfig::openConfig();
     KConfigGroup group = conf->group( "FileOpener" );
-    restoreDialogSize( group );
+    // restoreDialogSize( group );
 }
 
 FileOpener::~FileOpener()
 {
-    KSharedConfig::Ptr conf = KGlobal::config();
+    KSharedConfig::Ptr conf = KSharedConfig::openConfig();
     KConfigGroup group = conf->group( "FileOpener" );
-    saveDialogSize( group );
+    // saveDialogSize( group );
 }
 
 void FileOpener::fileDialogAccepted()
@@ -180,7 +185,7 @@ void FileOpener::fileDialogAccepted()
             {
                 problem.affectedFiles += problems.value(problem.codecName).at(0).at(0);
                 problem.affectedFiles += problems.value(problem.codecName).at(0).at(1);
-                problem.affectedFiles += tr("... and %1 more files",problems.value(problem.codecName).at(0).count()-2);
+                problem.affectedFiles += tr(QString("... and %1 more files").arg(QString::number(problems.value(problem.codecName).at(0).count()-2)).toLatin1());
             }
             problemList += problem;
         }
@@ -198,17 +203,17 @@ void FileOpener::fileDialogAccepted()
 
 void FileOpener::okClickedSlot()
 {
-    ConversionOptions *conversionOptions = options->currentConversionOptions();
-    if( conversionOptions )
-    {
-        options->accepted();
-        emit openFiles( urls, conversionOptions );
-        accept();
-    }
-    else
-    {
-        QMessageBox::error( this, tr("No conversion options selected.") );
-    }
+    // ConversionOptions *conversionOptions = options->currentConversionOptions();
+    // if( conversionOptions )
+    // {
+    //     options->accepted();
+    //     emit openFiles( urls, conversionOptions );
+    //     accept();
+    // }
+    // else
+    // {
+    //     QMessageBox::warning( this, tr("No conversion options selected."), tr("No conversion options selected.") );
+    // }
 }
 
 void FileOpener::showHelp()
